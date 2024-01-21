@@ -115,6 +115,26 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="navbar-nav mx-auto">
+                        <?php if ($this->session->userdata('id_role') == 1) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>admin/dashboard">
+                                    <i class="fa fa-chart-pie opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>admin/data-pengguna">
+                                    <i class="bi bi-people-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Data Pengguna
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="#">
+                                    <i class="bi bi-file-text-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Kuesioner
+                                </a>
+                            </li>
+                        <?php } ?>
                         <?php if ($this->session->userdata('id_role') == 2) { ?>
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/dashboard">
@@ -142,12 +162,6 @@
                             </li>
                         <?php } ?>
                         <?php if ($this->session->userdata('id_role') == 3) { ?>
-                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>pelanggan/dashboard">
-                                    <i class="fa fa-chart-pie opacity-6 text-dark me-1" aria-hidden="true"></i>
-                                    Dashboard
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="#">
                                     <i class="bi bi-file-text-fill opacity-6 text-dark me-1" aria-hidden="true"></i>

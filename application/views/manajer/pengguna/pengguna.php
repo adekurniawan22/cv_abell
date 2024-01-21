@@ -8,11 +8,6 @@
                             <h5>Data Pengguna</h5>
                         </div>
                     </div>
-                    <div class="col-6 pt-4 text-end">
-                        <div class="mx-3">
-                            <a href="<?= base_url() ?>manajer/tambah-pengguna" class="btn bg-gradient-dark">+ Tambah Personil</a>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive">
@@ -26,7 +21,6 @@
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Alamat</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Lokasi Pemasangan</th>
                                     <th style="width: 10%;" class="text-uppercase text-xxs font-weight-bolder opacity-7">Status Akun</th>
-                                    <th style="width: 15%;" class="text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,14 +51,6 @@
                                                 <span class="ms-3 badge badge-sm bg-gradient-danger">Tidak Aktif</span>
                                             <?php endif; ?>
                                         </td>
-
-                                        <td class="align-middle">
-                                            <form action="<?= base_url() ?>manajer/edit-pengguna" method="post" class="d-inline-block">
-                                                <input type="hidden" name="id_pengguna" value="<?= $p->id_pengguna ?>">
-                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</Button>
-                                            </form>
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_pengguna<?= $p->id_pengguna ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Delete</button>
-                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -91,7 +77,7 @@
                         Apakah kamu yakin ingin menghapus pelanggan ini?
                     </div>
                     <div class="modal-footer">
-                        <form action="<?= base_url() ?>manajer/proses-hapus-pengguna" method="post">
+                        <form action="<?= base_url() ?>admin/proses-hapus-pengguna" method="post">
                             <input type="hidden" name="id_pengguna" value="<?= $pm->id_pengguna ?>">
                             <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Batalkan</button>
                             <button type="submit" class="btn bg-gradient-primary">Ya</button>

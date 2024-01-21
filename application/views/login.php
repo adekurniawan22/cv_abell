@@ -45,7 +45,7 @@
                                             <input type="password" class="form-control form-control-lg" placeholder="Password" name="password" value="<?php echo set_value('password'); ?>">
                                             <?= form_error('password', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                         </div>
-                                        <a href="javascript:;" class=" text-primary text-gradient font-weight-bold">Lupa Password?</a>
+                                        <a href="<?= base_url() ?>lupa-password" class=" text-primary text-gradient font-weight-bold">Lupa Password?</a>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Login</button>
                                         </div>

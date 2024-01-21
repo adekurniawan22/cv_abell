@@ -14,6 +14,12 @@ class Auth extends CI_Controller
 		$this->load->view('login', $data);
 	}
 
+	public function lupa_password()
+	{
+		$data['title'] = 'Login';
+		$this->load->view('lupa_password', $data);
+	}
+
 	public function proses_login()
 	{
 		$this->form_validation->set_rules('username', 'Username', 'required|trim|regex_match[/^[a-z0-9]+$/]');
@@ -40,7 +46,7 @@ class Auth extends CI_Controller
 
 					switch ($user['id_role']) {
 						case 1:
-							redirect('admin');
+							redirect('admin/dashboard');
 							break;
 						case 2:
 							redirect('manajer/dashboard');

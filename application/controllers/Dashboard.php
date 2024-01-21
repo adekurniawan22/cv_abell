@@ -8,9 +8,18 @@ class Dashboard extends CI_Controller
 		parent::__construct();
 		$this->load->library('form_validation');
 	}
+
+	public function dashboard_admin()
+	{
+		$data['title'] = 'Dashboard admin';
+		$this->load->view('templates/header', $data);
+		$this->load->view('admin/dashboard', $data);
+		$this->load->view('templates/footer');
+	}
+
 	public function dashboard_manajer()
 	{
-		$data['title'] = 'Dashboard Manajer';
+		$data['title'] = 'Dashboard manajer';
 		$this->load->view('templates/header', $data);
 		$this->load->view('manajer/dashboard', $data);
 		$this->load->view('templates/footer');

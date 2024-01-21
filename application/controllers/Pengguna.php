@@ -14,9 +14,16 @@ class Pengguna extends CI_Controller
 	{
 		$data['title'] = 'Data Pengguna';
 		$data['pengguna'] = $this->Pengguna_model->dapat_pengguna();
-		$this->load->view('templates/header', $data);
-		$this->load->view('manajer/pengguna/pengguna', $data);
-		$this->load->view('templates/footer');
+
+		if ($this->session->userdata('id_role') == 1) {
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/pengguna/pengguna', $data);
+			$this->load->view('templates/footer');
+		} else if ($this->session->userdata('id_role') == 2) {
+			$this->load->view('templates/header', $data);
+			$this->load->view('manajer/pengguna/pengguna', $data);
+			$this->load->view('templates/footer');
+		}
 	}
 
 	public function tambah_pengguna()
@@ -24,7 +31,7 @@ class Pengguna extends CI_Controller
 		$data['role'] =  $this->db->get('t_role')->result();
 		$data['title'] = 'Tambah Pengguna';
 		$this->load->view('templates/header', $data);
-		$this->load->view('manajer/pengguna/tambah_pengguna', $data);
+		$this->load->view('admin/pengguna/tambah_pengguna', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -58,11 +65,11 @@ class Pengguna extends CI_Controller
 			if ($result) {
 				$this->session->set_flashdata('message', '<strong>Data Pengguna Berhasil Ditambahkan</strong>
 																<i class="bi bi-check-circle-fill"></i>');
-				redirect('manajer/data-pengguna');
+				redirect('admin/data-pengguna');
 			} else {
 				$this->session->set_flashdata('message', '<strong>Data Pengguna Gagal Ditambahkan</strong>
 														<i class="bi bi-exclamation-circle-fill"></i>');
-				redirect('manajer/data-pengguna');
+				redirect('admin/data-pengguna');
 			}
 		}
 	}
@@ -72,7 +79,7 @@ class Pengguna extends CI_Controller
 		$data['title'] = 'Edit Pengguna';
 		$data['pengguna'] = $this->Pengguna_model->dapat_satu_pengguna($this->input->post('id_pengguna'));
 		$this->load->view('templates/header', $data);
-		$this->load->view('manajer/pengguna/edit_pengguna', $data);
+		$this->load->view('admin/pengguna/edit_pengguna', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -112,11 +119,11 @@ class Pengguna extends CI_Controller
 			if ($result) {
 				$this->session->set_flashdata('message', '<strong>Data Pengguna Berhasil Diedit</strong>
 															<i class="bi bi-check-circle-fill"></i>');
-				redirect('manajer/data-pengguna');
+				redirect('admin/data-pengguna');
 			} else {
 				$this->session->set_flashdata('message', '<strong>Data Pengguna Gagal Diedit</strong>
 													<i class="bi bi-exclamation-circle-fill"></i>');
-				redirect('manajer/data-pengguna');
+				redirect('admin/data-pengguna');
 			}
 		}
 	}
@@ -127,6 +134,6 @@ class Pengguna extends CI_Controller
 		$this->db->delete('t_pengguna');
 		$this->session->set_flashdata('message', '<strong>Data Pengguna Berhasil Dihapus</strong>
 															<i class="bi bi-check-circle-fill"></i>');
-		redirect('manajer/data-pengguna');
+		redirect('admin/data-pengguna');
 	}
 }
