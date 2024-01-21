@@ -10,7 +10,7 @@ class Dashboard extends CI_Controller
 	}
 	public function dashboard_manajer()
 	{
-		$data['title'] = 'Dashboard';
+		$data['title'] = 'Dashboard Manajer';
 		$this->load->view('templates/header', $data);
 		$this->load->view('manajer/dashboard', $data);
 		$this->load->view('templates/footer');
@@ -18,7 +18,7 @@ class Dashboard extends CI_Controller
 
 	public function dashboard_pelanggan()
 	{
-		$data['title'] = 'Dashboard';
+		$data['title'] = 'Dashboard Pelanggan';
 		$this->load->view('templates/header', $data);
 		$this->load->view('pelanggan/dashboard', $data);
 		$this->load->view('templates/footer');

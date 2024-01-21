@@ -30,6 +30,16 @@
                             <?= form_error('no_hp', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
                         <div class="form-group">
+                            <label for="role" class="form-control-label">Role</label>
+                            <select class="form-select" aria-label="Default select example" name="role" id="role">
+                                <option value="" selected>Pilih Role</option>
+                                <?php foreach ($role as $r) : ?>
+                                    <option value="<?= $r->id_role ?>" <?php echo set_select('role', $r->id_role); ?>><?= $r->nama_role ?></option>
+                                <?php endforeach ?>
+                            </select>
+                            <?= form_error('role', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+                        </div>
+                        <div class="form-group">
                             <label for="alamat" class="form-control-label">Alamat</label>
                             <textarea class="form-control" placeholder="Alamat" id="alamat" name="alamat" rows="3"><?php echo set_value('alamat'); ?></textarea>
                             <?= form_error('alamat', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
@@ -38,9 +48,11 @@
                             <label for="lokasi" class="form-control-label">Lokasi Pemasangan</label>
                             <select class="form-select" aria-label="Default select example" name="lokasi" id="lokasi">
                                 <option value="" selected>Pilih Lokasi</option>
-                                <option value="Bandung" <?php echo set_select('lokasi', "Bandung"); ?>>Bandung</option>
-                                <option value="Jakarta" <?php echo set_select('lokasi', "Jakarta"); ?>>Jakarta</option>
-                                <option value="Surabaya" <?php echo set_select('lokasi', "Surabaya"); ?>>Surabaya</option>
+                                <option value="PPPoE Tirtamulya R1" <?php echo set_select('lokasi', "PPPoE Tirtamulya R1"); ?>>PPPoE Tirtamulya R1</option>
+                                <option value="PPPoE AbelNet" <?php echo set_select('lokasi', "PPPoE AbelNet"); ?>>PPPoE AbelNet</option>
+                                <option value="PPPoE OLT KJ" <?php echo set_select('lokasi', "PPPoE OLT KJ"); ?>>PPPoE OLT KJ</option>
+                                <option value="PPPoE OLT CITARIK" <?php echo set_select('lokasi', "PPPoE OLT CITARIK"); ?>>PPPoE OLT CITARIK</option>
+                                <option value="PPPoE CIAMPEL" <?php echo set_select('lokasi', "PPPoE CIAMPEL"); ?>>PPPoE CIAMPEL</option>
                             </select>
                             <?= form_error('lokasi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>

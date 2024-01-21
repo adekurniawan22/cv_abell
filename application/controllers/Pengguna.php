@@ -12,7 +12,7 @@ class Pengguna extends CI_Controller
 
 	public function index()
 	{
-		$data['title'] = 'Pengguna';
+		$data['title'] = 'Data Pengguna';
 		$data['pengguna'] = $this->Pengguna_model->dapat_pengguna();
 		$this->load->view('templates/header', $data);
 		$this->load->view('manajer/pengguna/pengguna', $data);
@@ -21,7 +21,8 @@ class Pengguna extends CI_Controller
 
 	public function tambah_pengguna()
 	{
-		$data['title'] = 'Pengguna';
+		$data['role'] =  $this->db->get('t_role')->result();
+		$data['title'] = 'Tambah Pengguna';
 		$this->load->view('templates/header', $data);
 		$this->load->view('manajer/pengguna/tambah_pengguna', $data);
 		$this->load->view('templates/footer');
@@ -34,6 +35,7 @@ class Pengguna extends CI_Controller
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|is_unique[t_pengguna.email]');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]');
 		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|trim|integer');
+		$this->form_validation->set_rules('role', 'Role', 'required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
 		$this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
 
@@ -41,7 +43,7 @@ class Pengguna extends CI_Controller
 			$this->tambah_pengguna();
 		} else {
 			$data = array(
-				'id_role' => 3,
+				'id_role' => (int) $this->input->post('role'),
 				'nama_lengkap' => $this->input->post('nama_lengkap'),
 				'username' => $this->input->post('username'),
 				'email' => $this->input->post('email'),
@@ -55,18 +57,19 @@ class Pengguna extends CI_Controller
 
 			if ($result) {
 				$this->session->set_flashdata('message', '<strong>Data Pengguna Berhasil Ditambahkan</strong>
-															<i class="bi bi-check-circle-fill"></i>');
+																<i class="bi bi-check-circle-fill"></i>');
 				redirect('manajer/data-pengguna');
 			} else {
 				$this->session->set_flashdata('message', '<strong>Data Pengguna Gagal Ditambahkan</strong>
-													<i class="bi bi-exclamation-circle-fill"></i>');
+														<i class="bi bi-exclamation-circle-fill"></i>');
 				redirect('manajer/data-pengguna');
 			}
 		}
 	}
 	public function edit_pengguna()
 	{
-		$data['title'] = 'Pengguna';
+		$data['role'] =  $this->db->get('t_role')->result();
+		$data['title'] = 'Edit Pengguna';
 		$data['pengguna'] = $this->Pengguna_model->dapat_satu_pengguna($this->input->post('id_pengguna'));
 		$this->load->view('templates/header', $data);
 		$this->load->view('manajer/pengguna/edit_pengguna', $data);
@@ -86,6 +89,7 @@ class Pengguna extends CI_Controller
 		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
 		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|trim|integer');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+		$this->form_validation->set_rules('role', 'Role', 'required');
 		$this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
 		$status_aktif = ($this->input->post('status_aktif') == 'on') ? '1' : '0';
 
@@ -93,6 +97,7 @@ class Pengguna extends CI_Controller
 			$this->edit_pengguna();
 		} else {
 			$data = array(
+				'id_role' => (int) $this->input->post('role'),
 				'nama_lengkap' => $this->input->post('nama_lengkap'),
 				'username' => $this->input->post('username'),
 				'email' => $this->input->post('email'),

@@ -6,7 +6,7 @@ class Pengguna_model extends CI_Model
         $this->db->select('t_pengguna.*, t_role.*'); // Gunakan * untuk memilih semua kolom
         $this->db->from('t_pengguna');
         $this->db->join('t_role', 't_pengguna.id_role = t_role.id_role');
-        $this->db->where('t_pengguna.id_role =', 3);
+        // $this->db->where('t_pengguna.id_role =', 3);
         $this->db->group_by('t_pengguna.id_pengguna'); // Gunakan GROUP BY agar tidak ada duplikat
         $query = $this->db->get();
         return $query->result();

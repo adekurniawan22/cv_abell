@@ -19,6 +19,7 @@
                         <table class="table align-items-center mb-0" id="example">
                             <thead>
                                 <tr>
+                                    <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Role</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Nama</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Email</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">No. HP</th>
@@ -31,6 +32,9 @@
                             <tbody>
                                 <?php foreach ($pengguna as $p) : ?>
                                     <tr>
+                                        <td>
+                                            <p class="ms-3 text-sm font-weight-bold mb-0"><?= $p->nama_role ?></p>
+                                        </td>
                                         <td>
                                             <p class="ms-3 text-sm font-weight-bold mb-0"><?= $p->nama_lengkap ?></p>
                                         </td>

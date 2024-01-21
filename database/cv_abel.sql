@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Jan 2024 pada 14.50
+-- Waktu pembuatan: 21 Jan 2024 pada 18.14
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -109,14 +109,15 @@ CREATE TABLE `t_pengguna` (
 
 INSERT INTO `t_pengguna` (`id_pengguna`, `id_role`, `nama_lengkap`, `username`, `email`, `no_hp`, `password`, `alamat`, `lokasi`, `status_aktif`) VALUES
 (1, 2, 'Admin', 'admin', 'admin@email.com', '083171027946', '$2y$10$upC5pUbO45WETrcEzWA9te1FvVOwN3tUdLdGmcnoyO1XIhK5FofJy', 'Jalan IR. Djuanda', 'Bandung', '1'),
-(2, 3, 'User 1 ', 'user1', 'user1@email.com', '081234567890', '$2y$10$eGtPNCXl9UUtRq0OtyPZz.H10qf.G0g2jZVFXM2g/CaK4BkXCm4Ci', 'Jalan Tubagus Ismail', 'Bandung', '1'),
-(3, 3, 'User 2', 'user2', 'user2@email.com', '085678901234', '$2y$10$QkC3ZgDmV4DZ3PKpX3iRl.D6RyBnTLdVD7CjZf8pIxtV2E5dwtiie', 'Jalan Coblong', 'Jakarta', '1'),
-(4, 3, 'User 3', 'user3', 'user3@email.com', '089012345678', '$2y$10$3vVvfI6WXIlj4wvnh6HKNu6Gnv0LHkpVCP3VeZQv.OaVYPuiW0/Q6', 'Jalan Bapak', 'Surabaya', '1'),
+(2, 3, 'User 1', 'user1', 'user1@email.com', '081234567890', '$2y$10$eGtPNCXl9UUtRq0OtyPZz.H10qf.G0g2jZVFXM2g/CaK4BkXCm4Ci', 'Jalan Tubagus Ismail', 'PPPoE CIAMPEL', '1'),
+(4, 3, 'User 3', 'user3', 'user3@email.com', '089012345678', '$2y$10$3vVvfI6WXIlj4wvnh6HKNu6Gnv0LHkpVCP3VeZQv.OaVYPuiW0/Q6', 'Jalan Bapak', 'Surabaya', '0'),
 (5, 3, 'User 4', 'user4', 'user4@email.com', '081234567890', '$2y$10$upC5pUbO45WETrcEzWA9te1FvVOwN3tUdLdGmcnoyO1XIhK5FofJy', 'Jalan Naruto', 'Bandung', '1'),
 (6, 3, 'User 5', 'user5', 'user5@email.com', '085678901234', '$2y$10$eGtPNCXl9UUtRq0OtyPZz.H10qf.G0g2jZVFXM2g/CaK4BkXCm4Ci', 'Jalan Jalan', 'Jakarta', '1'),
 (8, 3, 'User 6', 'user6', 'user6@email.com', '083171027936', '$2y$10$5bQ4yilUclSV1jsM.dQtjOyaCClmyVx8eshztUdrhYvQYm.VEt/w2', 'Jalan Istimewa', 'Bandung', '1'),
 (9, 3, 'User 7', 'user7', 'user7@email.com', '083171027936', '$2y$10$G4qOeFYleGvnPAAKxh3B/eA4TWdkdU/rDj3LJ39Su/YbtecNrEcBG', 'Jalan Kimetsu', 'Bandung', '1'),
-(39, 3, 'Ade Kurniawan', 'ade', 'ade.kurniawan216@gmail.com', '083171027936', '$2y$10$eHOR85nPRSjzUYK2A7m3..Yh4J0pnkReEadmJEfL/m73KwFeAqxX.', 'Jalan Jambi Palembang KM 27', 'Bandung', '1');
+(41, 3, 'Ade Kurniawan', 'ade', 'ade.kurniawan216@gmail.com', '083171027936', '$2y$10$UN1k/kh0YctHOow2cM.REeusAcLqiV1FjM5NZp6HCBs5vXe3cbFUS', 'Jalan Jambi Palembang KM 27', 'PPPoE AbelNet\r\n', '1'),
+(42, 2, 'Ade Kurniawan', 'adsfasdasd', 'ade.kurdddniawan216@gmail.com', '083171027936', '$2y$10$hrexaAT1a.1b2qaoDBtLkOB5xET0WoreyW87i8c5Hgcn16L5QL1zG', 'Jalan Jambi Palembang KM 27', 'PPPoE Tirtamulya R1', '1'),
+(43, 2, 'Ade Kurniawan', 'asdasdasd', 'ade.kasdasdurniawan216@gmail.com', '083171027936', '$2y$10$XBVLIMzH/TJmp2bll8kynOwcMUtyhsasERb1fYGhw3/VUYC6N2gbG', 'Jalan Jambi Palembang KM 27', 'PPPoE AbelNet', '1');
 
 -- --------------------------------------------------------
 
@@ -272,7 +273,7 @@ ALTER TABLE `t_kuesioner`
 -- AUTO_INCREMENT untuk tabel `t_pengguna`
 --
 ALTER TABLE `t_pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_periode`
