@@ -16,7 +16,7 @@ class Auth extends CI_Controller
 
 	public function proses_login()
 	{
-		$this->form_validation->set_rules('username', 'Username', 'required|trim');
+		$this->form_validation->set_rules('username', 'Username', 'required|trim|regex_match[/^[a-z0-9]+$/]');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim');
 
 		if ($this->form_validation->run() == false) {
@@ -26,24 +26,27 @@ class Auth extends CI_Controller
 			$password = $this->input->post('password');
 
 			$this->db->where('username', $username);
-			$user = $this->db->get('t_personil')->row_array();
+			$user = $this->db->get('t_pengguna')->row_array();
 
 			if ($user) {
 				if ($user['status_aktif'] == 1 && password_verify($password, $user['password'])) {
 					$data = [
 						'username' => $user['username'],
 						'nama' => $user['nama'],
-						'id_jabatan' => $user['id_jabatan'],
-						'id_personil' => $user['id_personil']
+						'id_role' => $user['id_role'],
+						'id_pengguna' => $user['id_pengguna']
 					];
 					$this->session->set_userdata($data);
 
-					switch ($user['id_jabatan']) {
+					switch ($user['id_role']) {
 						case 1:
-							redirect('dashboard');
+							redirect('admin');
 							break;
 						case 2:
-							redirect('pegawai');
+							redirect('manajer/dashboard');
+							break;
+						case 3:
+							redirect('pelanggan/dashboard');
 							break;
 					}
 				} else {
@@ -71,8 +74,9 @@ class Auth extends CI_Controller
 	{
 		unset(
 			$_SESSION['username'],
-			$_SESSION['id_jabatan'],
-			$_SESSION['id_personil'],
+			$_SESSION['nama'],
+			$_SESSION['id_role'],
+			$_SESSION['id_pengguna'],
 		);
 		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="color:white">
             <div class="d-flex justify-content-between align-items-center">

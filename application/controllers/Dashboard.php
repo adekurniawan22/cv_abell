@@ -7,16 +7,20 @@ class Dashboard extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model('Personil_model');
-		$this->load->model('Jabatan_model');
-		$this->load->model('Alat_kerja_model');
 	}
-	public function dashboard()
+	public function dashboard_manajer()
 	{
 		$data['title'] = 'Dashboard';
-		$data['jumlah_personil'] = $this->Personil_model->jumlah_personil();
 		$this->load->view('templates/header', $data);
-		$this->load->view('admin/dashboard', $data);
+		$this->load->view('manajer/dashboard', $data);
+		$this->load->view('templates/footer');
+	}
+
+	public function dashboard_pelanggan()
+	{
+		$data['title'] = 'Dashboard';
+		$this->load->view('templates/header', $data);
+		$this->load->view('pelanggan/dashboard', $data);
 		$this->load->view('templates/footer');
 	}
 }

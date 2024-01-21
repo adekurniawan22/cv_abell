@@ -56,27 +56,18 @@ $route['translate_uri_dashes'] = TRUE;
 $route['default_controller'] = 'auth/login';
 $route['proses-login'] = 'auth/proses_login';
 
-// Route Dashboard
-$route['dashboard'] = 'dashboard/dashboard';
+// Route Pelanggan
+$route['pelanggan/dashboard'] = 'dashboard/dashboard_pelanggan';
 
-// Route Personil
-$route['personil'] = 'personil/personil';
-$route['tambah-personil'] = 'personil/tambah_personil';
-$route['proses-tambah-personil'] = 'personil/proses_tambah_personil';
-$route['edit-personil'] = 'personil/edit_personil';
-$route['proses-edit-personil'] = 'personil/proses_edit_personil';
-$route['personil/view-sertifikat'] = 'personil/get_sertifikat';
+// Route Manajer
+$route['manajer/dashboard'] = 'dashboard/dashboard_manajer';
+$route['manajer/data-pengguna'] = 'pengguna/index';
+$route['manajer/tambah-pengguna'] = 'pengguna/tambah_pengguna';
+$route['manajer/proses-tambah-pengguna'] = 'pengguna/proses_tambah_pengguna';
+$route['manajer/edit-pengguna'] = 'pengguna/edit_pengguna';
+$route['manajer/proses-edit-pengguna'] = 'pengguna/proses_edit_pengguna';
+$route['manajer/proses-hapus-pengguna'] = 'pengguna/proses_hapus_pengguna';
 
-// Route Warehouse Alat Kerja
-$route['alat-kerja'] = 'alat_kerja/alat_kerja';
-$route['tambah-alat-kerja'] = 'alat_kerja/tambah_alat_kerja';
-$route['proses-tambah-alat-kerja'] = 'alat_kerja/proses_tambah_alat_kerja';
-$route['edit-alat-kerja'] = 'alat_kerja/edit_alat_kerja';
-$route['proses-edit-alat-kerja'] = 'alat_kerja/proses_edit_alat_kerja';
-
-// Route Warehouse Alat Kerja
-$route['histori-alat-kerja'] = 'alat_kerja/histori_alat_kerja';
-$route['tambah-histori-alat-kerja'] = 'alat_kerja/tambah_histori_alat_kerja';
-$route['proses-tambah-histori-alat-kerja'] = 'alat_kerja/proses_tambah_histori_alat_kerja';
-$route['edit-alat-kerja'] = 'alat_kerja/edit_alat_kerja';
-$route['proses-edit-alat-kerja'] = 'alat_kerja/proses_edit_alat_kerja';
+// Route Profil
+$route['profil'] = 'profil/index';
+$route['profil/proses-edit-profil'] = 'profil/proses_edit_profil';
