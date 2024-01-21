@@ -74,7 +74,7 @@
           <h6 class="text-capitalize">Ringkasan Hasil Evaluasi Kuesioner</h6>
           <p class="text-sm mb-0">
             <i class="fa fa-arrow-up text-success"></i>
-            <span class="font-weight-bold">Naik 4%</span> di tahun 2023
+            <span class="font-weight-bold">Naik 5%</span> di tahun 2023
           </p>
         </div>
         <div class="card-body p-3">
