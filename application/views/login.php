@@ -31,18 +31,21 @@
                             <div class="card card-plain">
                                 <div class="card-header pb-0 text-start">
                                     <h4 class="font-weight-bolder">Login</h4>
-                                    <p class="mb-0">Masukkan email dan password anda untuk login</p>
+                                    <p class="mb-0">Masukkan username dan password untuk login</p>
                                 </div>
                                 <div class="card-body">
                                     <?= $this->session->flashdata('message');
                                     unset($_SESSION['message']); ?>
-                                    <form role="form" method="post" action="auth/proses-login">
+                                    <form role="form" method="post" action="proses-login">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control form-control-lg" placeholder="Username" aria-label="Email" name="username">
+                                            <input type="text" class="form-control form-control-lg" placeholder="Username" name="username" value="<?php echo set_value('usernmae'); ?>">
+                                            <?= form_error('username', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                         </div>
                                         <div class="mb-3">
-                                            <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" name="password">
+                                            <input type="password" class="form-control form-control-lg" placeholder="Password" name="password" value="<?php echo set_value('password'); ?>">
+                                            <?= form_error('password', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                         </div>
+                                        <a href="javascript:;" class=" text-primary text-gradient font-weight-bold">Lupa Password?</a>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Login</button>
                                         </div>
@@ -51,11 +54,11 @@
                             </div>
                         </div>
                         <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-                            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blt328827c9aac85640/60dc7f13e1461d39eb8ec99a/656fedc92073b5c79fcb807686fbc40ac54f2fdb.png?auto=webp&format=pjpg&width=3840&quality=60');
+                            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('<?= base_url() ?>/assets/img/banner.jpg');
           background-size: cover;">
                                 <span class="mask bg-gradient-primary opacity-6"></span>
-                                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Manchester is RED!"</h4>
-                                <p class="text-white position-relative">Manchester United: Forging Greatness, One Victory at a Time, United in Passion and Glory!</p>
+                                <h4 class="mt-5 text-white font-weight-bolder position-relative">"CV. ABELL"</h4>
+                                <p class="text-white position-relative">Perusahaan pemasaran internet terbesar di kecamatan jatisari kabupaten karawang</p>
                             </div>
                         </div>
                     </div>
