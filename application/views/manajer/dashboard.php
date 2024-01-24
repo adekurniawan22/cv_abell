@@ -1,8 +1,8 @@
 <div class="container-fluid py-2 mt-7">
   <div class="row">
-    <div class="col-lg-3 mb-lg-0 mb-4">
+    <div class="col-lg-12 mb-lg-0 mb-4">
       <div class="row">
-        <div class="col-12 mb-4">
+        <div class="col-4 mb-4">
           <div class="card">
             <div class="card-body p-3">
               <div class="row">
@@ -10,7 +10,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Pelanggan</p>
                     <h5 class="font-weight-bolder">
-                      <?= "45" ?>
+                      <?= $jumlah_pengguna ?>
                     </h5>
                   </div>
                 </div>
@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12  mb-4">
+        <div class="col-4  mb-4">
           <div class="card">
             <div class="card-body p-3">
               <div class="row">
@@ -31,7 +31,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Pelanggan Aktif</p>
                     <h5 class="font-weight-bolder">
-                      <?= "3" ?>
+                      <?= $jumlah_pengguna_aktif ?>
                     </h5>
                   </div>
                 </div>
@@ -44,7 +44,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12  mb-4">
+        <div class="col-4  mb-4">
           <div class="card">
             <div class="card-body p-3">
               <div class="row">
@@ -52,7 +52,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Pelanggan Tidak Aktif</p>
                     <h5 class="font-weight-bolder">
-                      <?= "12" ?>
+                      <?= $jumlah_pengguna_tidak_aktif ?>
                     </h5>
                   </div>
                 </div>
@@ -68,7 +68,7 @@
       </div>
 
     </div>
-    <div class="col-lg-9 mb-lg-0 mb-4">
+    <!-- <div class="col-lg-9 mb-lg-0 mb-4">
       <div class="card z-index-2 h-100">
         <div class="card-header pb-0 pt-3 bg-transparent">
           <h6 class="text-capitalize">Ringkasan Hasil Evaluasi Kuesioner</h6>
@@ -83,5 +83,5 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>

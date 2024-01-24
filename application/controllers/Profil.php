@@ -15,7 +15,7 @@ class Profil extends CI_Controller
 		$data['title'] = 'Profil';
 		$data['pengguna'] = $this->Pengguna_model->dapat_satu_pengguna($this->session->userdata('id_pengguna'));
 		$this->load->view('templates/header', $data);
-		$this->load->view('admin/profil/profil', $data);
+		$this->load->view('manajer/profil/profil', $data);
 		$this->load->view('templates/footer');
 	}
 

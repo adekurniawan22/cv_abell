@@ -22,16 +22,17 @@ class Auth extends CI_Controller
 
 	public function proses_login()
 	{
-		$this->form_validation->set_rules('username', 'Username', 'required|trim|regex_match[/^[a-z0-9]+$/]');
+		$this->form_validation->set_rules('username_no_hp', 'Username / No Hp', 'required|trim|regex_match[/^[a-z0-9]+$/]');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim');
 
 		if ($this->form_validation->run() == false) {
 			$this->login();
 		} else {
-			$username = $this->input->post('username');
+			$username = $this->input->post('username_no_hp');
 			$password = $this->input->post('password');
 
 			$this->db->where('username', $username);
+			$this->db->or_where('no_hp', $username);
 			$user = $this->db->get('t_pengguna')->row_array();
 
 			if ($user) {
@@ -39,19 +40,19 @@ class Auth extends CI_Controller
 					$data = [
 						'username' => $user['username'],
 						'nama' => $user['nama'],
-						'id_role' => $user['id_role'],
+						'role' => $user['role'],
 						'id_pengguna' => $user['id_pengguna']
 					];
 					$this->session->set_userdata($data);
 
-					switch ($user['id_role']) {
-						case 1:
-							redirect('admin/dashboard');
-							break;
-						case 2:
+					switch ($user['role']) {
+						case 'Manajer':
 							redirect('manajer/dashboard');
 							break;
-						case 3:
+						case 'Admin':
+							redirect('admin/dashboard');
+							break;
+						case 'Pelanggan':
 							redirect('pelanggan/dashboard');
 							break;
 					}
@@ -81,7 +82,7 @@ class Auth extends CI_Controller
 		unset(
 			$_SESSION['username'],
 			$_SESSION['nama'],
-			$_SESSION['id_role'],
+			$_SESSION['role'],
 			$_SESSION['id_pengguna'],
 		);
 		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="color:white">

@@ -39,6 +39,41 @@
     </div>
 <?php } ?>
 
+<?php if ($this->session->flashdata('error_add_excel')) { ?>
+    <!-- Tampilkan pesan 'flashdata' sebagai modal -->
+    <div class="modal fade modal-scrollable" id="message" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php foreach ($this->session->flashdata('error_add_excel') as $row => $invalidColumns) : ?>
+                        <ul>
+                            <li>
+                                <span>Baris <?= $row ?> memiliki kesalahan berikut:</span>
+                                <ul>
+                                    <?php foreach ($invalidColumns as $column) : ?>
+                                        <li><?= $column ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <!-- <p></p> -->
+                            </li>
+                        </ul>
+                    <?php endforeach; ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-primary" data-bs-dismiss="modal">Oke</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+
 <!-- Modal Logout -->
 <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

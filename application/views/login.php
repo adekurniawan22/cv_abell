@@ -31,15 +31,14 @@
                             <div class="card card-plain">
                                 <div class="card-header pb-0 text-start">
                                     <h4 class="font-weight-bolder">Login</h4>
-                                    <p class="mb-0">Masukkan username dan password untuk login</p>
                                 </div>
                                 <div class="card-body">
                                     <?= $this->session->flashdata('message');
                                     unset($_SESSION['message']); ?>
                                     <form role="form" method="post" action="proses-login">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control form-control-lg" placeholder="Username" name="username" value="<?php echo set_value('usernmae'); ?>">
-                                            <?= form_error('username', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+                                            <input type="text" class="form-control form-control-lg" placeholder="Username / No HP" name="username_no_hp" value="<?php echo set_value('username_no_hp'); ?>">
+                                            <?= form_error('username_no_hp', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                         </div>
                                         <div class="mb-3">
                                             <input type="password" class="form-control form-control-lg" placeholder="Password" name="password" value="<?php echo set_value('password'); ?>">

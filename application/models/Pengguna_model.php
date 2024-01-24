@@ -3,12 +3,9 @@ class Pengguna_model extends CI_Model
 {
     public function dapat_pengguna()
     {
-        $this->db->select('t_pengguna.*, t_role.*'); // Gunakan * untuk memilih semua kolom
-        $this->db->from('t_pengguna');
-        $this->db->join('t_role', 't_pengguna.id_role = t_role.id_role');
-        // $this->db->where('t_pengguna.id_role =', 3);
-        $this->db->group_by('t_pengguna.id_pengguna'); // Gunakan GROUP BY agar tidak ada duplikat
-        $query = $this->db->get();
+        // $this->db->where('role !=', 'Manajer');
+        // $this->db->group_by('t_pengguna.id_pengguna'); // Gunakan GROUP BY agar tidak ada duplikat
+        $query = $this->db->get('t_pengguna');
         return $query->result();
     }
 
@@ -19,12 +16,32 @@ class Pengguna_model extends CI_Model
         return $query->row();
     }
 
-    public function jumlah_personil()
+    public function jumlah_pengguna()
     {
-        $this->db->from('t_personil');
-        $total_personil = $this->db->count_all_results();
-        return $total_personil;
+        $this->db->where('role', 'Pelanggan');
+        $this->db->from('t_pengguna');
+        $total_pengguna = $this->db->count_all_results();
+        return $total_pengguna;
     }
+
+    public function jumlah_pengguna_aktif()
+    {
+        $this->db->where('status_aktif', '1');
+        $this->db->where('role', 'Pelanggan');
+        $this->db->from('t_pengguna');
+        $total_pengguna_aktif = $this->db->count_all_results();
+        return $total_pengguna_aktif;
+    }
+
+    public function jumlah_pengguna_tidak_aktif()
+    {
+        $this->db->where('status_aktif', '0');
+        $this->db->where('role', 'Pelanggan');
+        $this->db->from('t_pengguna');
+        $total_pengguna_tidak_aktif = $this->db->count_all_results();
+        return $total_pengguna_tidak_aktif;
+    }
+
 
     public function tambah_pengguna($data)
     {
@@ -45,5 +62,13 @@ class Pengguna_model extends CI_Model
         } else {
             return false;
         }
+    }
+
+    public function cekDuplikat($field, $value)
+    {
+        $this->db->where($field, $value);
+        $query = $this->db->get('t_pengguna'); // Ganti 'pengguna' dengan nama tabel Anda
+
+        return $query->num_rows() > 0;
     }
 }

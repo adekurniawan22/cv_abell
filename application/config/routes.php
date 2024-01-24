@@ -60,18 +60,25 @@ $route['lupa-password'] = 'auth/lupa_password';
 // Route Pelanggan
 $route['pelanggan/dashboard'] = 'dashboard/dashboard_pelanggan';
 
-// Route Admin
-$route['admin/dashboard'] = 'dashboard/dashboard_admin';
-$route['admin/data-pengguna'] = 'pengguna/index';
-$route['admin/tambah-pengguna'] = 'pengguna/tambah_pengguna';
-$route['admin/proses-tambah-pengguna'] = 'pengguna/proses_tambah_pengguna';
-$route['admin/edit-pengguna'] = 'pengguna/edit_pengguna';
-$route['admin/proses-edit-pengguna'] = 'pengguna/proses_edit_pengguna';
-$route['admin/proses-hapus-pengguna'] = 'pengguna/proses_hapus_pengguna';
-
-// Route Manajer
+// Route Manjer
 $route['manajer/dashboard'] = 'dashboard/dashboard_manajer';
 $route['manajer/data-pengguna'] = 'pengguna/index';
+$route['manajer/tambah-pengguna'] = 'pengguna/tambah_pengguna';
+$route['manajer/proses-tambah-pengguna'] = 'pengguna/proses_tambah_pengguna';
+$route['manajer/edit-pengguna'] = 'pengguna/edit_pengguna';
+$route['manajer/proses-edit-pengguna'] = 'pengguna/proses_edit_pengguna';
+$route['manajer/proses-hapus-pengguna'] = 'pengguna/proses_hapus_pengguna';
+$route['manajer/data-lokasi-server'] = 'lokasi_server/index';
+$route['manajer/tambah-lokasi-server'] = 'lokasi_server/tambah_lokasi_server';
+$route['manajer/proses-tambah-lokasi-server'] = 'lokasi_server/proses_tambah_lokasi_server';
+$route['manajer/edit-lokasi-server'] = 'lokasi_server/edit_lokasi_server';
+$route['manajer/proses-edit-lokasi-server'] = 'lokasi_server/proses_edit_lokasi_server';
+$route['manajer/proses-hapus-lokasi-server'] = 'lokasi_server/proses_hapus_lokasi_server';
+
+
+// Route admin
+$route['admin/dashboard'] = 'dashboard/dashboard_admin';
+$route['admin/data-pengguna'] = 'pengguna/index';
 
 // Route Profil
 $route['profil'] = 'profil/index';
