@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-group">
                             <label for="role" class="form-control-label">Role</label>
-                            <select class="form-select" aria-label="Default select example" name="role" id="role">
+                            <select class="form-select" aria-label="Default select example" name="role" id="role" onchange="handleRoleChange()">
                                 <option value="" selected>Pilih Role</option>
                                 <option value="Manajer" <?php echo set_select('role', "Manajer", $pengguna->role == "Manajer"); ?>>Manajer</option>
                                 <option value="Admin" <?php echo set_select('role', "Admin", $pengguna->role == "Admin"); ?>>Admin</option>
@@ -47,7 +47,7 @@
                             <textarea class="form-control" placeholder="Alamat" id="alamat" name="alamat" rows="3"><?php echo set_value('alamat', $pengguna->alamat); ?></textarea>
                             <?= form_error('alamat', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="lokasi-form-group" style="display: none;">
                             <label for="lokasi" class="form-control-label">Lokasi Pemasangan</label>
                             <select class="form-select" aria-label="Default select example" name="lokasi" id="lokasi">
                                 <option value="" selected>Pilih Lokasi</option>
@@ -66,3 +66,26 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Fungsi untuk menangani perubahan pada elemen role
+        function handleRoleChange() {
+            var roleSelect = document.getElementById('role');
+            var lokasiFormGroup = document.getElementById('lokasi-form-group');
+
+            // Periksa apakah peran yang dipilih adalah "Pelanggan"
+            if (roleSelect.value === 'Pelanggan') {
+                // Tampilkan form-group lokasi
+                lokasiFormGroup.style.display = 'block';
+            } else {
+                // Sembunyikan form-group lokasi dan reset nilai
+                lokasiFormGroup.style.display = 'none';
+                document.getElementById('lokasi').value = '';
+            }
+        }
+
+        // Panggil fungsi handleRoleChange saat dokumen diinisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            handleRoleChange();
+        });
+    </script>

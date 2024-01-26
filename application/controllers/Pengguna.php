@@ -33,7 +33,6 @@ class Pengguna extends CI_Controller
 
 	public function tambah_pengguna()
 	{
-		$data['role'] =  $this->db->get('t_role')->result();
 		$data['lokasi'] =  $this->db->get('t_lokasi_server')->result();
 		$data['title'] = 'Tambah Pengguna';
 		$this->load->view('templates/header', $data);
@@ -50,7 +49,9 @@ class Pengguna extends CI_Controller
 		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|trim|integer');
 		$this->form_validation->set_rules('role', 'Role', 'required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
-		$this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
+		if ($this->input->post('role') == "Pelanggan") {
+			$this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
+		}
 
 		if ($this->form_validation->run() == false) {
 			$this->tambah_pengguna();
@@ -63,8 +64,11 @@ class Pengguna extends CI_Controller
 				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
 				'no_hp' => $this->input->post('no_hp'),
 				'alamat' => $this->input->post('alamat'),
-				'lokasi' => $this->input->post('lokasi'),
 			);
+
+			if ($this->input->post('role') == "Pelanggan") {
+				$data['lokasi'] = $this->input->post('lokasi');
+			}
 
 			$result = $this->Pengguna_model->tambah_pengguna($data);
 
@@ -120,12 +124,23 @@ class Pengguna extends CI_Controller
 			$lokasi = $sheet->getCell('H' . $row->getRowIndex())->getValue();
 
 			// Validasi role
+			if (empty($role)) {
+				$errors[$row->getRowIndex()][] = 'Role kosong';
+			}
 			$allowed_roles = ["Manajer", "Admin", "Pelanggan"];
 			if (!in_array($role, $allowed_roles)) {
 				$errors[$row->getRowIndex()][] = 'Role tidak sesuai';
 			}
 
+			// Validasi nama
+			if (empty($nama_lengkap)) {
+				$errors[$row->getRowIndex()][] = 'Nama Lengkap kosong';
+			}
+
 			// Validasi username
+			if (empty($username)) {
+				$errors[$row->getRowIndex()][] = 'Username kosong';
+			}
 			if (!ctype_alnum($username)) {
 				$errors[$row->getRowIndex()][] = 'Username tidak sesuai';
 			} else {
@@ -136,6 +151,9 @@ class Pengguna extends CI_Controller
 			}
 
 			// Validasi email
+			if (empty($email)) {
+				$errors[$row->getRowIndex()][] = 'Email kosong';
+			}
 			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 				$errors[$row->getRowIndex()][] = 'Email tidak sesuai';
 			} else {
@@ -145,16 +163,10 @@ class Pengguna extends CI_Controller
 				}
 			}
 
-			$lokasi_valid = $this->db->select('lokasi_server')->from('t_lokasi_server')->where('lokasi_server', $lokasi)->get()->row();
-			if (!$lokasi_valid) {
-				$errors[$row->getRowIndex()][] = 'Lokasi server tidak sesuai';
-			}
-
-			if ($this->Pengguna_model->cekDuplikat('email', $email)) {
-				$errors[$row->getRowIndex()][] = 'Email duplikat';
-			}
-
 			// Validasi no_hp
+			if (empty($no_hp)) {
+				$errors[$row->getRowIndex()][] = 'No. HP kosong';
+			}
 			if (!is_numeric($no_hp)) {
 				$errors[$row->getRowIndex()][] = 'Nomor hp tidak sesuai';
 			} else {
@@ -164,6 +176,37 @@ class Pengguna extends CI_Controller
 				}
 			}
 
+			// Validasi password
+			if (empty($password)) {
+				$errors[$row->getRowIndex()][] = 'Password kosong';
+			} else {
+				if (strlen($password) < 8) {
+					$errors[$row->getRowIndex()][] = 'Password minimal 8 karakter';
+				}
+			}
+
+			// Validasi alamat
+			if (empty($alamat)) {
+				$errors[$row->getRowIndex()][] = 'Alamat kosong';
+			}
+
+			// Validasi lokasi
+			if ($role == "Pelanggan") {
+				if (empty($lokasi)) {
+					$errors[$row->getRowIndex()][] = 'Lokasi kosong';
+				} else {
+					$lokasi_valid = $this->db->select('lokasi_server')->from('t_lokasi_server')->where('lokasi_server', $lokasi)->get()->row();
+					if (!$lokasi_valid) {
+						$errors[$row->getRowIndex()][] = 'Lokasi server tidak sesuai';
+					}
+				}
+			}
+
+
+
+			if ($this->Pengguna_model->cekDuplikat('email', $email)) {
+				$errors[$row->getRowIndex()][] = 'Email duplikat';
+			}
 			// Jika ada kolom yang tidak valid, tambahkan ke dalam array $errors
 			if (!empty($errors[$row->getRowIndex()])) {
 				$countRows++; // Tambahkan jumlah baris yang memiliki kesalahan
@@ -204,7 +247,6 @@ class Pengguna extends CI_Controller
 
 	public function edit_pengguna()
 	{
-		$data['role'] =  $this->db->get('t_role')->result();
 		$data['lokasi'] =  $this->db->get('t_lokasi_server')->result();
 		$data['title'] = 'Edit Pengguna';
 		$data['pengguna'] = $this->Pengguna_model->dapat_satu_pengguna($this->input->post('id_pengguna'));
@@ -227,7 +269,9 @@ class Pengguna extends CI_Controller
 		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|trim|integer');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
 		$this->form_validation->set_rules('role', 'Role', 'required');
-		$this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
+		if ($this->input->post('role') == "Pelanggan") {
+			$this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
+		}
 		$status_aktif = ($this->input->post('status_aktif') == 'on') ? '1' : '0';
 
 		if ($this->form_validation->run() == false) {
@@ -240,9 +284,12 @@ class Pengguna extends CI_Controller
 				'email' => $this->input->post('email'),
 				'no_hp' => $this->input->post('no_hp'),
 				'alamat' => $this->input->post('alamat'),
-				'lokasi' => $this->input->post('lokasi'),
 				'status_aktif' => $status_aktif
 			);
+
+			if ($this->input->post('role') == "Pelanggan") {
+				$data['lokasi'] = $this->input->post('lokasi');
+			}
 
 			$result = $this->Pengguna_model->edit_pengguna($this->input->post('id_pengguna'), $data);
 

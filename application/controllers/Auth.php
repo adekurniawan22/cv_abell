@@ -39,7 +39,7 @@ class Auth extends CI_Controller
 				if ($user['status_aktif'] == 1 && password_verify($password, $user['password'])) {
 					$data = [
 						'username' => $user['username'],
-						'nama' => $user['nama'],
+						'nama_lengkap' => $user['nama_lengkap'],
 						'role' => $user['role'],
 						'id_pengguna' => $user['id_pengguna']
 					];

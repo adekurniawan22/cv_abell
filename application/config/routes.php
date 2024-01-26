@@ -76,9 +76,16 @@ $route['manajer/proses-edit-lokasi-server'] = 'lokasi_server/proses_edit_lokasi_
 $route['manajer/proses-hapus-lokasi-server'] = 'lokasi_server/proses_hapus_lokasi_server';
 
 
+
 // Route admin
 $route['admin/dashboard'] = 'dashboard/dashboard_admin';
 $route['admin/data-pengguna'] = 'pengguna/index';
+$route['admin/data-kuesioner'] = 'kuesioner/index';
+$route['admin/tambah-kuesioner'] = 'kuesioner/tambah_kuesioner';
+$route['admin/proses-tambah-kuesioner'] = 'kuesioner/proses_tambah_kuesioner';
+$route['admin/edit-kuesioner'] = 'kuesioner/edit_kuesioner';
+$route['admin/proses-edit-kuesioner'] = 'kuesioner/proses_edit_kuesioner';
+$route['admin/proses-hapus-kuesioner'] = 'kuesioner/proses_hapus_kuesioner';
 
 // Route Profil
 $route['profil'] = 'profil/index';
