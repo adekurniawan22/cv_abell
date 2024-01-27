@@ -66,8 +66,10 @@ class Pengguna extends CI_Controller
 				'alamat' => $this->input->post('alamat'),
 			);
 
+			date_default_timezone_set('Asia/Jakarta');
 			if ($this->input->post('role') == "Pelanggan") {
 				$data['lokasi'] = $this->input->post('lokasi');
+				$data['tanggal_langganan'] = date('Y-m-d');
 			}
 
 			$result = $this->Pengguna_model->tambah_pengguna($data);
@@ -122,6 +124,7 @@ class Pengguna extends CI_Controller
 			$password = $sheet->getCell('F' . $row->getRowIndex())->getValue();
 			$alamat = $sheet->getCell('G' . $row->getRowIndex())->getValue();
 			$lokasi = $sheet->getCell('H' . $row->getRowIndex())->getValue();
+			$tanggal_langganan = $sheet->getCell('I' . $row->getRowIndex())->getFormattedValue();
 
 			// Validasi role
 			if (empty($role)) {
@@ -202,7 +205,29 @@ class Pengguna extends CI_Controller
 				}
 			}
 
+			// Validasi tanggal langganan
+			if ($role == "Pelanggan") {
+				if (empty($tanggal_langganan)) {
+					$errors[$row->getRowIndex()][] = 'Tanggal langganan kosong';
+				} else {
+					// Ubah format tanggal_langganan ke format 'Y-m-d'
+					$tanggal_langganan_obj = date_create_from_format('d/m/Y', $tanggal_langganan);
 
+					if (!$tanggal_langganan_obj) {
+						$errors[$row->getRowIndex()][] = 'Format tanggal langganan tidak sesuai';
+					} else {
+						$waktu_sekarang = new DateTime();
+						$tanggal_sekarang = $waktu_sekarang->format('Y-m-d'); // Ubah format tanggal sekarang ke 'Y-m-d'
+
+						// Ubah format tanggal_langganan_obj ke 'Y-m-d' untuk membandingkan dengan tanggal sekarang
+						$tanggal_langganan_formatted = $tanggal_langganan_obj->format('Y-m-d');
+
+						if ($tanggal_langganan_formatted > $tanggal_sekarang) {
+							$errors[$row->getRowIndex()][] = 'Tanggal langganan harus setelah tanggal sekarang';
+						}
+					}
+				}
+			}
 
 			if ($this->Pengguna_model->cekDuplikat('email', $email)) {
 				$errors[$row->getRowIndex()][] = 'Email duplikat';

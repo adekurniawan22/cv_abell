@@ -8,11 +8,6 @@
                             <h5>Data Kuesioner</h5>
                         </div>
                     </div>
-                    <div class="col-6 pt-4 text-end">
-                        <div>
-                            <a href="<?= base_url() ?>admin/tambah-kuesioner" class="btn bg-gradient-dark">+ Tambah Kuesioner</a>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive">
@@ -49,11 +44,6 @@
 
                                         <td class="align-middle">
                                             <button class="btn btn-link text-dark text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_detail_pernyataan<?= $k->id_kuesioner ?>"><i class="bi bi-eye-fill me-2" aria-hidden="true" disabled></i>Detail Pernyataan</button>
-                                            <form action="<?= base_url() ?>admin/edit-kuesioner" method="post" class="d-inline-block">
-                                                <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true" disabled></i>Edit</Button>
-                                            </form>
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Delete</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

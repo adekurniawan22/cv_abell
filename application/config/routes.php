@@ -56,11 +56,16 @@ $route['translate_uri_dashes'] = TRUE;
 $route['default_controller'] = 'auth/login';
 $route['proses-login'] = 'auth/proses_login';
 $route['lupa-password'] = 'auth/lupa_password';
+$route['kirim-reset-password'] = 'auth/send_reset_link';
+$route['reset-password'] = 'auth/reset_password';
+$route['proses-reset-password'] = 'auth/proses_reset_password';
 
 // Route Pelanggan
-$route['pelanggan/dashboard'] = 'dashboard/dashboard_pelanggan';
+$route['pelanggan/kuesioner'] = 'kuesioner/index';
+$route['pelanggan/isi-kuesioner'] = 'jawaban/tambah_jawaban';
+$route['pelanggan/proses-isi-kuesioner'] = 'jawaban/proses_tambah_jawaban';
 
-// Route Manjer
+// Route Manajer
 $route['manajer/dashboard'] = 'dashboard/dashboard_manajer';
 $route['manajer/data-pengguna'] = 'pengguna/index';
 $route['manajer/tambah-pengguna'] = 'pengguna/tambah_pengguna';
@@ -74,6 +79,7 @@ $route['manajer/proses-tambah-lokasi-server'] = 'lokasi_server/proses_tambah_lok
 $route['manajer/edit-lokasi-server'] = 'lokasi_server/edit_lokasi_server';
 $route['manajer/proses-edit-lokasi-server'] = 'lokasi_server/proses_edit_lokasi_server';
 $route['manajer/proses-hapus-lokasi-server'] = 'lokasi_server/proses_hapus_lokasi_server';
+$route['manajer/data-kuesioner'] = 'kuesioner/index';
 
 
 

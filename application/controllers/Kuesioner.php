@@ -15,9 +15,19 @@ class Kuesioner extends CI_Controller
 		$data['title'] = 'Data Kuesioner';
 		$data['kuesioner'] = $this->Kuesioner_model->dapat_kuesioner();
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('admin/kuesioner/kuesioner', $data);
-		$this->load->view('templates/footer');
+		if ($this->session->userdata('role') == 'Manajer') {
+			$this->load->view('templates/header', $data);
+			$this->load->view('manajer/kuesioner/kuesioner', $data);
+			$this->load->view('templates/footer');
+		} else if ($this->session->userdata('role') == 'Admin') {
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/kuesioner/kuesioner', $data);
+			$this->load->view('templates/footer');
+		} else if ($this->session->userdata('role') == 'Pelanggan') {
+			$this->load->view('templates/header', $data);
+			$this->load->view('pelanggan/kuesioner/kuesioner', $data);
+			$this->load->view('templates/footer');
+		}
 	}
 
 	public function tambah_kuesioner()
@@ -59,39 +69,56 @@ class Kuesioner extends CI_Controller
 		redirect('admin/data-kuesioner');
 	}
 
-	// public function edit_lokasi_server()
-	// {
-	// 	$data['lokasi_server'] = $this->Lokasi_server_model->dapat_satu_lokasi_server($this->input->post('id_lokasi_server'));
-	// 	$data['title'] = 'Edit Lokasi Server';
-	// 	$this->load->view('templates/header', $data);
-	// 	$this->load->view('manajer/lokasi_server/edit_lokasi_server', $data);
-	// 	$this->load->view('templates/footer');
-	// }
+	public function edit_kuesioner()
+	{
+		$data['title'] = 'Edit Kuesioner';
+		$data['kuesioner'] = $this->Kuesioner_model->dapat_satu_kuesioner($this->input->post('id_kuesioner'));
+		$data['pernyataan'] = $this->Kuesioner_model->dapat_pernyataan($this->input->post('id_kuesioner'));
+		$this->load->view('templates/header', $data);
+		$this->load->view('admin/kuesioner/edit_kuesioner', $data);
+		$this->load->view('templates/footer');
+	}
 
-	// public function proses_edit_lokasi_server()
-	// {
-	// 	$this->form_validation->set_rules('lokasi_server', 'Nama Lokasi Server', 'required|trim|callback_check_lokasi_server');
+	public function proses_edit_kuesioner()
+	{
+		try {
 
-	// 	if ($this->form_validation->run() == false) {
-	// 		$this->edit_lokasi_server();
-	// 	} else {
-	// 		$data = array(
-	// 			'lokasi_server' => $this->input->post('lokasi_server')
-	// 		);
+			$data_kuesioner = [
+				'judul_kuesioner' => $this->input->post('judul_kuesioner'),
+				'mulai' => $this->input->post('mulai'),
+				'selesai' => $this->input->post('selesai'),
+			];
 
-	// 		$result = $this->Lokasi_server_model->edit_lokasi_server($this->input->post('id_lokasi_server'), $data);
+			$this->Kuesioner_model->edit_kuesioner($this->input->post('id_kuesioner'), $data_kuesioner);
 
-	// 		if ($result) {
-	// 			$this->session->set_flashdata('message', '<strong>Data Lokasi Server Berhasil Di edit</strong>
-	// 															<i class="bi bi-check-circle-fill"></i>');
-	// 			redirect('manajer/data-lokasi-server');
-	// 		} else {
-	// 			$this->session->set_flashdata('message', '<strong>Data Lokasi Server Gagal Di edit</strong>
-	// 													<i class="bi bi-exclamation-circle-fill"></i>');
-	// 			redirect('manajer/data-lokasi-server');
-	// 		}
-	// 	}
-	// }
+
+			for ($i = 0; $i < count($_POST['id_pernyataan']); $i++) {
+				$data_pernyataan = [
+					'pernyataan' => $_POST['pernyataan'][$i],
+				];
+
+				$this->Kuesioner_model->edit_pernyataan($_POST['id_pernyataan'][$i], $data_pernyataan);
+			}
+
+			if (!empty($_POST['pernyataan_baru'])) {
+				foreach ($_POST['pernyataan_baru'] as $p) {
+					$data_pernyataan = [
+						'id_kuesioner' => $this->input->post('id_kuesioner'),
+						'pernyataan' => $p,
+					];
+
+					$this->Kuesioner_model->tambah_pernyataan($data_pernyataan);
+				}
+			}
+			$this->session->set_flashdata('message', '<strong>Data Kuesioner Berhasil Diedit</strong>
+															<i class="bi bi-check-circle-fill"></i>');
+		} catch (Exception $e) {
+			$this->session->set_flashdata('message', '<strong>Data Kuesioner Gagal Diedit</strong>
+													<i class="bi bi-exclamation-circle-fill"></i>');
+		}
+		redirect('admin/data-kuesioner');
+	}
+
 
 	public function proses_hapus_kuesioner()
 	{

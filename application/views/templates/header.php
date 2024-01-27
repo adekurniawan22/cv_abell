@@ -93,6 +93,18 @@
         .modal {
             z-index: 1050
         }
+
+        .table-kuesioner {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .table-kuesioner th,
+        .table-kuesioner td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -169,7 +181,7 @@
                         <?php } ?>
                         <?php if ($this->session->userdata('role') == 'Pelanggan') { ?>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="#">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>pelanggan/kuesioner">
                                     <i class="bi bi-file-text-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Kuesioner
                                 </a>
@@ -179,12 +191,6 @@
                             <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>profil">
                                 <i class="ni ni-circle-08 opacity-6 text-dark me-1" aria-hidden="true"></i>
                                 Profil
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="#">
-                                <i class="ni ni-circle-08 opacity-6 text-dark me-1" aria-hidden="true"></i>
-                                Halo , <?= $this->session->userdata('nama_lengkap') ?>
                             </a>
                         </li>
                     </ul>

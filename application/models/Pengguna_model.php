@@ -71,4 +71,12 @@ class Pengguna_model extends CI_Model
 
         return $query->num_rows() > 0;
     }
+
+    public function email_ada($email)
+    {
+        $this->db->where('email', $email);
+        $query = $this->db->get('t_pengguna'); // Gantilah 't_users' dengan nama tabel pengguna yang sesuai
+
+        return $query->num_rows() > 0;
+    }
 }

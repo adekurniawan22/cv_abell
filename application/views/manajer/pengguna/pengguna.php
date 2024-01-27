@@ -28,6 +28,7 @@
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">No. HP</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Alamat</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Lokasi Pemasangan</th>
+                                    <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Lama Berlangganan</th>
                                     <th style="width: 10%;" class="text-uppercase text-xxs font-weight-bolder opacity-7">Status Akun</th>
                                     <th style="width: 15%;" class="text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
                                 </tr>
@@ -53,6 +54,22 @@
                                         <td>
                                             <p class="ms-3 text-sm font-weight-bold mb-0"><?= $p->lokasi ?></p>
                                         </td>
+                                        <td class="">
+                                            <?php if ($p->role == 'Pelanggan') : ?>
+                                                <?php
+                                                // Konversi tanggal_langganan ke objek DateTime
+                                                $tanggal_langganan = new DateTime($p->tanggal_langganan);
+
+                                                // Hitung selisih waktu
+                                                $waktu_sekarang = new DateTime();
+                                                $selisih = $tanggal_langganan->diff($waktu_sekarang);
+                                                ?>
+                                                <p class="ms-3 text-sm font-weight-bold mb-0"><?= $selisih->y . ' Tahun, ' . $selisih->m . ' Bulan, ' . $selisih->d . ' Hari'  ?></p>
+                                            <?php else : ?>
+                                                <span></span>
+                                            <?php endif; ?>
+                                        </td>
+
                                         <td class="">
                                             <?php if ($p->role == 'Pelanggan') : ?>
                                                 <?php if ($p->status_aktif == '1') : ?>
