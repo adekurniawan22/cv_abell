@@ -25,32 +25,47 @@
                                 <tbody>
                                     <?php foreach ($kuesioner as $k) : ?>
                                         <?php
-                                        $this->db->where('id_kuesioner', $k->id_kuesioner);
-                                        $this->db->where('id_pengguna', $this->session->userdata('id_pengguna'));
-                                        $query = $this->db->get('t_sudah_isi_form')->row();
+                                        $databaseDate = new DateTime($k->selesai);
 
-                                        if ($query) { ?>
-                                            <tr style="display: none;">
-                                            <?php } else { ?>
-                                            <tr>
-                                            <?php } ?>
-                                            <td>
-                                                <p class="ms-3 text-sm font-weight-bold mb-0"><?= $k->judul_kuesioner ?></p>
-                                            </td>
-                                            <td>
-                                                <p class="ms-3 text-sm font-weight-bold mb-0"><?= $k->mulai ?></p>
-                                            </td>
-                                            <td>
-                                                <p class="ms-3 text-sm font-weight-bold mb-0"><?= $k->selesai ?></p>
-                                            </td>
+                                        // Waktu zona Asia/Jakarta (Indonesia)
+                                        $timezone = new DateTimeZone('Asia/Jakarta');
 
-                                            <td class="align-middle">
-                                                <form action="<?= base_url() ?>pelanggan/isi-kuesioner" method="post" class="d-inline-block">
-                                                    <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                    <button type="submit" class="btn btn-primary px-3 mb-0"><i class="bi bi-arrow-right-square-fill me-2" aria-hidden="true"></i>ISI KUESIONER</button>
-                                                </form>
-                                            </td>
-                                            </tr>
+                                        // Set zona waktu objek DateTime
+                                        $databaseDate->setTimezone($timezone);
+
+                                        // Tanggal hari ini dalam zona waktu yang sama
+                                        $today = new DateTime('now', $timezone);
+
+                                        // Bandingkan tanggal dari database dengan tanggal hari ini
+                                        if ($databaseDate > $today) : ?>
+                                            <?php
+                                            $this->db->where('id_kuesioner', $k->id_kuesioner);
+                                            $this->db->where('id_pengguna', $this->session->userdata('id_pengguna'));
+                                            $query = $this->db->get('t_sudah_isi_form')->row();
+
+                                            if ($query) { ?>
+                                                <tr style="display: none;">
+                                                <?php } else { ?>
+                                                <tr>
+                                                <?php } ?>
+                                                <td>
+                                                    <p class="ms-3 text-sm font-weight-bold mb-0"><?= $k->judul_kuesioner ?></p>
+                                                </td>
+                                                <td>
+                                                    <p class="ms-3 text-sm font-weight-bold mb-0"><?= $k->mulai ?></p>
+                                                </td>
+                                                <td>
+                                                    <p class="ms-3 text-sm font-weight-bold mb-0"><?= $k->selesai ?></p>
+                                                </td>
+
+                                                <td class="align-middle">
+                                                    <form action="<?= base_url() ?>pelanggan/isi-kuesioner" method="post" class="d-inline-block">
+                                                        <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
+                                                        <button type="submit" class="btn btn-primary px-3 mb-0"><i class="bi bi-arrow-right-square-fill me-2" aria-hidden="true"></i>ISI KUESIONER</button>
+                                                    </form>
+                                                </td>
+                                                </tr>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
                                 </tbody>
                             </table>

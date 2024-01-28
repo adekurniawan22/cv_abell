@@ -4,6 +4,18 @@
             <div class="card mb-0">
                 <div class="card-body ">
                     <form action="<?= base_url() ?>profil/proses-edit-profil" method="post">
+                        <?php if ($pengguna->role == 'Pelanggan') : ?>
+                            <?php
+                            $tanggal_langganan = new DateTime($pengguna->tanggal_langganan);
+                            $waktu_sekarang = new DateTime();
+                            $selisih = $tanggal_langganan->diff($waktu_sekarang);
+                            ?>
+                            <div>
+                                <p><strong>Lokasi Server :</strong> <?= $pengguna->lokasi ?></p>
+                                <p><strong>Lama Berlangganan :</strong> <?= $selisih->y . ' Tahun, ' . $selisih->m . ' Bulan, ' . $selisih->d . ' Hari'  ?></p>
+                            </div>
+                            <hr class="bg-dark">
+                        <?php endif; ?>
                         <div class="form-group">
                             <label for="nama_lengkap" class="form-control-label">Nama Lengkap</label>
                             <input type="hidden" name="id_pengguna" value="<?= $pengguna->id_pengguna ?>">
@@ -34,20 +46,11 @@
                             <input class="form-control" type="text" placeholder="Nomor HP" id="no_hp" name="no_hp" value="<?php echo set_value('no_hp', $pengguna->no_hp); ?>">
                             <?= form_error('no_hp', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
+
                         <div class="form-group">
                             <label for="alamat" class="form-control-label">Alamat</label>
                             <textarea class="form-control" placeholder="Alamat" id="alamat" name="alamat" rows="3"><?php echo set_value('alamat', $pengguna->alamat); ?></textarea>
                             <?= form_error('alamat', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="lokasi" class="form-control-label">Lokasi</label>
-                            <select class="form-select" aria-label="Default select example" name="lokasi" id="lokasi">
-                                <option value="" selected>Pilih Lokasi</option>
-                                <option value="Bandung" <?php echo set_select('lokasi', "Bandung", $pengguna->lokasi == "Bandung"); ?>>Bandung</option>
-                                <option value="Jakarta" <?php echo set_select('lokasi', "Jakarta", $pengguna->lokasi == "Jakarta"); ?>>Jakarta</option>
-                                <option value="Surabaya" <?php echo set_select('lokasi', "Surabaya", $pengguna->lokasi == "Surabaya"); ?>>Surabaya</option>
-                            </select>
-                            <?= form_error('lokasi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
                         <div class="text-end mt-4">
                             <button class="btn btn-primary mb-0" type="submit">Edit</button>

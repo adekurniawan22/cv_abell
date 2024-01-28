@@ -156,7 +156,7 @@ class Auth extends CI_Controller
 		$reset_code = $this->input->get('code');
 		$expiry_time = $this->input->get('expiry');
 
-		if (!empty($reset_code) && !empty($expiry_time)) {
+		if (!empty($reset_code) && !empty($expiry_time) && !empty($hash_dari_url)) {
 			// Verifikasi reset code dan waktu kadaluarsa
 			if ($this->verify_reset_code($reset_code, $expiry_time)) {
 				// Reset code valid, tampilkan halaman reset password
@@ -170,9 +170,9 @@ class Auth extends CI_Controller
 				redirect(base_url());
 			}
 		} else {
-			$this->session->set_flashdata('message', '<strong>Code dan Expired Tidak ada</strong>
+			$this->session->set_flashdata('expired', '<strong>Alamat URL Salah</strong>
 			<i class="bi bi-exclamation-circle-fill"></i>');
-			redirect('reset-password');
+			redirect(base_url());
 		}
 	}
 

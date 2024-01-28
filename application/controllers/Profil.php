@@ -32,7 +32,6 @@ class Profil extends CI_Controller
 		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
 		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|trim|integer');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
-		$this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
 
 		if ($this->input->post('password_lama')) {
 			$this->form_validation->set_rules('password_lama', 'Password Lama', 'callback_check_current_password');
@@ -49,7 +48,6 @@ class Profil extends CI_Controller
 				'email' => $this->input->post('email'),
 				'no_hp' => $this->input->post('no_hp'),
 				'alamat' => $this->input->post('alamat'),
-				'lokasi' => $this->input->post('lokasi')
 			);
 
 			if ($this->input->post('password_lama')) {
@@ -61,11 +59,11 @@ class Profil extends CI_Controller
 			if ($result) {
 				$this->session->set_flashdata('message', '<strong>Profil Berhasil Diedit</strong>
 															<i class="bi bi-check-circle-fill"></i>');
-				redirect('pelanggan/dashboard');
+				redirect('profil');
 			} else {
 				$this->session->set_flashdata('message', '<strong>Profil Gagal Diedit</strong>
 													<i class="bi bi-exclamation-circle-fill"></i>');
-				redirect('pelanggan/dashboard');
+				redirect('profil');
 			}
 		}
 	}

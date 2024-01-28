@@ -245,6 +245,10 @@ class Pengguna extends CI_Controller
 		} else {
 			// Jika tidak ada kesalahan, lakukan operasi tambah data
 			foreach ($sheet->getRowIterator(2) as $row) {
+				$tanggal_langganan = $sheet->getCell('I' . $row->getRowIndex())->getFormattedValue();
+				$tanggal_langganan_obj = date_create_from_format('d/m/Y', $tanggal_langganan);
+				$tanggal_langganan_formatted = $tanggal_langganan_obj->format('Y-m-d');
+
 				// Data sekarang diperoleh dalam loop
 				$data1 = [
 					'role' => $sheet->getCell('A' . $row->getRowIndex())->getValue(),
@@ -255,6 +259,7 @@ class Pengguna extends CI_Controller
 					'password' => password_hash($sheet->getCell('F' . $row->getRowIndex())->getValue(), PASSWORD_DEFAULT),
 					'alamat' => $sheet->getCell('G' . $row->getRowIndex())->getValue(),
 					'lokasi' => $sheet->getCell('H' . $row->getRowIndex())->getValue(),
+					'tanggal_langganan' => $tanggal_langganan_formatted,
 				];
 				$this->Pengguna_model->tambah_pengguna($data1);
 				$countRows++;
@@ -296,6 +301,7 @@ class Pengguna extends CI_Controller
 		$this->form_validation->set_rules('role', 'Role', 'required');
 		if ($this->input->post('role') == "Pelanggan") {
 			$this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
+			$this->form_validation->set_rules('tanggal_langganan', 'Tanggal Mulai Berlangganan', 'required');
 		}
 		$status_aktif = ($this->input->post('status_aktif') == 'on') ? '1' : '0';
 
@@ -314,6 +320,7 @@ class Pengguna extends CI_Controller
 
 			if ($this->input->post('role') == "Pelanggan") {
 				$data['lokasi'] = $this->input->post('lokasi');
+				$data['tanggal_langganan'] = $this->input->post('tanggal_langganan');
 			}
 
 			$result = $this->Pengguna_model->edit_pengguna($this->input->post('id_pengguna'), $data);

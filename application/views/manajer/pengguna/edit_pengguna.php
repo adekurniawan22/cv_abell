@@ -11,6 +11,13 @@
                             </div>
                         </div>
 
+                        <?php if ($pengguna->role == 'Pelanggan') : ?>
+                            <div class="form-group">
+                                <label for="tanggal_langganan" class="form-control-label">Tanggal Mulai Berlangganan</label>
+                                <input class="form-control" type="date" id="tanggal_langganan" name="tanggal_langganan" value="<?php echo set_value('tanggal_langganan', $pengguna->tanggal_langganan); ?>">
+                                <?= form_error('tanggal_langganan', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+                            </div>
+                        <?php endif ?>
                         <div class="form-group">
                             <label for="nama_lengkap" class="form-control-label">Nama Lengkap</label>
                             <input type="hidden" name="id_pengguna" value="<?= $pengguna->id_pengguna ?>">
@@ -47,16 +54,18 @@
                             <textarea class="form-control" placeholder="Alamat" id="alamat" name="alamat" rows="3"><?php echo set_value('alamat', $pengguna->alamat); ?></textarea>
                             <?= form_error('alamat', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
-                        <div class="form-group" id="lokasi-form-group" style="display: none;">
-                            <label for="lokasi" class="form-control-label">Lokasi Pemasangan</label>
-                            <select class="form-select" aria-label="Default select example" name="lokasi" id="lokasi">
-                                <option value="" selected>Pilih Lokasi</option>
-                                <?php foreach ($lokasi as $l) : ?>
-                                    <option value="<?= $l->lokasi_server ?>" <?php echo set_select('lokasi', $l->lokasi_server, $pengguna->lokasi == $l->lokasi_server); ?>><?= $l->lokasi_server ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?= form_error('lokasi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                        </div>
+                        <?php if ($pengguna->role == 'Pelanggan') : ?>
+                            <div class="form-group" id="lokasi-form-group" style="display: none;">
+                                <label for="lokasi" class="form-control-label">Lokasi Pemasangan</label>
+                                <select class="form-select" aria-label="Default select example" name="lokasi" id="lokasi">
+                                    <option value="" selected>Pilih Lokasi</option>
+                                    <?php foreach ($lokasi as $l) : ?>
+                                        <option value="<?= $l->lokasi_server ?>" <?php echo set_select('lokasi', $l->lokasi_server, $pengguna->lokasi == $l->lokasi_server); ?>><?= $l->lokasi_server ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?= form_error('lokasi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+                            </div>
+                        <?php endif ?>
                         <div class="text-end mt-4">
                             <a href=" <?= base_url() ?>manajer/data-pengguna" class="btn btn-primary mb-0" type="button">Kembali</a>
                             <button class="btn btn-primary mb-0" type="submit">Edit</button>

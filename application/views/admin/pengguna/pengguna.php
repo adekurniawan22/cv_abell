@@ -20,7 +20,8 @@
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">No. HP</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Alamat</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Lokasi Pemasangan</th>
-                                    <th style="width: 10%;" class="text-uppercase text-xxs font-weight-bolder opacity-7">Status Akun</th>
+                                    <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Status Akun</th>
+                                    <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Lama Berlangganan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,6 +52,21 @@
                                                 <?php else : ?>
                                                     <span class="ms-3 badge badge-sm bg-gradient-danger">Tidak Aktif</span>
                                                 <?php endif; ?>
+                                            <?php else : ?>
+                                                <span></span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <?php if ($p->role == 'Pelanggan') : ?>
+                                                <?php
+                                                // Konversi tanggal_langganan ke objek DateTime
+                                                $tanggal_langganan = new DateTime($p->tanggal_langganan);
+
+                                                // Hitung selisih waktu
+                                                $waktu_sekarang = new DateTime();
+                                                $selisih = $tanggal_langganan->diff($waktu_sekarang);
+                                                ?>
+                                                <p class="ms-3 text-sm font-weight-bold mb-0"><?= $selisih->y . ' Tahun, ' . $selisih->m . ' Bulan, ' . $selisih->d . ' Hari'  ?></p>
                                             <?php else : ?>
                                                 <span></span>
                                             <?php endif; ?>
