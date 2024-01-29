@@ -1,6 +1,6 @@
 <footer class="footer pt-3  ">
     <div class="container-fluid">
-        <div class="row align-items-center justify-content-lg-between">
+        <!-- <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">
             </div>
             <div class="col-lg-6 text-sm text-muted text-lg-end">
@@ -9,7 +9,7 @@
                 </script>,
                 <span>Dibuat oleh <a href="https://www.facebook.com/resa.endrawan.56" target="_blank">Resa Endrawan</a></span>
             </div>
-        </div>
+        </div> -->
     </div>
 </footer>
 </div>
@@ -107,7 +107,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Apakah kamu yakin ingin logout?
+                Apakah anda yakin ingin logout?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Batalkan</button>

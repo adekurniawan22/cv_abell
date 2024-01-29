@@ -94,7 +94,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Apakah kamu yakin ingin menghapus <?= $pm->role ?> ini?
+                        Apakah anda yakin ingin menghapus <?= $pm->role ?> ini?
                     </div>
                     <div class="modal-footer">
                         <form action="<?= base_url() ?>manajer/proses-hapus-pengguna" method="post">

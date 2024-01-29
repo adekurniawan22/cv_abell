@@ -62,7 +62,7 @@ class Auth extends CI_Controller
 				} else {
 					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" style="color:white">
 		                <div class="d-flex justify-content-between align-items-center">
-		                    <strong>Password kamu salah!</strong>
+		                    <strong>Password salah, silahkan coba kembali</strong>
 		                    <i class="bi bi-exclamation-circle-fill"></i>
 		                </div>
 		                </div>');
@@ -88,7 +88,7 @@ class Auth extends CI_Controller
 			$_SESSION['role'],
 			$_SESSION['id_pengguna'],
 		);
-		$this->session->set_flashdata('logout', '<strong>Kamu berhasil Logout!</strong>
+		$this->session->set_flashdata('logout', '<strong>Anda berhasil Logout</strong>
 																<i class="bi bi-check-circle-fill"></i>');
 		redirect(base_url());
 	}

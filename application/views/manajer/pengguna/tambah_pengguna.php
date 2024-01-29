@@ -54,6 +54,11 @@
                             </select>
                             <?= form_error('lokasi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
+                        <div class="form-group" id="tanggal-langganan" style="display: none;">
+                            <label for="tanggal_langganan" class="form-control-label">Tanggal Mulai Berlangganan</label>
+                            <input class="form-control" type="date" placeholder="Tanggal Mulai Berlangganan" id="tanggal_langganan" name="tanggal_langganan" value="<?php echo set_value('tanggal_langganan'); ?>">
+                            <?= form_error('tanggal_langganan', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+                        </div>
                         <div class="text-end mt-4">
                             <a href=" <?= base_url() ?>manajer/data-pengguna" class="btn btn-primary mb-0" type="button">Kembali</a>
                             <button class="btn btn-primary mb-0" type="submit">Tambah</button>
@@ -69,13 +74,16 @@
         function handleRoleChange() {
             var roleSelect = document.getElementById('role');
             var lokasiFormGroup = document.getElementById('lokasi-form-group');
+            var tanggalLangganan = document.getElementById('tanggal-langganan');
 
             // Periksa apakah peran yang dipilih adalah "Pelanggan"
             if (roleSelect.value === 'Pelanggan') {
                 // Tampilkan form-group lokasi
+                tanggalLangganan.style.display = 'block';
                 lokasiFormGroup.style.display = 'block';
             } else {
                 // Sembunyikan form-group lokasi dan reset nilai
+                tanggalLangganan.style.display = 'none';
                 lokasiFormGroup.style.display = 'none';
                 document.getElementById('lokasi').value = '';
             }

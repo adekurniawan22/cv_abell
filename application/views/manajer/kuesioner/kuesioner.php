@@ -67,7 +67,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Apakah kamu yakin ingin menghapus Kuesioner Ini?
+                        Apakah anda yakin ingin menghapus Kuesioner Ini?
                     </div>
                     <div class="modal-footer">
                         <form action="<?= base_url() ?>kuesioner/proses_hapus_kuesioner" method="post">

@@ -51,6 +51,7 @@ class Pengguna extends CI_Controller
 		$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
 		if ($this->input->post('role') == "Pelanggan") {
 			$this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
+			$this->form_validation->set_rules('tanggal_langganan', 'Tanggal Mulai Berlangganan', 'required');
 		}
 
 		if ($this->form_validation->run() == false) {
@@ -69,7 +70,7 @@ class Pengguna extends CI_Controller
 			date_default_timezone_set('Asia/Jakarta');
 			if ($this->input->post('role') == "Pelanggan") {
 				$data['lokasi'] = $this->input->post('lokasi');
-				$data['tanggal_langganan'] = date('Y-m-d');
+				$data['tanggal_langganan'] = $this->input->post('tanggal_langganan');
 			}
 
 			$result = $this->Pengguna_model->tambah_pengguna($data);

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Jan 2024 pada 16.55
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.2.4
+-- Generation Time: Jan 28, 2024 at 10:51 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_jawaban`
+-- Table structure for table `t_jawaban`
 --
 
 CREATE TABLE `t_jawaban` (
@@ -35,10 +35,19 @@ CREATE TABLE `t_jawaban` (
   `id_pengguna` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `t_jawaban`
+--
+
+INSERT INTO `t_jawaban` (`id_jawaban`, `id_pernyataan`, `presepsi`, `ekspetasi`, `id_pengguna`) VALUES
+(34, 15, 'S', 'S', 142),
+(35, 16, 'S', 'TS', 142),
+(36, 17, 'SS', 'SS', 142);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_kuesioner`
+-- Table structure for table `t_kuesioner`
 --
 
 CREATE TABLE `t_kuesioner` (
@@ -49,10 +58,17 @@ CREATE TABLE `t_kuesioner` (
   `id_pengguna` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `t_kuesioner`
+--
+
+INSERT INTO `t_kuesioner` (`id_kuesioner`, `judul_kuesioner`, `mulai`, `selesai`, `id_pengguna`) VALUES
+(8, 'Kuesioner Kepuasan Pelanggan Periode 1', '2024-01-29', '2024-01-31', 155);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_lokasi_server`
+-- Table structure for table `t_lokasi_server`
 --
 
 CREATE TABLE `t_lokasi_server` (
@@ -61,7 +77,7 @@ CREATE TABLE `t_lokasi_server` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `t_lokasi_server`
+-- Dumping data for table `t_lokasi_server`
 --
 
 INSERT INTO `t_lokasi_server` (`id_lokasi_server`, `lokasi_server`) VALUES
@@ -74,7 +90,7 @@ INSERT INTO `t_lokasi_server` (`id_lokasi_server`, `lokasi_server`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_pengguna`
+-- Table structure for table `t_pengguna`
 --
 
 CREATE TABLE `t_pengguna` (
@@ -92,19 +108,18 @@ CREATE TABLE `t_pengguna` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `t_pengguna`
+-- Dumping data for table `t_pengguna`
 --
 
 INSERT INTO `t_pengguna` (`id_pengguna`, `role`, `nama_lengkap`, `username`, `email`, `no_hp`, `password`, `alamat`, `lokasi`, `status_aktif`, `tanggal_langganan`) VALUES
-(44, 'Admin', 'Admin 1', 'admin1', 'admin1@email.com', '081276543267', '$2y$10$cdyrgRChSlBoQyz/GnNOG.8n8qznV7I959vWcwOD1Nrec9qT2NU3y', 'Jalan Dago', 'PPPoE AbelNet', '1', '2020-01-22'),
-(45, 'Admin', 'Admin 2', 'admin2', 'admin2@email.com', '081274749545', '$2y$10$Pc3KBbe1yrqZIxLVyQt45ee/a.1ZebiTb8Qli3B0R4eMU5fkMA/W6', 'Jalan Coblong', 'PPPoE CIAMPEL', '1', '2020-01-22'),
-(46, 'Manajer', 'Manajer 1', 'manajer1', 'manajer1@email.com', '083171027936', '$2y$10$iZ1QAWAqVy2tkuUiGxKEaebA8X0bpx5vTo18NM3HFwRT/SoMNe3Qi', 'Jalan Jambi', 'PPPoE AbelNet', '1', '2020-01-22'),
-(47, 'Manajer', 'Manajer 2', 'manajer2', 'manajer2@email.com', '083171022222', '$2y$10$bJJsCPTm3gNochJZNGgPS.I027UhnBpmcUjwtYJOYC6c7cYTzp8IW', 'Jalan Cihampelas', 'PPPoE CIAMPEL', '1', '2020-01-22');
+(144, 'Manajer', 'Manajer Budi', 'manajer', 'resaendrawan@gmail.com', '0822222222', '$2y$10$cm7MU8rwUMAB3BNuYUqceefMOCWVWUJ80BeAyWe7kbKZBKJtPEHVK', 'Cikampek, Karawang', '', '1', NULL),
+(155, 'Admin', 'Resa Endrawan', 'admin', 'resaend13@gmail.com', '081234123411', '$2y$10$IffB197jTEXH6i0sCvJqR.mMbp.LxrlbsoouIqcMYm65peuwstZ9i', 'Cikampek', '', '1', NULL),
+(156, 'Pelanggan', 'Pelanggan', 'pelanggan', 'resaendr@gmail.com', '083745252342', '$2y$10$Dg9f6rImB/T19VzsEl0VTus343RioG/9XYhqn4jprRIWSy3BZbnkm', 'Cikampek', 'PPPoE AbelNet', '1', '2024-01-01');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_pernyataan`
+-- Table structure for table `t_pernyataan`
 --
 
 CREATE TABLE `t_pernyataan` (
@@ -113,10 +128,18 @@ CREATE TABLE `t_pernyataan` (
   `pernyataan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `t_pernyataan`
+--
+
+INSERT INTO `t_pernyataan` (`id_pernyataan`, `id_kuesioner`, `pernyataan`) VALUES
+(26, 8, 'Tempat yang strategis'),
+(27, 8, 'Layanan sesuai dengan harga yang diberikan');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_sudah_isi_form`
+-- Table structure for table `t_sudah_isi_form`
 --
 
 CREATE TABLE `t_sudah_isi_form` (
@@ -125,81 +148,88 @@ CREATE TABLE `t_sudah_isi_form` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `t_sudah_isi_form`
+--
+
+INSERT INTO `t_sudah_isi_form` (`id_kuesioner`, `id_pengguna`) VALUES
+(4, 142);
+
+--
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `t_jawaban`
+-- Indexes for table `t_jawaban`
 --
 ALTER TABLE `t_jawaban`
   ADD PRIMARY KEY (`id_jawaban`);
 
 --
--- Indeks untuk tabel `t_kuesioner`
+-- Indexes for table `t_kuesioner`
 --
 ALTER TABLE `t_kuesioner`
   ADD PRIMARY KEY (`id_kuesioner`);
 
 --
--- Indeks untuk tabel `t_lokasi_server`
+-- Indexes for table `t_lokasi_server`
 --
 ALTER TABLE `t_lokasi_server`
   ADD PRIMARY KEY (`id_lokasi_server`);
 
 --
--- Indeks untuk tabel `t_pengguna`
+-- Indexes for table `t_pengguna`
 --
 ALTER TABLE `t_pengguna`
   ADD PRIMARY KEY (`id_pengguna`),
   ADD KEY `id_role` (`role`);
 
 --
--- Indeks untuk tabel `t_pernyataan`
+-- Indexes for table `t_pernyataan`
 --
 ALTER TABLE `t_pernyataan`
   ADD PRIMARY KEY (`id_pernyataan`),
   ADD KEY `id_kuesioner` (`id_kuesioner`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `t_jawaban`
+-- AUTO_INCREMENT for table `t_jawaban`
 --
 ALTER TABLE `t_jawaban`
-  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT untuk tabel `t_kuesioner`
+-- AUTO_INCREMENT for table `t_kuesioner`
 --
 ALTER TABLE `t_kuesioner`
-  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `t_lokasi_server`
+-- AUTO_INCREMENT for table `t_lokasi_server`
 --
 ALTER TABLE `t_lokasi_server`
   MODIFY `id_lokasi_server` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `t_pengguna`
+-- AUTO_INCREMENT for table `t_pengguna`
 --
 ALTER TABLE `t_pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
--- AUTO_INCREMENT untuk tabel `t_pernyataan`
+-- AUTO_INCREMENT for table `t_pernyataan`
 --
 ALTER TABLE `t_pernyataan`
-  MODIFY `id_pernyataan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_pernyataan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `t_pernyataan`
+-- Constraints for table `t_pernyataan`
 --
 ALTER TABLE `t_pernyataan`
   ADD CONSTRAINT `t_pernyataan_ibfk_1` FOREIGN KEY (`id_kuesioner`) REFERENCES `t_kuesioner` (`id_kuesioner`) ON DELETE CASCADE ON UPDATE CASCADE;

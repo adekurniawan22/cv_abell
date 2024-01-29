@@ -19,7 +19,7 @@
                     </div>
                     <div class="mb-4">
                         <span>Keterangan:</span><br>
-                        <span>Berikan tanda ceklis (✓) pada kolom persepsi dan ekspektasi</span><br>
+                        <span>Isi kolom persepsi dan ekspektasi sesuai dengan yang anda rasakan terkait layanan perusahaan</span><br>
                         <span>STS = Sangat Tidak Setuju</span><br>
                         <span>TS = Tidak Setuju</span><br>
                         <span>C = Cukup</span><br>

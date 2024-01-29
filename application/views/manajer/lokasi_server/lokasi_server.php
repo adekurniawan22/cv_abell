@@ -60,7 +60,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Apakah kamu yakin ingin menghapus <?= $lm->lokasi_server ?>?
+                        Apakah anda yakin ingin menghapus <?= $lm->lokasi_server ?>?
                     </div>
                     <div class="modal-footer">
                         <form action="<?= base_url() ?>manajer/proses-hapus-lokasi-server" method="post">

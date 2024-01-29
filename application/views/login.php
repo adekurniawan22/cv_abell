@@ -31,6 +31,7 @@
                         <div class="col-xl-4 col-lg-5  col-md-7 mx-lg-0 mx-auto">
                             <div class="card card-plain">
                                 <div class="card-header pb-0 text-start">
+                                    <img src="<?= base_url() ?>assets/img/logoabell.png" alt="..." class="img-thumbnail rounded mx-auto d-block mb-6" width="200px" height="200px">
                                     <h4 class="font-weight-bolder">Login</h4>
                                 </div>
                                 <div class="card-body">
