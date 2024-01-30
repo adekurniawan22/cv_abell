@@ -105,6 +105,14 @@
             padding: 8px;
             text-align: center;
         }
+
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
     </style>
 </head>
 
@@ -115,7 +123,6 @@
         <nav class="navbar fixed-top navbar-expand-lg blur border-radius-lg top-0 z-index-3 mt-4 py-2 start-0 end-0 mx-4">
             <div class="container-fluid">
                 <a class="navbar-brand font-weight-bolder ms-lg-0 ms-2 " href="#">
-                    <!-- <img src="<?= base_url() ?>assets/img/logo.png" class="navbar-brand-img h-100 " style="width: 30px" alt="main_logo"> -->
                     CV. Abell
                 </a>
                 <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
@@ -127,7 +134,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="navbar-nav mx-auto">
-                        <?php if ($this->session->userdata('role') == 'Manajer') { ?>
+                        <?php if ($this->session->userdata('jabatan') == 'Manajer') { ?>
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/dashboard">
                                     <i class="fa fa-chart-pie opacity-6 text-dark me-1" aria-hidden="true"></i>
@@ -135,9 +142,15 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/data-pengguna">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/data-pegawai">
                                     <i class="bi bi-people-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
-                                    Data Pengguna
+                                    Data Pegawai
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/data-pelanggan">
+                                    <i class="bi bi-people-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Data Pelanggan
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -153,7 +166,7 @@
                                 </a>
                             </li>
                         <?php } ?>
-                        <?php if ($this->session->userdata('role') == 'Admin') { ?>
+                        <?php if ($this->session->userdata('jabatan') == 'Admin') { ?>
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>admin/dashboard">
                                     <i class="fa fa-chart-pie opacity-6 text-dark me-1" aria-hidden="true"></i>
@@ -161,9 +174,15 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>admin/data-pengguna">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>admin/data-pegawai">
                                     <i class="bi bi-people-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
-                                    Data Pengguna
+                                    Data Pegawai
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>admin/data-pelanggan">
+                                    <i class="bi bi-people-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Data Pelanggan
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -179,7 +198,7 @@
                                 </a>
                             </li>
                         <?php } ?>
-                        <?php if ($this->session->userdata('role') == 'Pelanggan') { ?>
+                        <?php if ($this->session->userdata('jabatan') == 'Pelanggan') { ?>
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>pelanggan/kuesioner">
                                     <i class="bi bi-file-text-fill opacity-6 text-dark me-1" aria-hidden="true"></i>

@@ -7,13 +7,13 @@ class Profil extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model('Pengguna_model');
+		$this->load->model('Pegawai_model');
 	}
 
 	public function index()
 	{
 		$data['title'] = 'Profil';
-		$data['pengguna'] = $this->Pengguna_model->dapat_satu_pengguna($this->session->userdata('id_pengguna'));
+		$data['pegawai'] = $this->Pegawai_model->dapat_satu_pegawai($this->session->userdata('id_pegawai'));
 		$this->load->view('templates/header', $data);
 		$this->load->view('manajer/profil/profil', $data);
 		$this->load->view('templates/footer');
@@ -21,13 +21,13 @@ class Profil extends CI_Controller
 
 	public function proses_edit_profil()
 	{
-		$check_data_user = $this->Pengguna_model->dapat_satu_pengguna($this->input->post('id_pengguna'));
+		$check_data_user = $this->Pegawai_model->dapat_satu_pegawai($this->input->post('id_pegawai'));
 
 		if ($this->input->post('username') != $check_data_user->username) {
-			$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[t_pengguna.username]');
+			$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[t_pegawai.username]');
 		}
 		if ($this->input->post('email') != $check_data_user->email) {
-			$this->form_validation->set_rules('email', 'email', 'required|trim|is_unique[t_pengguna.email]');
+			$this->form_validation->set_rules('email', 'email', 'required|trim|is_unique[t_pegawai.email]');
 		}
 		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
 		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|trim|integer');
@@ -54,7 +54,7 @@ class Profil extends CI_Controller
 				$data['password'] = password_hash($this->input->post('password_baru'), PASSWORD_DEFAULT);
 			}
 
-			$result = $this->Pengguna_model->edit_pengguna($this->input->post('id_pengguna'), $data);
+			$result = $this->Pegawai_model->edit_pegawai($this->input->post('id_pegawai'), $data);
 
 			if ($result) {
 				$this->session->set_flashdata('message', '<strong>Profil Berhasil Diedit</strong>
@@ -70,11 +70,11 @@ class Profil extends CI_Controller
 
 	public function check_current_password($current_password)
 	{
-		$id_pengguna = $this->session->userdata('id_pengguna'); // Gantilah dengan cara Anda menyimpan ID pengguna
+		$id_pegawai = $this->session->userdata('id_pegawai');
 		$db_password = $this->db
 			->select('password')
-			->where('id_pengguna', $id_pengguna)
-			->get('t_pengguna')
+			->where('id_pegawai', $id_pegawai)
+			->get('t_pegawai')
 			->row()
 			->password;
 

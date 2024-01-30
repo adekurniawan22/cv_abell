@@ -54,7 +54,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Hapus <?= $lm->lokasi_server ?></h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Hapus Lokasi Server</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -63,7 +63,7 @@
                         Apakah anda yakin ingin menghapus <?= $lm->lokasi_server ?>?
                     </div>
                     <div class="modal-footer">
-                        <form action="<?= base_url() ?>manajer/proses-hapus-lokasi-server" method="post">
+                        <form action="<?= base_url() ?>lokasi_server/proses_hapus_lokasi_server" method="post">
                             <input type="hidden" name="id_lokasi_server" value="<?= $lm->id_lokasi_server ?>">
                             <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Batalkan</button>
                             <button type="submit" class="btn bg-gradient-primary">Ya</button>

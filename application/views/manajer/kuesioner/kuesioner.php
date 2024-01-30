@@ -36,8 +36,8 @@
                                         </td>
                                         <td>
                                             <?php
-                                            $this->db->where('id_pengguna', $k->id_pengguna);
-                                            $data = $this->db->get('t_pengguna')->row();
+                                            $this->db->where('id_pegawai', $k->id_pegawai);
+                                            $data = $this->db->get('t_pegawai')->row();
                                             ?>
                                             <p class="ms-3 text-sm font-weight-bold mb-0"><?= $data->nama_lengkap ?></p>
                                         </td>
@@ -56,30 +56,6 @@
     </div>
 
     <?php foreach ($kuesioner as $km) : ?>
-        <!-- Modal Delete Akun -->
-        <div class="modal fade" id="modal_hapus_kuesioner<?= $km->id_kuesioner ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Hapus Kuesioner</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Apakah anda yakin ingin menghapus Kuesioner Ini?
-                    </div>
-                    <div class="modal-footer">
-                        <form action="<?= base_url() ?>kuesioner/proses_hapus_kuesioner" method="post">
-                            <input type="hidden" name="id_kuesioner" value="<?= $km->id_kuesioner ?>">
-                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Batalkan</button>
-                            <button type="submit" class="btn bg-gradient-primary">Ya</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Modal Detail Pernyataan -->
         <div class="modal fade" id="modal_detail_pernyataan<?= $km->id_kuesioner ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -95,11 +71,22 @@
                         $this->db->where('id_kuesioner', $km->id_kuesioner);
                         $query = $this->db->get('t_pernyataan')->result();
                         ?>
-                        <ul>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <th style="border: 1px solid #ddd; padding:10px;">Pernyataan</th>
+                                <th style="border: 1px solid #ddd; padding:10px;">Dimensi</th>
+                            </tr>
                             <?php foreach ($query as $q) : ?>
-                                <li><?= $q->pernyataan ?></li>
+                                <tr>
+                                    <td style="border: 1px solid #ddd; padding:10px;"><?= $q->pernyataan ?></td>
+                                    <?php foreach ($dimensi as $d) : ?>
+                                        <?php if ($d->id_dimensi == $q->id_dimensi) : ?>
+                                            <td style="border: 1px solid #ddd; padding:10px;"><?= $d->dimensi ?></td>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
+                                </tr>
                             <?php endforeach ?>
-                        </ul>
+                        </table>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">OK</button>

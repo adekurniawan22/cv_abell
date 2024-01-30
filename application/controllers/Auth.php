@@ -7,97 +7,93 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model('Pengguna_model');
-	}
-	public function login()
-	{
-		$data['title'] = 'Login';
-		$this->load->view('login', $data);
+		$this->load->model('Pegawai_model');
+		$this->load->model('Pelanggan_model');
 	}
 
-	public function lupa_password()
+	public function index()
 	{
-		$data['title'] = 'Login';
-		$this->load->view('lupa_password', $data);
+		$data['title'] = 'CV. Abell';
+		$this->load->view('index', $data);
 	}
 
-	public function proses_login()
+	public function login_pegawai()
 	{
-		$this->form_validation->set_rules('username_no_hp', 'Username / No Hp', 'required|trim|regex_match[/^[a-z0-9]+$/]');
+		$data['title'] = 'Login Pegawai';
+		$this->load->view('auth/pegawai/login', $data);
+	}
+
+	public function proses_login_pegawai()
+	{
+		$this->form_validation->set_rules('username_email', 'Username / Email', 'required|trim|regex_match[/^[a-z0-9]+$/]');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim');
 
 		if ($this->form_validation->run() == false) {
-			$this->login();
+			$this->login_pegawai();
 		} else {
-			$username = $this->input->post('username_no_hp');
+			$username = $this->input->post('username_email');
 			$password = $this->input->post('password');
 
 			$this->db->where('username', $username);
-			$this->db->or_where('no_hp', $username);
-			$user = $this->db->get('t_pengguna')->row_array();
+			$this->db->or_where('email', $username);
+			$user = $this->db->get('t_pegawai')->row_array();
 
 			if ($user) {
-				if ($user['status_aktif'] == 1 && password_verify($password, $user['password'])) {
+				if (password_verify($password, $user['password'])) {
 					$data = [
 						'username' => $user['username'],
 						'nama_lengkap' => $user['nama_lengkap'],
-						'role' => $user['role'],
-						'id_pengguna' => $user['id_pengguna']
+						'jabatan' => $user['jabatan'],
+						'id_pegawai' => $user['id_pegawai']
 					];
 					$this->session->set_userdata($data);
 					$this->session->set_flashdata('message', '<strong>Login Berhasil</strong>
 																<i class="bi bi-check-circle-fill"></i>');
 
-					switch ($user['role']) {
+					switch ($user['jabatan']) {
 						case 'Manajer':
 							redirect('manajer/dashboard');
 							break;
 						case 'Admin':
 							redirect('admin/dashboard');
 							break;
-						case 'Pelanggan':
-							redirect('pelanggan/kuesioner');
-							break;
 					}
 				} else {
-					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" style="color:white">
-		                <div class="d-flex justify-content-between align-items-center">
-		                    <strong>Password salah, silahkan coba kembali</strong>
-		                    <i class="bi bi-exclamation-circle-fill"></i>
-		                </div>
-		                </div>');
-					redirect(base_url());
+					$this->session->set_flashdata('message', '<strong>Password salah, silahkan coba lagi!</strong>
+		                    <i class="bi bi-exclamation-circle-fill"></i>');
+					redirect('login-pegawai');
 				}
 			} else {
-				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" style="color:white">
-		            <div class="d-flex justify-content-between align-items-center">
-						<strong>Akun tidak ditemukan!</strong>
-		                <i class="bi bi-exclamation-circle-fill"></i>
-		            </div>
-		            </div>');
-				redirect(base_url());
+				$this->session->set_flashdata('message', '<strong>Akun anda tidak ditemukan!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+				redirect('login-pegawai');
 			}
 		}
 	}
 
-	public function logout()
+	public function logout_pegawai()
 	{
 		unset(
 			$_SESSION['username'],
-			$_SESSION['nama'],
-			$_SESSION['role'],
-			$_SESSION['id_pengguna'],
+			$_SESSION['nama_lengkap'],
+			$_SESSION['jabatan'],
+			$_SESSION['id_pegawai'],
 		);
-		$this->session->set_flashdata('logout', '<strong>Anda berhasil Logout</strong>
-																<i class="bi bi-check-circle-fill"></i>');
-		redirect(base_url());
+		$this->session->set_flashdata('message', '<strong>Anda berhasil Logout</strong><i class="bi bi-check-circle-fill"></i>');
+		redirect('login-pegawai');
+	}
+
+	public function lupa_password()
+	{
+		$data['title'] = 'Lupa Password';
+		$this->load->view('auth/pegawai/lupa_password', $data);
 	}
 
 	public function send_reset_link()
 	{
 		$email = $this->input->post('email');
 
-		if ($this->Pengguna_model->email_ada($email)) {
+		if ($this->Pegawai_model->checkEmail($email)) {
 			$reset_code = bin2hex(random_bytes(16));
 			$expiry_time = time() + (20 * 60); // Waktu kadaluarsa 5 menit
 
@@ -119,10 +115,10 @@ class Auth extends CI_Controller
 		$this->load->library('email');
 
 		$this->db->where('email', $email);
-		$query = $this->db->get('t_pengguna')->result();
+		$query = $this->db->get('t_pegawai')->result();
 
 		$kunci_rahasia = "rahasia123";
-		$hash = urlencode($this->enkripsi($query[0]->id_pengguna, $kunci_rahasia));
+		$hash = urlencode($this->enkripsi($query[0]->id_pegawai, $kunci_rahasia));
 
 		$config = array(
 			'protocol'  => 'smtp',
@@ -157,30 +153,27 @@ class Auth extends CI_Controller
 		$expiry_time = $this->input->get('expiry');
 
 		if (!empty($reset_code) && !empty($expiry_time) && !empty($hash_dari_url)) {
-			// Verifikasi reset code dan waktu kadaluarsa
 			if ($this->verify_reset_code($reset_code, $expiry_time)) {
-				// Reset code valid, tampilkan halaman reset password
 				$data['hash'] = $hash_dari_url;
 				$data['reset_code'] = $reset_code;
 				$data['expiry_time'] = $expiry_time;
-				$this->load->view('reset_password', $data);
+				$this->load->view('auth/pegawai/reset_password', $data);
 			} else {
-				$this->session->set_flashdata('expired', '<strong>Email Reset Password Expired</strong>
+				$this->session->set_flashdata('message', '<strong>Email Reset Password Expired</strong>
 			<i class="bi bi-exclamation-circle-fill"></i>');
-				redirect(base_url());
+				redirect('login-pegawai');
 			}
 		} else {
-			$this->session->set_flashdata('expired', '<strong>Alamat URL Salah</strong>
+			$this->session->set_flashdata('message', '<strong>Alamat URL Salah</strong>
 			<i class="bi bi-exclamation-circle-fill"></i>');
-			redirect(base_url());
+			redirect('login-pegawai');
 		}
 	}
 
 	public function verify_reset_code($reset_code, $expiry_time)
 	{
-		// Verifikasi reset code dan waktu kadaluarsa
 		$current_time = time();
-		return ($current_time <= $expiry_time); // Verifikasi kadaluarsa
+		return ($current_time <= $expiry_time);
 	}
 
 	public function proses_reset_password()
@@ -205,28 +198,26 @@ class Auth extends CI_Controller
 			$hash_didekode = urldecode($hash_dari_url);
 			$hash = $this->dekripsi($hash_didekode, $kunci_rahasia);
 
-			$result = $this->Pengguna_model->edit_pengguna($hash, ['password' => password_hash($this->input->post('password_baru'), PASSWORD_DEFAULT)]);
+			$result = $this->Pegawai_model->edit_pegawai($hash, ['password' => password_hash($this->input->post('password_baru'), PASSWORD_DEFAULT)]);
 
 			if ($result) {
-				$this->session->set_flashdata('expired', '<strong>Reset Password Berhasil</strong>
+				$this->session->set_flashdata('message', '<strong>Reset Password Berhasil</strong>
 																<i class="bi bi-check-circle-fill"></i>');
 			} else {
-				$this->session->set_flashdata('expired', '<strong>Reset Password Gagal</strong>
+				$this->session->set_flashdata('message', '<strong>Reset Password Gagal</strong>
 																<i class="bi bi-exclamation-circle-fill"></i>');
 			}
-			redirect(base_url());
+			redirect('login-pegawai');
 		}
 	}
 
 	function enkripsi($pesan, $kunci)
 	{
 		$method = 'aes-256-cbc';
-		$iv_length = 16; // Set panjang IV menjadi 16 byte
+		$iv_length = 16;
 		$iv = openssl_random_pseudo_bytes($iv_length);
 
 		$enkripsi = openssl_encrypt($pesan, $method, $kunci, 0, $iv);
-
-		// Gabungkan IV dan teks terenkripsi untuk disimpan
 		$teks_terenkripsi = $iv . $enkripsi;
 
 		return base64_encode($teks_terenkripsi);
@@ -236,7 +227,7 @@ class Auth extends CI_Controller
 	{
 		$method = 'aes-256-cbc';
 		$teks_terdekripsi = base64_decode($teks_terenkripsi);
-		$iv_length = 16; // Set panjang IV menjadi 16 byte
+		$iv_length = 16;
 		$iv = substr($teks_terdekripsi, 0, $iv_length);
 		$pesan_terdekripsi = openssl_decrypt(substr($teks_terdekripsi, $iv_length), $method, $kunci, 0, $iv);
 

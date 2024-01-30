@@ -4,27 +4,15 @@
             <div class="card mb-0">
                 <div class="card-body ">
                     <form action="<?= base_url() ?>profil/proses-edit-profil" method="post">
-                        <?php if ($pengguna->role == 'Pelanggan') : ?>
-                            <?php
-                            $tanggal_langganan = new DateTime($pengguna->tanggal_langganan);
-                            $waktu_sekarang = new DateTime();
-                            $selisih = $tanggal_langganan->diff($waktu_sekarang);
-                            ?>
-                            <div>
-                                <p><strong>Lokasi Server :</strong> <?= $pengguna->lokasi ?></p>
-                                <p><strong>Lama Berlangganan :</strong> <?= $selisih->y . ' Tahun, ' . $selisih->m . ' Bulan, ' . $selisih->d . ' Hari'  ?></p>
-                            </div>
-                            <hr class="bg-dark">
-                        <?php endif; ?>
                         <div class="form-group">
                             <label for="nama_lengkap" class="form-control-label">Nama Lengkap</label>
-                            <input type="hidden" name="id_pengguna" value="<?= $pengguna->id_pengguna ?>">
-                            <input class="form-control" type="text" placeholder="Nama Lengkap" id="nama_lengkap" name="nama_lengkap" value="<?php echo set_value('nama_lengkap', $pengguna->nama_lengkap); ?>">
+                            <input type="hidden" name="id_pegawai" value="<?= $pegawai->id_pegawai ?>">
+                            <input class="form-control" type="text" placeholder="Nama Lengkap" id="nama_lengkap" name="nama_lengkap" value="<?php echo set_value('nama_lengkap', $pegawai->nama_lengkap); ?>">
                             <?= form_error('nama_lengkap', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
                         <div class="form-group">
                             <label for="username" class="form-control-label">Username</label>
-                            <input class="form-control" type="text" placeholder="Username" id="username" name="username" value="<?php echo set_value('username', $pengguna->username); ?>">
+                            <input class="form-control" type="text" placeholder="Username" id="username" name="username" value="<?php echo set_value('username', $pegawai->username); ?>">
                             <?= form_error('username', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
                         <div class="form-group">
@@ -38,18 +26,18 @@
                         </div>
                         <div class="form-group">
                             <label for="email" class="form-control-label">Email</label>
-                            <input class="form-control" type="text" placeholder="Email" id="email" name="email" value="<?php echo set_value('email', $pengguna->email); ?>">
+                            <input class="form-control" type="text" placeholder="Email" id="email" name="email" value="<?php echo set_value('email', $pegawai->email); ?>">
                             <?= form_error('email', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
                         <div class="form-group">
                             <label for="no_hp" class="form-control-label">Nomor HP</label>
-                            <input class="form-control" type="text" placeholder="Nomor HP" id="no_hp" name="no_hp" value="<?php echo set_value('no_hp', $pengguna->no_hp); ?>">
+                            <input class="form-control" type="text" placeholder="Nomor HP" id="no_hp" name="no_hp" value="<?php echo set_value('no_hp', $pegawai->no_hp); ?>">
                             <?= form_error('no_hp', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
 
                         <div class="form-group">
                             <label for="alamat" class="form-control-label">Alamat</label>
-                            <textarea class="form-control" placeholder="Alamat" id="alamat" name="alamat" rows="3"><?php echo set_value('alamat', $pengguna->alamat); ?></textarea>
+                            <textarea class="form-control" placeholder="Alamat" id="alamat" name="alamat" rows="3"><?php echo set_value('alamat', $pegawai->alamat); ?></textarea>
                             <?= form_error('alamat', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
                         <div class="text-end mt-4">

@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card mb-0">
                 <div class="card-body ">
-                    <form action="<?= base_url() ?>profil/proses-edit-profil" method="post">
+                    <form action="<?= base_url() ?>manajer/proses-edit-pegawai" method="post">
                         <div class="form-group">
                             <label for="nama_lengkap" class="form-control-label">Nama Lengkap</label>
                             <input type="hidden" name="id_pegawai" value="<?= $pegawai->id_pegawai ?>">
@@ -16,15 +16,6 @@
                             <?= form_error('username', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
                         <div class="form-group">
-                            <label for="password" class="form-control-label">Password</label>
-                            <input class="form-control" type="password" placeholder="Masukkan Password Lama" id="password_lama" name="password_lama" value="<?php echo set_value('password_lama'); ?>">
-                            <?= form_error('password_lama', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                            <input class="form-control mt-3" type="password" placeholder="Masukkan Password Baru" id="password_baru" name="password_baru" value="<?php echo set_value('password_baru'); ?>">
-                            <?= form_error('password_baru', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                            <input class="form-control mt-3" type="password" placeholder="Masukkan Konfirmasi Password Baru" id="konfirmasi_password" name="konfirmasi_password" value="<?php echo set_value('konfirmasi_password'); ?>">
-                            <?= form_error('konfirmasi_password', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                        </div>
-                        <div class="form-group">
                             <label for="email" class="form-control-label">Email</label>
                             <input class="form-control" type="text" placeholder="Email" id="email" name="email" value="<?php echo set_value('email', $pegawai->email); ?>">
                             <?= form_error('email', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
@@ -34,13 +25,13 @@
                             <input class="form-control" type="text" placeholder="Nomor HP" id="no_hp" name="no_hp" value="<?php echo set_value('no_hp', $pegawai->no_hp); ?>">
                             <?= form_error('no_hp', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
-
                         <div class="form-group">
                             <label for="alamat" class="form-control-label">Alamat</label>
                             <textarea class="form-control" placeholder="Alamat" id="alamat" name="alamat" rows="3"><?php echo set_value('alamat', $pegawai->alamat); ?></textarea>
                             <?= form_error('alamat', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
                         <div class="text-end mt-4">
+                            <a href=" <?= base_url() ?>manajer/data-pegawai" class="btn btn-primary mb-0" type="button">Kembali</a>
                             <button class="btn btn-primary mb-0" type="submit">Edit</button>
                         </div>
                     </form>

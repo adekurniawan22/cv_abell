@@ -10,7 +10,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Pelanggan</p>
                     <h5 class="font-weight-bolder">
-                      <?= $jumlah_pengguna ?>
+                      <?= $jumlah_pelanggan ?>
                     </h5>
                   </div>
                 </div>
@@ -31,7 +31,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Pelanggan Aktif</p>
                     <h5 class="font-weight-bolder">
-                      <?= $jumlah_pengguna_aktif ?>
+                      <?= $jumlah_pelanggan_aktif ?>
                     </h5>
                   </div>
                 </div>
@@ -52,7 +52,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Pelanggan Tidak Aktif</p>
                     <h5 class="font-weight-bolder">
-                      <?= $jumlah_pengguna_tidak_aktif ?>
+                      <?= $jumlah_pelanggan_tidak_aktif ?>
                     </h5>
                   </div>
                 </div>

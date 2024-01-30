@@ -7,15 +7,15 @@ class Dashboard extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model('Pengguna_model');
+		$this->load->model('Pelanggan_model');
 	}
 
 	public function dashboard_manajer()
 	{
 		$data['title'] = 'Dashboard Manajer';
-		$data['jumlah_pengguna'] = $this->Pengguna_model->jumlah_pengguna();
-		$data['jumlah_pengguna_aktif'] = $this->Pengguna_model->jumlah_pengguna_aktif();
-		$data['jumlah_pengguna_tidak_aktif'] = $this->Pengguna_model->jumlah_pengguna_tidak_aktif();
+		$data['jumlah_pelanggan'] = $this->Pelanggan_model->jumlah_pelanggan();
+		$data['jumlah_pelanggan_aktif'] = $this->Pelanggan_model->jumlah_pelanggan_aktif();
+		$data['jumlah_pelanggan_tidak_aktif'] = $this->Pelanggan_model->jumlah_pelanggan_tidak_aktif();
 		$this->load->view('templates/header', $data);
 		$this->load->view('manajer/dashboard', $data);
 		$this->load->view('templates/footer');
@@ -24,9 +24,9 @@ class Dashboard extends CI_Controller
 	public function dashboard_admin()
 	{
 		$data['title'] = 'Dashboard Admin';
-		$data['jumlah_pengguna'] = $this->Pengguna_model->jumlah_pengguna();
-		$data['jumlah_pengguna_aktif'] = $this->Pengguna_model->jumlah_pengguna_aktif();
-		$data['jumlah_pengguna_tidak_aktif'] = $this->Pengguna_model->jumlah_pengguna_tidak_aktif();
+		$data['jumlah_pelanggan'] = $this->Pelanggan_model->jumlah_pelanggan();
+		$data['jumlah_pelanggan_aktif'] = $this->Pelanggan_model->jumlah_pelanggan_aktif();
+		$data['jumlah_pelanggan_tidak_aktif'] = $this->Pelanggan_model->jumlah_pelanggan_tidak_aktif();
 		$this->load->view('templates/header', $data);
 		$this->load->view('admin/dashboard', $data);
 		$this->load->view('templates/footer');

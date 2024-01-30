@@ -8,26 +8,25 @@
                             <label for="judul_kuesioner" class="form-control-label">Judul Kuesioner</label>
                             <input class="form-control" type="text" placeholder="Judul Kuesioner" id="judul_kuesioner" name="judul_kuesioner" required oninvalid="this.setCustomValidity('Harap isi judul kesioner ini.')" oninput="setCustomValidity('')">
                         </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="mulai" class="form-control-label">Tanggal Mulai Kuesioner</label>
-                                    <input class="form-control" type="date" id="mulai" name="mulai" required oninvalid="setCustomValidity('Harap isi tanggal mulai kuesioner')" oninput="setCustomValidity('')">
-                                </div>
-                                <div class="col-6">
-                                    <label for="selesai" class="form-control-label">Tanggal Selesai Kuesioner</label>
-                                    <input class="form-control" type="date" id="selesai" name="selesai" required oninvalid="setCustomValidity('Harap isi tanggal selesai kuesioner')" oninput="setCustomValidity('')">
-                                    <span id="errorMessage" style="display: none; font-size:12px; color:red" class="pt-2">Tanggal Selesai Tidak Boleh Melewati Tanggal Mulai</span>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="horizontal bg-dark mt-4">
 
                         <!-- Container untuk input pernyataan -->
                         <div id="container-pernyataan">
                             <div class="form-group">
-                                <label for="pernyataan" class="form-control-label">Pernyataan 1</label>
-                                <input class="form-control" type="text" placeholder="Pernyataan 1" id="pernyataan" name="pernyataan[]" required oninvalid="this.setCustomValidity('Harap isi pernyataan ini.')" oninput="setCustomValidity('')">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <label for="pernyataan" class="form-control-label">Pernyataan 1</label>
+                                        <input class="form-control" type="text" placeholder="Pernyataan 1" id="pernyataan" name="pernyataan[]" required oninvalid="this.setCustomValidity('Harap isi pernyataan ini.')" oninput="setCustomValidity('')">
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="dimensi" class="form-control-label">Dimensi</label>
+                                        <select class="form-select" aria-label="Default select example" name="dimensi[]" id="dimensi" required oninvalid="this.setCustomValidity('Harap isi dimensi ini.')" oninput="setCustomValidity('')">
+                                            <option value="" selected>Pilih Dimensi</option>
+                                            <?php foreach ($dimensi as $d) : ?>
+                                                <option value=" <?= $d->id_dimensi ?>"><?= $d->dimensi ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <button class="btn btn-success mb-2" type="button" onclick="tambahPernyataan()">+ Tambah Pernyataan</button>
@@ -52,11 +51,23 @@
             // Buat elemen input pertanyaan baru
             let newInput = document.createElement('div');
             newInput.innerHTML = `
-                <div class="form-group">
-                    <label for="pernyataan" class="form-control-label">Pernyataan ${counter}</label>
-                    <input class="form-control" type="text" placeholder="Pernyataan ${counter}" id="pernyataan" name="pernyataan[]" required oninvalid="this.setCustomValidity('Harap isi pertanyaan ini.')" oninput="setCustomValidity('')">
-                    <?= form_error('pernyataan[]', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-9">
+                        <label for="pernyataan" class="form-control-label">Pernyataan ${counter}</label>
+                        <input class="form-control" type="text" placeholder="Pernyataan ${counter}" id="pernyataan" name="pernyataan[]" required oninvalid="this.setCustomValidity('Harap isi pernyataan ini.')" oninput="setCustomValidity('')">
+                    </div>
+                    <div class="col-3">
+                        <label for="dimensi" class="form-control-label">Dimensi</label>
+                        <select class="form-select" aria-label="Default select example" name="dimensi[]" id="dimensi" required oninvalid="this.setCustomValidity('Harap isi dimensi ini.')" oninput="setCustomValidity('')">
+                            <option value="" selected>Pilih Dimensi</option>
+                            <?php foreach ($dimensi as $d) : ?>
+                                <option value=" <?= $d->id_dimensi ?>"><?= $d->dimensi ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </div>
+            </div>
 `;
 
             // Tambahkan elemen input pertanyaan ke dalam container
