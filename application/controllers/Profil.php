@@ -8,18 +8,20 @@ class Profil extends CI_Controller
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('Pegawai_model');
+		$this->load->model('Pelanggan_model');
 	}
 
 	public function index()
 	{
 		$data['title'] = 'Profil';
 		$data['pegawai'] = $this->Pegawai_model->dapat_satu_pegawai($this->session->userdata('id_pegawai'));
+		$data['pelanggan'] = $this->Pelanggan_model->dapat_satu_pelanggan($this->session->userdata('id_pelanggan'));
 		$this->load->view('templates/header', $data);
-		$this->load->view('manajer/profil/profil', $data);
+		$this->load->view('profil/profil', $data);
 		$this->load->view('templates/footer');
 	}
 
-	public function proses_edit_profil()
+	public function proses_edit_profil_pegawai()
 	{
 		$check_data_user = $this->Pegawai_model->dapat_satu_pegawai($this->input->post('id_pegawai'));
 
@@ -55,6 +57,39 @@ class Profil extends CI_Controller
 			}
 
 			$result = $this->Pegawai_model->edit_pegawai($this->input->post('id_pegawai'), $data);
+
+			if ($result) {
+				$this->session->set_flashdata('message', '<strong>Profil Berhasil Diedit</strong>
+															<i class="bi bi-check-circle-fill"></i>');
+				redirect('profil');
+			} else {
+				$this->session->set_flashdata('message', '<strong>Profil Gagal Diedit</strong>
+													<i class="bi bi-exclamation-circle-fill"></i>');
+				redirect('profil');
+			}
+		}
+	}
+
+	public function proses_edit_profil_pelanggan()
+	{
+		$check_data_user = $this->Pelanggan_model->dapat_satu_pelanggan($this->input->post('id_pelanggan'));
+
+		if ($this->input->post('no_hp') != $check_data_user->no_hp) {
+			$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|trim|integer|is_unique[t_pelanggan.no_hp]');
+		}
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+
+		if ($this->form_validation->run() == false) {
+			$this->index();
+		} else {
+			$data = array(
+				'nama_lengkap' => $this->input->post('nama_lengkap'),
+				'no_hp' => $this->input->post('no_hp'),
+				'alamat' => $this->input->post('alamat'),
+			);
+
+			$result = $this->Pelanggan_model->edit_pelanggan($this->input->post('id_pelanggan'), $data);
 
 			if ($result) {
 				$this->session->set_flashdata('message', '<strong>Profil Berhasil Diedit</strong>

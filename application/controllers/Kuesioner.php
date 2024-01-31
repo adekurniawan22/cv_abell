@@ -31,6 +31,11 @@ class Kuesioner extends CI_Controller
 			$this->load->view('admin/kuesioner/kuesioner', $data);
 			$this->load->view('templates/footer');
 		} else if ($this->session->userdata('jabatan') == 'Pelanggan') {
+
+			$today = date('Y-m-d');
+			$this->db->where('selesai >', $today);
+			$data['kuesioner_pelanggan'] = $this->db->get('t_kuesioner')->result();
+
 			$this->load->view('templates/header', $data);
 			$this->load->view('pelanggan/kuesioner/kuesioner', $data);
 			$this->load->view('templates/footer');

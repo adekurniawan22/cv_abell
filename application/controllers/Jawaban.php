@@ -7,15 +7,15 @@ class Jawaban extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model('Kuesioner_model');
-		$this->load->model('Pengguna_model');
+		$this->load->model('Pernyataan_model');
+		$this->load->model('Pelanggan_model');
 		$this->load->model('Jawaban_model');
 	}
 
 	public function tambah_jawaban()
 	{
-		$data['pengguna'] = $this->Pengguna_model->dapat_satu_pengguna($this->session->userdata('id_pengguna'));
-		$data['pernyataan'] = $this->Kuesioner_model->dapat_pernyataan($this->input->post('id_kuesioner'));
+		$data['pelanggan'] = $this->Pelanggan_model->dapat_satu_pelanggan($this->session->userdata('id_pelanggan'));
+		$data['pernyataan'] = $this->Pernyataan_model->dapat_pernyataan($this->input->post('id_kuesioner'));
 		$data['title'] = 'Isi Kuesioner';
 		$this->load->view('templates/header', $data);
 		$this->load->view('pelanggan/kuesioner/tambah_jawaban', $data);
@@ -24,7 +24,7 @@ class Jawaban extends CI_Controller
 
 	public function proses_tambah_jawaban()
 	{
-		$data = $this->Kuesioner_model->dapat_pernyataan($this->input->post('id_kuesioner'));
+		$data = $this->Pernyataan_model->dapat_pernyataan($this->input->post('id_kuesioner'));
 
 		$jumlah_pertanyaan = count($data);
 
@@ -47,21 +47,22 @@ class Jawaban extends CI_Controller
 					$ekspetasi = $_POST[$key2];
 
 					$data_jawaban = [
+						'id_kuesioner' => $this->input->post('id_kuesioner'),
 						'id_pernyataan' => $data[$i]->id_pernyataan,
 						'presepsi' => $presepsi,
 						'ekspetasi' => $ekspetasi,
-						'id_pengguna' => $this->session->userdata('id_pengguna'),
+						'id_pelanggan' => $this->session->userdata('id_pelanggan'),
 					];
 					$this->Jawaban_model->tambah_jawaban($data_jawaban);
 
 					$this->session->set_flashdata('message', '<strong>Pengisian Kuesioner Berhasil, Terimaksih Atas Waktu Anda</strong>
 											<i class="bi bi-check-circle-fill"></i>');
 				}
-				$data_sudah_isi_form = [
+				$data_sudah_isi_kuesioner = [
 					'id_kuesioner' => $this->input->post('id_kuesioner'),
-					'id_pengguna' => $this->session->userdata('id_pengguna')
+					'id_pelanggan' => $this->session->userdata('id_pelanggan')
 				];
-				$this->db->insert('t_sudah_isi_form', $data_sudah_isi_form);
+				$this->db->insert('t_sudah_isi_kuesioner', $data_sudah_isi_kuesioner);
 			} catch (Exception $e) {
 				$this->session->set_flashdata('message', '<strong>Pengisian Kuesioner Berhasil Gagal, Silahkan coba ulang</strong>
 											<i class="bi bi-exclamation-circle-fill"></i>');

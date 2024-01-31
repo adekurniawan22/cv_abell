@@ -103,4 +103,5 @@ $route['pelanggan/proses-isi-kuesioner'] = 'jawaban/proses_tambah_jawaban';
 
 // Route Profil
 $route['profil'] = 'profil/index';
-$route['profil/proses-edit-profil'] = 'profil/proses_edit_profil';
+$route['profil/proses-edit-profil-pegawai'] = 'profil/proses_edit_profil_pegawai';
+$route['profil/proses-edit-profil_pelanggan'] = 'profil/proses_edit_profil_pelanggan';

@@ -50,9 +50,24 @@
                                             $mulai_berlangganan = new DateTime($p->mulai_berlangganan);
                                             $waktu_sekarang = new DateTime();
                                             $selisih = $mulai_berlangganan->diff($waktu_sekarang);
+
+                                            // Menampilkan Tahun jika Tahun tidak sama dengan 0
+                                            if ($selisih->y !== 0) {
+                                                echo $selisih->y . ' Tahun, ';
+                                            }
+
+                                            // Menampilkan Bulan jika Bulan tidak sama dengan 0
+                                            if ($selisih->m !== 0) {
+                                                echo $selisih->m . ' Bulan, ';
+                                            }
+
+                                            // Menampilkan Hari jika Hari tidak sama dengan 0
+                                            if ($selisih->d !== 0) {
+                                                echo $selisih->d . ' Hari';
+                                            }
                                             ?>
-                                            <p class="ms-3 text-sm font-weight-bold mb-0"><?= $selisih->y . ' Tahun, ' . $selisih->m . ' Bulan, ' . $selisih->d . ' Hari'  ?></p>
                                         </td>
+
                                         <td>
                                             <?php foreach ($pegawai as $peg) : ?>
                                                 <?php if ($peg->id_pegawai == $p->id_pegawai) : ?>

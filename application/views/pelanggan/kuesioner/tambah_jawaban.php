@@ -6,17 +6,45 @@
                     <div class="mb-4">
                         <?php
                         // Konversi tanggal_langganan ke objek DateTime
-                        $tanggal_langganan = new DateTime($pengguna->tanggal_langganan);
+                        $tanggal_langganan = new DateTime($pelanggan->mulai_berlangganan);
 
                         // Hitung selisih waktu
                         $waktu_sekarang = new DateTime();
                         $selisih = $tanggal_langganan->diff($waktu_sekarang);
                         ?>
                         <p class="text-sm font-weight-bold mb-0"></p>
-                        <p><b>Nama Lengkap :</b> <?= $pengguna->nama_lengkap ?></p>
-                        <p><b>Lama Berlangganan :</b> <?= $selisih->y . ' Tahun, ' . $selisih->m . ' Bulan, ' . $selisih->d . ' Hari'  ?></p>
-                        <p><b>Lokasi PPPoE :</b> <?= $pengguna->lokasi ?></p>
+                        <p><b>Nama Lengkap :</b> <?= $pelanggan->nama_lengkap ?></p>
+
+                        <?php
+                        // Menampilkan informasi lama berlangganan hanya jika ada nilai yang tidak nol
+                        if ($selisih->y !== 0 || $selisih->m !== 0 || $selisih->d !== 0) {
+                        ?>
+                            <p><b>Lama Berlangganan :</b>
+                                <?php
+                                // Menampilkan Tahun jika Tahun tidak sama dengan 0
+                                if ($selisih->y !== 0) {
+                                    echo $selisih->y . ' Tahun, ';
+                                }
+
+                                // Menampilkan Bulan jika Bulan tidak sama dengan 0
+                                if ($selisih->m !== 0) {
+                                    echo $selisih->m . ' Bulan, ';
+                                }
+
+                                // Menampilkan Hari jika Hari tidak sama dengan 0
+                                if ($selisih->d !== 0) {
+                                    echo $selisih->d . ' Hari';
+                                }
+                                ?>
+                            </p>
+                        <?php
+                        }
+
+                        // Menampilkan Lokasi PPPoE
+                        ?>
+                        <p><b>Lokasi PPPoE :</b> <?= $pelanggan->lokasi_server ?></p>
                     </div>
+
                     <div class="mb-4">
                         <span>Keterangan:</span><br>
                         <span>Isi kolom persepsi dan ekspektasi sesuai dengan yang anda rasakan terkait layanan perusahaan</span><br>
@@ -64,27 +92,27 @@
                                             <!-- Presepsi -->
                                             <td class="text-center">
                                                 <div class="form-check d-inline-block">
-                                                    <input class="form-check-input" type="radio" name="presepsi<?= $i ?>" id="customRadio1" value="STS" <?php echo set_radio("presepsi{$i}", 'STS'); ?>>
+                                                    <input class="form-check-input" type="radio" name="presepsi<?= $i ?>" id="customRadio1" value="1" <?php echo set_radio("presepsi{$i}", '1'); ?>>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-check d-inline-block">
-                                                    <input class="form-check-input" type="radio" name="presepsi<?= $i ?>" id="customRadio1" value="TS" <?php echo set_radio("presepsi{$i}", 'TS'); ?>>
+                                                    <input class="form-check-input" type="radio" name="presepsi<?= $i ?>" id="customRadio1" value="2" <?php echo set_radio("presepsi{$i}", '2'); ?>>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-check d-inline-block">
-                                                    <input class="form-check-input" type="radio" name="presepsi<?= $i ?>" id="customRadio1" value="C" <?php echo set_radio("presepsi{$i}", 'C'); ?>>
+                                                    <input class="form-check-input" type="radio" name="presepsi<?= $i ?>" id="customRadio1" value="3" <?php echo set_radio("presepsi{$i}", '3'); ?>>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-check d-inline-block">
-                                                    <input class="form-check-input" type="radio" name="presepsi<?= $i ?>" id="customRadio1" value="S" <?php echo set_radio("presepsi{$i}", 'S'); ?>>
+                                                    <input class="form-check-input" type="radio" name="presepsi<?= $i ?>" id="customRadio1" value="4" <?php echo set_radio("presepsi{$i}", '4'); ?>>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-check d-inline-block">
-                                                    <input class="form-check-input" type="radio" name="presepsi<?= $i ?>" id="customRadio1" value="SS" <?php echo set_radio("presepsi{$i}", 'SS'); ?>>
+                                                    <input class="form-check-input" type="radio" name="presepsi<?= $i ?>" id="customRadio1" value="5" <?php echo set_radio("presepsi{$i}", '5'); ?>>
                                                 </div>
                                             </td>
                                             <!-- End Presepsi -->
@@ -92,27 +120,27 @@
                                             <!-- ekspetasi -->
                                             <td>
                                                 <div class="form-check d-inline-block">
-                                                    <input class="form-check-input" type="radio" name="ekspetasi<?= $i ?>" id="customRadio1" value="STS" <?php echo set_radio("ekspetasi{$i}", 'STS'); ?>>
+                                                    <input class="form-check-input" type="radio" name="ekspetasi<?= $i ?>" id="customRadio1" value="1" <?php echo set_radio("ekspetasi{$i}", '1'); ?>>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-check d-inline-block">
-                                                    <input class="form-check-input" type="radio" name="ekspetasi<?= $i ?>" id="customRadio1" value="TS" <?php echo set_radio("ekspetasi{$i}", 'TS'); ?>>
+                                                    <input class="form-check-input" type="radio" name="ekspetasi<?= $i ?>" id="customRadio1" value="2" <?php echo set_radio("ekspetasi{$i}", '2'); ?>>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-check d-inline-block">
-                                                    <input class="form-check-input" type="radio" name="ekspetasi<?= $i ?>" id="customRadio1" value="C" <?php echo set_radio("ekspetasi{$i}", 'C'); ?>>
+                                                    <input class="form-check-input" type="radio" name="ekspetasi<?= $i ?>" id="customRadio1" value="3" <?php echo set_radio("ekspetasi{$i}", '3'); ?>>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-check d-inline-block">
-                                                    <input class="form-check-input" type="radio" name="ekspetasi<?= $i ?>" id="customRadio1" value="S" <?php echo set_radio("ekspetasi{$i}", 'S'); ?>>
+                                                    <input class="form-check-input" type="radio" name="ekspetasi<?= $i ?>" id="customRadio1" value="4" <?php echo set_radio("ekspetasi{$i}", '4'); ?>>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-check d-inline-block">
-                                                    <input class="form-check-input" type="radio" name="ekspetasi<?= $i ?>" id="customRadio1" value="SS" <?php echo set_radio("ekspetasi{$i}", 'SS'); ?>>
+                                                    <input class="form-check-input" type="radio" name="ekspetasi<?= $i ?>" id="customRadio1" value="5" <?php echo set_radio("ekspetasi{$i}", '5'); ?>>
                                                 </div>
                                             </td>
                                             <!-- End ekspetasi -->
@@ -132,26 +160,25 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Fungsi untuk menangani perubahan pada elemen role
-        function handleRoleChange() {
-            var roleSelect = document.getElementById('role');
-            var lokasiFormGroup = document.getElementById('lokasi-form-group');
-
-            // Periksa apakah peran yang dipilih adalah "Pelanggan"
-            if (roleSelect.value === 'Pelanggan') {
-                // Tampilkan form-group lokasi
-                lokasiFormGroup.style.display = 'block';
-            } else {
-                // Sembunyikan form-group lokasi dan reset nilai
-                lokasiFormGroup.style.display = 'none';
-                document.getElementById('lokasi').value = '';
-            }
-        }
-
-        // Panggil fungsi handleRoleChange saat dokumen diinisialisasi
-        document.addEventListener('DOMContentLoaded', function() {
-            handleRoleChange();
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <?php if (validation_errors()) { ?>
+        <!-- Tampilkan pesan 'flashdata' sebagai modal -->
+        <div class="modal fade" id="kuesioner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pesan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Maaf, ada kolom presepsi ataupun ekspetasi yang belum terisi.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-primary" data-bs-dismiss="modal">Oke</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php } ?>

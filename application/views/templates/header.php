@@ -200,26 +200,66 @@
                         <?php } ?>
                         <?php if ($this->session->userdata('jabatan') == 'Pelanggan') { ?>
                             <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>">
+                                    <i class="bi bi-house-door-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Home
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="https://wa.me/6285155245688" target="_blank">
+                                    <i class="bi bi-whatsapp opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Hubungi Kami
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>pelanggan/kuesioner">
                                     <i class="bi bi-file-text-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Kuesioner
                                 </a>
                             </li>
                         <?php } ?>
-                        <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>profil">
-                                <i class="ni ni-circle-08 opacity-6 text-dark me-1" aria-hidden="true"></i>
-                                Profil
-                            </a>
-                        </li>
+
+                        <?php if ($this->session->userdata('jabatan')) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>profil">
+                                    <i class="ni ni-circle-08 opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Profil
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if (empty($this->session->userdata('jabatan'))) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>">
+                                    <i class="bi bi-house-door-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Home
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="https://wa.me/6285155245688" target="_blank">
+                                    <i class="bi bi-whatsapp opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Hubungi Kami
+                                </a>
+                            </li>
+                        <?php } ?>
+
                     </ul>
                     <ul class="navbar-nav d-lg-block d-none">
-                        <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#logout">
-                                <i class="bi bi-box-arrow-left opacity-6 text-dark me-1" aria-hidden="true"></i>
-                                Logout
-                            </a>
-                        </li>
+                        <?php if ($this->session->userdata('jabatan')) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#logout">
+                                    <i class="bi bi-box-arrow-left opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        <?php } else { ?>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#login-pelanggan">
+                                    <i class="fas fa-key opacity-6 text-dark me-1" aria-hidden="true"></i>
+                                    Login
+                                </a>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>

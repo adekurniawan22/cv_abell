@@ -11,12 +11,6 @@ class Auth extends CI_Controller
 		$this->load->model('Pelanggan_model');
 	}
 
-	public function index()
-	{
-		$data['title'] = 'CV. Abell';
-		$this->load->view('index', $data);
-	}
-
 	public function login_pegawai()
 	{
 		$data['title'] = 'Login Pegawai';
@@ -232,5 +226,54 @@ class Auth extends CI_Controller
 		$pesan_terdekripsi = openssl_decrypt(substr($teks_terdekripsi, $iv_length), $method, $kunci, 0, $iv);
 
 		return $pesan_terdekripsi;
+	}
+
+	function index()
+	{
+		$data['title'] = 'CV. Abell';
+		$this->load->view('templates/header', $data);
+		$this->load->view('index', $data);
+		$this->load->view('templates/footer');
+	}
+
+	function proses_login_pelanggan()
+	{
+		$no_hp = $this->input->post('no_hp');
+
+		if (ctype_digit($no_hp)) {
+			$this->db->where('no_hp', $no_hp);
+			$user = $this->db->get('t_pelanggan')->row_array();
+			if ($user) {
+				$data = [
+					'id_pelanggan' => $user['id_pelanggan'],
+					'nama_lengkap' => $user['nama_lengkap'],
+					'jabatan' => "Pelanggan",
+				];
+				$this->session->set_userdata($data);
+				$this->session->set_flashdata('message', '<strong>Login Berhasil</strong>
+																	<i class="bi bi-check-circle-fill"></i>');
+
+				redirect('pelanggan/kuesioner');
+			} else {
+				$this->session->set_flashdata('message', '<strong>Akun anda tidak ditemukan!</strong>
+							<i class="bi bi-exclamation-circle-fill"></i>');
+				redirect(base_url());
+			}
+		} else {
+			$this->session->set_flashdata('message', '<strong>Maaf, harap masukkan nomor hp dengan benar!</strong>
+							<i class="bi bi-exclamation-circle-fill"></i>');
+			redirect(base_url());
+		}
+	}
+
+	public function logout_pelanggan()
+	{
+		unset(
+			$_SESSION['id_pelanggan'],
+			$_SESSION['nama_lengkap'],
+			$_SESSION['jabatan'],
+		);
+		$this->session->set_flashdata('message', '<strong>Anda berhasil Logout</strong><i class="bi bi-check-circle-fill"></i>');
+		redirect(base_url());
 	}
 }
