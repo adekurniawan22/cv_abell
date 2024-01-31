@@ -64,7 +64,7 @@ class Jawaban extends CI_Controller
 				];
 				$this->db->insert('t_sudah_isi_kuesioner', $data_sudah_isi_kuesioner);
 			} catch (Exception $e) {
-				$this->session->set_flashdata('message', '<strong>Pengisian Kuesioner Berhasil Gagal, Silahkan coba ulang</strong>
+				$this->session->set_flashdata('message', '<strong>Pengisian Kuesioner Gagal, Silahkan coba ulang</strong>
 											<i class="bi bi-exclamation-circle-fill"></i>');
 			}
 			redirect('pelanggan/kuesioner');

@@ -186,7 +186,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="#">
+                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>admin/data-evaluasi">
                                     <i class="bi bi-bar-chart-line-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Evaluasi
                                 </a>

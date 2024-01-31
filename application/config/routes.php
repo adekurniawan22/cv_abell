@@ -95,7 +95,10 @@ $route['admin/edit-kuesioner'] = 'kuesioner/edit_kuesioner';
 $route['admin/proses-edit-kuesioner'] = 'kuesioner/proses_edit_kuesioner';
 $route['admin/proses-hapus-kuesioner'] = 'kuesioner/proses_hapus_kuesioner';
 $route['admin/kirim-email-ke-manajer'] = 'kuesioner/kirim_email_ke_manajer';
-$route['admin/evaluasi-kuesioner'] = 'evaluasi/index';
+$route['admin/evaluasi-kuesioner'] = 'evaluasi/proses_evaluasi_kuesioner';
+$route['admin/data-evaluasi'] = 'evaluasi/index';
+$route['admin/edit-evaluasi'] = 'evaluasi/edit_evaluasi';
+$route['admin/proses-edit-evaluasi'] = 'evaluasi/proses_edit_evaluasi';
 
 // Route Pelanggan
 $route['pelanggan/kuesioner'] = 'kuesioner/index';

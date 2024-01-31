@@ -11,9 +11,10 @@ class Evaluasi extends CI_Controller
 		$this->load->model('Pelanggan_model');
 		$this->load->model('Pernyataan_model');
 		$this->load->model('Jawaban_model');
+		$this->load->model('Evaluasi_model');
 	}
 
-	public function index()
+	public function proses_evaluasi_kuesioner()
 	{
 		$id_kuesioner = $this->input->post('id_kuesioner');
 
@@ -79,7 +80,36 @@ class Evaluasi extends CI_Controller
 		for ($i = 0; $i < count($nilai_mis); $i++) {
 			array_push($nilai_gap, round(($nilai_mis[$i] - $nilai_mss[$i]), 2));
 		}
+		date_default_timezone_set('Asia/Jakarta');
+		$tanggal_evaluasi = date('Y-m-d H:i:s');
+		$data_evaluasi = [
+			'id_kuesioner' =>  $id_kuesioner,
+			'total_responden' => $total_responden,
+			'total_pelanggan' => $this->Pelanggan_model->jumlah_pelanggan(),
+			'nilai_csi' => $nilai_csi,
+			'kriteria_nilai_csi' => $kriteria,
+			'tanggal_evaluasi' => $tanggal_evaluasi,
+		];
 
+		$add_evaluasi = $this->Evaluasi_model->tambah_evaluasi($data_evaluasi);
+		$id_evaluasi = $this->db->insert_id();
+
+		$i = 0;
+		foreach ($pernyataan as $p) {
+			$data = [
+				'id_evaluasi' => $id_evaluasi,
+				'id_pernyataan' => $p->id_pernyataan,
+				'total_ekspetasi' => $total_ekspetasi[$i],
+				'total_presepsi' => $total_presepsi[$i],
+				'mis' => $nilai_mis[$i],
+				'mss' => $nilai_mss[$i],
+				'wf' => $nilai_wf[$i],
+				'ws' => $nilai_ws[$i],
+				'gap' => $nilai_gap[$i],
+			];
+			$this->Evaluasi_model->tambah_detail_evaluasi($data);
+			$i++;
+		}
 
 		$data['title'] = "EValuasi Kuesioner . $kuesioner->judul_kuesioner";
 		$data['pernyataan'] = $pernyataan;
@@ -94,6 +124,23 @@ class Evaluasi extends CI_Controller
 		$data['nilai_csi'] = $nilai_csi;
 		$data['kriteria_nilai_csi'] = $kriteria;
 		$data['nilai_gap'] = $nilai_gap;
+
+		if ($add_evaluasi) {
+			$this->session->set_flashdata('message', '<strong>Evaluasi Berhasil</strong>
+											<i class="bi bi-check-circle-fill"></i>');
+		} else {
+			$this->session->set_flashdata('message', '<strong>Evaluasi Gagal, Silahkan coba ulang</strong>
+																			<i class="bi bi-exclamation-circle-fill"></i>');
+		}
+		redirect('admin/data-evaluasi');
+	}
+
+	public function index()
+	{
+		$data['title'] = "Data Evaluasi";
+		$data['evaluasi'] = $this->Evaluasi_model->dapat_evaluasi();
+		$this->load->view('templates/header', $data);
 		$this->load->view('admin/evaluasi/evaluasi', $data);
+		$this->load->view('templates/footer');
 	}
 }
