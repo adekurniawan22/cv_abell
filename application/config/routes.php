@@ -95,6 +95,7 @@ $route['admin/edit-kuesioner'] = 'kuesioner/edit_kuesioner';
 $route['admin/proses-edit-kuesioner'] = 'kuesioner/proses_edit_kuesioner';
 $route['admin/proses-hapus-kuesioner'] = 'kuesioner/proses_hapus_kuesioner';
 $route['admin/kirim-email-ke-manajer'] = 'kuesioner/kirim_email_ke_manajer';
+$route['admin/evaluasi-kuesioner'] = 'evaluasi/index';
 
 // Route Pelanggan
 $route['pelanggan/kuesioner'] = 'kuesioner/index';

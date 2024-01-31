@@ -72,6 +72,10 @@
                                                         <i class="bi bi-envelope-arrow-up-fill text-dark me-2" aria-hidden="true"></i>Kirim Email
                                                     </button>
                                                 </form>
+                                                <form action="<?= base_url() ?>admin/evaluasi-kuesioner" method="post" class="d-inline-block">
+                                                    <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
+                                                    <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true" disabled></i>Evaluasi</Button>
+                                                </form>
                                             <?php endif ?>
                                         </td>
                                     </tr>
