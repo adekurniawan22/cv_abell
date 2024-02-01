@@ -184,6 +184,7 @@ class Kuesioner extends CI_Controller
 			$this->email->message("$content<br> Silahkan periksa dan evaluasi jawaban dari pelanggan &#128512;");
 			$this->email->send();
 		}
+		$this->session->set_userdata('email_sent', true);
 		$this->session->set_flashdata('message', '<strong>Kirim Email Ke Manajer Telah Berhasil</strong>
 		<i class="bi bi-check-circle-fill"></i>');
 		redirect('admin/data-kuesioner');

@@ -41,12 +41,12 @@
                                             <p class="ms-3 text-sm font-weight-bold mb-0"><?= $e->kriteria_nilai_csi ?></p>
                                         </td>
                                         <td class="align-middle">
-                                            <button class="btn btn-link text-dark text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_detail_evaluasi<?= $e->id_evaluasi ?>"><i class="bi bi-eye-fill me-2" aria-hidden="true" disabled></i>Detail Pernyataan</button>
-                                            <form action="<?= base_url() ?>admin/edit-kuesioner" method="post" class="d-inline-block">
+                                            <form action="<?= base_url() ?>admin/detail-evaluasi" method="post" class="d-inline-block">
                                                 <input type="hidden" name="id_evaluasi" value="<?= $e->id_evaluasi ?>">
-                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true" disabled></i>Edit</Button>
+                                                <input type="hidden" name="id_kuesioner" value="<?= $e->id_kuesioner ?>">
+                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="bi bi-eye-fill me-2" aria-hidden="true" disabled></i>Detail Evaluasi</button>
                                             </form>
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_evaluasi<?= $e->id_evaluasi ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Delete</button>
+                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_evaluasi<?= $e->id_evaluasi ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -73,7 +73,7 @@
                         Apakah anda yakin ingin menghapus Kuesioner Ini?
                     </div>
                     <div class="modal-footer">
-                        <form action="<?= base_url() ?>kuesioner/proses_hapus_kuesioner" method="post">
+                        <form action="<?= base_url() ?>evaluasi/proses_hapus_evaluasi" method="post">
                             <input type="hidden" name="id_evaluasi" value="<?= $em->id_evaluasi ?>">
                             <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Batalkan</button>
                             <button type="submit" class="btn bg-gradient-primary">Ya</button>

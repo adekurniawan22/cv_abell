@@ -24,6 +24,13 @@ class Evaluasi_model extends CI_Model
         }
     }
 
+    public function dapat_satu_detail_evaluasi($id_evaluasi)
+    {
+        $this->db->where('id_evaluasi', $id_evaluasi);
+        $query = $this->db->get('t_detail_evaluasi');
+        return $query->result_array();
+    }
+
     public function tambah_detail_evaluasi($data)
     {
         $this->db->insert('t_detail_evaluasi', $data);

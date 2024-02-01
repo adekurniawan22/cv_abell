@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 31 Jan 2024 pada 15.18
+-- Waktu pembuatan: 01 Feb 2024 pada 19.19
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -24,6 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `t_detail_evaluasi`
+--
+
+CREATE TABLE `t_detail_evaluasi` (
+  `id_detail_evaluasi` int(11) NOT NULL,
+  `id_evaluasi` int(11) NOT NULL,
+  `id_pernyataan` int(11) NOT NULL,
+  `total_ekspetasi` int(11) NOT NULL,
+  `total_presepsi` int(11) NOT NULL,
+  `mis` float NOT NULL,
+  `mss` float NOT NULL,
+  `wf` float NOT NULL,
+  `ws` float NOT NULL,
+  `gap` float NOT NULL,
+  `rekomendasi_perbaikan` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `t_dimensi`
 --
 
@@ -37,11 +57,27 @@ CREATE TABLE `t_dimensi` (
 --
 
 INSERT INTO `t_dimensi` (`id_dimensi`, `dimensi`) VALUES
-(1, 'Tangibles (Bukti Lansung)'),
+(1, 'Tangibles (Bukti Langsung)'),
 (2, 'Reliability (Keandalan)'),
 (3, 'Responsiveness (Daya Tanggap)'),
 (4, 'Assurance (Kepastian)'),
 (5, 'Emphaty (Empati)');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_evaluasi`
+--
+
+CREATE TABLE `t_evaluasi` (
+  `id_evaluasi` int(11) NOT NULL,
+  `id_kuesioner` int(11) NOT NULL,
+  `total_responden` int(11) NOT NULL,
+  `total_pelanggan` int(11) NOT NULL,
+  `nilai_csi` float NOT NULL,
+  `kriteria_nilai_csi` varchar(100) NOT NULL,
+  `tanggal_evaluasi` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1433,7 +1469,7 @@ CREATE TABLE `t_kuesioner` (
 --
 
 INSERT INTO `t_kuesioner` (`id_kuesioner`, `judul_kuesioner`, `mulai`, `selesai`, `id_pegawai`) VALUES
-(1, 'Judul 2', '2024-01-31', '2024-02-07', 1);
+(1, 'Kepuasan Pelanggan v1', '2024-01-31', '2024-01-31', 1);
 
 -- --------------------------------------------------------
 
@@ -1505,13 +1541,13 @@ CREATE TABLE `t_pelanggan` (
 
 INSERT INTO `t_pelanggan` (`id_pelanggan`, `id_pegawai`, `nama_lengkap`, `no_hp`, `alamat`, `lokasi_server`, `status_aktif`, `mulai_berlangganan`) VALUES
 (1, 1, 'Miss Josianne Kuphal', '6281385044647', '223 Dina Hill', 'PPPoE AbelNet', '1', '2020-12-04'),
-(2, 1, 'Orville Tillman', '6281227188600', '8 King Place', 'PPPoE AbelNet', '0', '2021-08-21'),
-(3, 1, 'Sadye Toy', '6281301203504', '1 Marielle Union', 'PPPoE OLT KJ', '0', '2019-12-03'),
-(4, 1, 'Ms. Earnestine Cummerata', '6281333940740', '7 Malvina Crescent', 'PPPoE OLT CITARIK', '0', '2021-04-23'),
-(5, 1, 'Katelyn Kemmer', '6281284575572', '62 Spinka Throughway', 'PPPoE Tirtamulya R1', '0', '2022-03-26'),
+(2, 1, 'Orville Tillman', '6281227188600', '8 King Place', 'PPPoE AbelNet', '1', '2021-08-21'),
+(3, 1, 'Sadye Toy', '6281301203504', '1 Marielle Union', 'PPPoE OLT KJ', '1', '2019-12-03'),
+(4, 1, 'Ms. Earnestine Cummerata', '6281333940740', '7 Malvina Crescent', 'PPPoE OLT CITARIK', '1', '2021-04-23'),
+(5, 1, 'Katelyn Kemmer', '6281284575572', '62 Spinka Throughway', 'PPPoE Tirtamulya R1', '1', '2022-03-26'),
 (6, 1, 'Rex Rosenbaum', '6281267493691', '10 Wilderman Stream', 'PPPoE CIAMPEL', '1', '2019-03-19'),
-(7, 1, 'Augustus Jakubowski', '6281361028761', 'Studio 94\nZackary Path', 'PPPoE Tirtamulya R1', '0', '2019-09-10'),
-(8, 1, 'Mrs. Ima Herzog MD', '6281263970616', '388 Osinski Park', 'PPPoE OLT CITARIK', '0', '2022-03-01'),
+(7, 1, 'Augustus Jakubowski', '6281361028761', 'Studio 94\nZackary Path', 'PPPoE Tirtamulya R1', '1', '2019-09-10'),
+(8, 1, 'Mrs. Ima Herzog MD', '6281263970616', '388 Osinski Park', 'PPPoE OLT CITARIK', '1', '2022-03-01'),
 (9, 1, 'Dr. Erik Casper II', '6281375314880', 'Flat 77f\nMarie Ridges', 'PPPoE AbelNet', '1', '2023-05-05'),
 (10, 1, 'Dr. Ralph Morar II', '6281258832325', '8 Green Coves', 'PPPoE Tirtamulya R1', '0', '2019-03-24'),
 (11, 1, 'Andres Padberg II', '6281228124316', '3 Yost Meadow', 'PPPoE OLT CITARIK', '0', '2024-01-21'),
@@ -1530,52 +1566,52 @@ INSERT INTO `t_pelanggan` (`id_pelanggan`, `id_pegawai`, `nama_lengkap`, `no_hp`
 (24, 1, 'Sammie Harvey', '6281359463405', '681 Gusikowski Stream', 'PPPoE Tirtamulya R1', '0', '2023-07-16'),
 (25, 1, 'Dr. Rae Mills MD', '6281302258775', '96 Princess Tunnel', 'PPPoE CIAMPEL', '1', '2021-11-27'),
 (26, 1, 'Jalen Greenholt', '6281346532928', '41 Roy Walks', 'PPPoE AbelNet', '1', '2021-11-01'),
-(27, 1, 'Brant Feeney DDS', '6281304871296', '6 Isidro Crossroad', 'PPPoE OLT CITARIK', '0', '2022-12-15'),
-(28, 1, 'Lyla Sporer', '6281231488212', 'Flat 78\nMekhi River', 'PPPoE AbelNet', '0', '2020-09-22'),
-(29, 1, 'Mac Kemmer', '6281337368765', '9 Pearline Station', 'PPPoE CIAMPEL', '0', '2023-07-20'),
+(27, 1, 'Brant Feeney DDS', '6281304871296', '6 Isidro Crossroad', 'PPPoE OLT CITARIK', '1', '2022-12-15'),
+(28, 1, 'Lyla Sporer', '6281231488212', 'Flat 78\nMekhi River', 'PPPoE AbelNet', '1', '2020-09-22'),
+(29, 1, 'Mac Kemmer', '6281337368765', '9 Pearline Station', 'PPPoE CIAMPEL', '1', '2023-07-20'),
 (30, 1, 'Dr. Roosevelt Pouros', '6281216972063', 'Studio 71l\nReanna Course', 'PPPoE OLT CITARIK', '1', '2023-11-19'),
-(31, 1, 'Prof. Milford Bins V', '6281222092919', '0 Jamey Forks', 'PPPoE OLT KJ', '0', '2021-08-14'),
+(31, 1, 'Prof. Milford Bins V', '6281222092919', '0 Jamey Forks', 'PPPoE OLT KJ', '1', '2021-08-14'),
 (32, 1, 'Ms. Kassandra Dickens', '6281398168232', '16 Strosin Wall', 'PPPoE OLT KJ', '1', '2021-05-01'),
 (33, 1, 'Rodger Hills Sr.', '6281396409824', '18 Gladyce Points', 'PPPoE AbelNet', '1', '2021-05-20'),
 (34, 1, 'Vincenza Ritchie', '6281270038425', 'Flat 63\nRex Canyon', 'PPPoE OLT CITARIK', '1', '2020-04-12'),
-(35, 1, 'Mrs. Elsa Krajcik', '6281335731207', 'Studio 12\nPfannerstill Terrace', 'PPPoE OLT KJ', '0', '2019-03-22'),
+(35, 1, 'Mrs. Elsa Krajcik', '6281335731207', 'Studio 12\nPfannerstill Terrace', 'PPPoE OLT KJ', '1', '2019-03-22'),
 (36, 1, 'Freddy Bradtke DVM', '6281321411285', '146 Hane Courts', 'PPPoE OLT CITARIK', '0', '2023-01-20'),
 (37, 1, 'Pedro Wiegand', '6281319833045', '1 Prosacco Bypass', 'PPPoE CIAMPEL', '1', '2021-06-02'),
-(38, 1, 'Mateo Skiles', '6281287954566', '97 Miles Place', 'PPPoE CIAMPEL', '0', '2019-03-06'),
+(38, 1, 'Mateo Skiles', '6281287954566', '97 Miles Place', 'PPPoE CIAMPEL', '1', '2019-03-06'),
 (39, 1, 'Lennie Wyman', '6281333076653', '085 Price Rapids', 'PPPoE OLT KJ', '1', '2023-03-30'),
 (40, 1, 'Jackeline Eichmann', '6281324545391', '5 Esta Camp', 'PPPoE AbelNet', '1', '2023-02-02'),
-(41, 1, 'Prof. Jasper Krajcik PhD', '6281259492474', '697 Ferry Radial', 'PPPoE AbelNet', '0', '2021-07-08'),
+(41, 1, 'Prof. Jasper Krajcik PhD', '6281259492474', '697 Ferry Radial', 'PPPoE AbelNet', '1', '2021-07-08'),
 (42, 1, 'Mr. Elmore Mertz V', '6281310529980', 'Flat 52\nKrajcik Springs', 'PPPoE OLT KJ', '1', '2020-06-19'),
-(43, 1, 'Emile Ebert V', '6281268766320', '64 Senger Port', 'PPPoE AbelNet', '0', '2022-03-17'),
-(44, 1, 'Dr. Samson Lang', '6281262341240', 'Studio 66\nLyda Manors', 'PPPoE OLT KJ', '0', '2019-03-28'),
-(45, 1, 'Alana Renner', '6281379375087', 'Flat 47\nHirthe Grove', 'PPPoE OLT KJ', '0', '2023-03-17'),
+(43, 1, 'Emile Ebert V', '6281268766320', '64 Senger Port', 'PPPoE AbelNet', '1', '2022-03-17'),
+(44, 1, 'Dr. Samson Lang', '6281262341240', 'Studio 66\nLyda Manors', 'PPPoE OLT KJ', '1', '2019-03-28'),
+(45, 1, 'Alana Renner', '6281379375087', 'Flat 47\nHirthe Grove', 'PPPoE OLT KJ', '1', '2023-03-17'),
 (46, 1, 'Gregorio Feil', '6281339840415', '383 Lindgren Gateway', 'PPPoE OLT CITARIK', '1', '2023-12-01'),
 (47, 1, 'Dr. Adrien Konopelski', '6281267889942', 'Studio 80\nLabadie Views', 'PPPoE AbelNet', '1', '2020-09-15'),
-(48, 1, 'Aglae Lemke Sr.', '6281236021905', '842 Walsh Way', 'PPPoE CIAMPEL', '0', '2023-02-20'),
-(49, 1, 'Mr. Giovanny Bahringer', '6281340381887', 'Flat 84\nBradtke Crossroad', 'PPPoE AbelNet', '0', '2024-01-17'),
-(50, 1, 'Dr. Adah Dare', '6281345053673', 'Flat 16\nBernier Trail', 'PPPoE CIAMPEL', '0', '2020-03-04'),
-(51, 1, 'Toney Block', '6281368575749', 'Flat 46\nLee Burgs', 'PPPoE OLT KJ', '0', '2023-03-08'),
-(52, 1, 'Arlene Gorczany PhD', '6281239251226', '625 Stiedemann Canyon', 'PPPoE OLT KJ', '0', '2019-02-13'),
+(48, 1, 'Aglae Lemke Sr.', '6281236021905', '842 Walsh Way', 'PPPoE CIAMPEL', '1', '2023-02-20'),
+(49, 1, 'Mr. Giovanny Bahringer', '6281340381887', 'Flat 84\nBradtke Crossroad', 'PPPoE AbelNet', '1', '2024-01-17'),
+(50, 1, 'Dr. Adah Dare', '6281345053673', 'Flat 16\nBernier Trail', 'PPPoE CIAMPEL', '1', '2020-03-04'),
+(51, 1, 'Toney Block', '6281368575749', 'Flat 46\nLee Burgs', 'PPPoE OLT KJ', '1', '2023-03-08'),
+(52, 1, 'Arlene Gorczany PhD', '6281239251226', '625 Stiedemann Canyon', 'PPPoE OLT KJ', '1', '2019-02-13'),
 (53, 1, 'Trinity Grady DVM', '6281316882815', 'Studio 87\nFrami Knoll', 'PPPoE CIAMPEL', '1', '2020-12-08'),
-(54, 1, 'Savion Schimmel', '6281292147726', '44 Myron Fort', 'PPPoE CIAMPEL', '0', '2019-10-29'),
-(55, 1, 'Eusebio Bode', '6281331615812', '86 Botsford Pass', 'PPPoE AbelNet', '0', '2022-11-26'),
+(54, 1, 'Savion Schimmel', '6281292147726', '44 Myron Fort', 'PPPoE CIAMPEL', '1', '2019-10-29'),
+(55, 1, 'Eusebio Bode', '6281331615812', '86 Botsford Pass', 'PPPoE AbelNet', '1', '2022-11-26'),
 (56, 1, 'Skyla Brekke', '6281392346907', '897 Schinner Haven', 'PPPoE OLT CITARIK', '1', '2020-12-27'),
-(57, 1, 'Dr. Dillon Schamberger', '6281384720230', '832 Wehner Burgs', 'PPPoE Tirtamulya R1', '0', '2022-10-28'),
-(58, 1, 'Blake Feest', '6281271724893', '5 Johns Center', 'PPPoE CIAMPEL', '0', '2023-10-24'),
-(59, 1, 'Tyra Wolff', '6281296609467', '313 Jamie Light', 'PPPoE OLT KJ', '0', '2021-08-04'),
+(57, 1, 'Dr. Dillon Schamberger', '6281384720230', '832 Wehner Burgs', 'PPPoE Tirtamulya R1', '1', '2022-10-28'),
+(58, 1, 'Blake Feest', '6281271724893', '5 Johns Center', 'PPPoE CIAMPEL', '1', '2023-10-24'),
+(59, 1, 'Tyra Wolff', '6281296609467', '313 Jamie Light', 'PPPoE OLT KJ', '1', '2021-08-04'),
 (60, 1, 'Verona Hills', '6281366656888', '051 Wilderman Route', 'PPPoE OLT CITARIK', '1', '2021-10-02'),
 (61, 1, 'Ms. Skyla Mante Jr.', '6281304338502', '0 Rohan Lane', 'PPPoE CIAMPEL', '1', '2023-06-23'),
-(62, 1, 'Dr. Tyson Murazik', '6281213565312', '96 Rachelle Shores', 'PPPoE AbelNet', '0', '2021-02-28'),
-(63, 1, 'Prof. Timmy Berge', '6281374604624', 'Flat 70u\nKaitlin Spur', 'PPPoE OLT CITARIK', '0', '2023-03-31'),
-(64, 1, 'Lorine Mosciski I', '6281285038420', '427 Karine Spurs', 'PPPoE OLT CITARIK', '0', '2019-06-07'),
+(62, 1, 'Dr. Tyson Murazik', '6281213565312', '96 Rachelle Shores', 'PPPoE AbelNet', '1', '2021-02-28'),
+(63, 1, 'Prof. Timmy Berge', '6281374604624', 'Flat 70u\nKaitlin Spur', 'PPPoE OLT CITARIK', '1', '2023-03-31'),
+(64, 1, 'Lorine Mosciski I', '6281285038420', '427 Karine Spurs', 'PPPoE OLT CITARIK', '1', '2019-06-07'),
 (65, 1, 'Felipe Altenwerth', '6281336977160', '2 Chauncey Rest', 'PPPoE AbelNet', '1', '2023-12-01'),
-(66, 1, 'Ms. Wava Corkery PhD', '6281294782067', '20 Luna Forges', 'PPPoE AbelNet', '0', '2023-06-26'),
-(67, 1, 'Prof. Maya Moen Sr.', '6281239947051', '742 Cole Lodge', 'PPPoE AbelNet', '0', '2023-03-22'),
+(66, 1, 'Ms. Wava Corkery PhD', '6281294782067', '20 Luna Forges', 'PPPoE AbelNet', '1', '2023-06-26'),
+(67, 1, 'Prof. Maya Moen Sr.', '6281239947051', '742 Cole Lodge', 'PPPoE AbelNet', '1', '2023-03-22'),
 (68, 1, 'Mr. Bret Krajcik', '6281395815383', '207 Kshlerin Lights', 'PPPoE Tirtamulya R1', '1', '2020-06-12'),
 (69, 1, 'Eddie Hintz', '6281259530409', '3 Murray Forge', 'PPPoE CIAMPEL', '1', '2023-06-16'),
 (70, 1, 'Abelardo Schiller', '6281390319743', '03 Angus Isle', 'PPPoE AbelNet', '1', '2021-04-14'),
-(71, 1, 'Elsie Prosacco', '6281349013687', '042 Earline Walks', 'PPPoE OLT CITARIK', '0', '2021-10-27'),
-(72, 1, 'Dr. Jonathon Stoltenberg PhD', '6281306074868', 'Flat 42l\nKaci Vista', 'PPPoE AbelNet', '0', '2019-03-18'),
+(71, 1, 'Elsie Prosacco', '6281349013687', '042 Earline Walks', 'PPPoE OLT CITARIK', '1', '2021-10-27'),
+(72, 1, 'Dr. Jonathon Stoltenberg PhD', '6281306074868', 'Flat 42l\nKaci Vista', 'PPPoE AbelNet', '1', '2019-03-18'),
 (73, 1, 'Dr. Paxton Dooley I', '6281325483427', 'Studio 00x\nWelch Brook', 'PPPoE CIAMPEL', '1', '2022-12-03'),
 (74, 1, 'Maud Orn', '6281305813275', '156 Schamberger Ville', 'PPPoE OLT CITARIK', '1', '2019-09-09'),
 (75, 1, 'Dr. Deontae Kertzmann V', '6281316034564', '6 Juana Route', 'PPPoE Tirtamulya R1', '1', '2022-04-07'),
@@ -1605,30 +1641,29 @@ CREATE TABLE `t_pernyataan` (
   `id_pernyataan` int(11) NOT NULL,
   `id_kuesioner` int(11) NOT NULL,
   `id_dimensi` int(11) NOT NULL,
-  `pernyataan` varchar(255) NOT NULL,
-  `rekomendasi_perbaikan` varchar(100) NOT NULL
+  `pernyataan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `t_pernyataan`
 --
 
-INSERT INTO `t_pernyataan` (`id_pernyataan`, `id_kuesioner`, `id_dimensi`, `pernyataan`, `rekomendasi_perbaikan`) VALUES
-(1, 1, 1, 'Tempat yang strategis', ''),
-(2, 1, 1, 'Lingkungan perusahaan yang bersih dan nyaman', ''),
-(3, 1, 1, 'Kelengkapan dan fasilitas yang disediakan', ''),
-(4, 1, 2, 'Kesesuaian harga dan kualitas yang diberikan', ''),
-(5, 1, 2, 'Pelayanan cepat tanggap yang baik', ''),
-(6, 1, 2, 'Kemampian perusahaan dalam memberikan inforasi dengan baik', ''),
-(7, 1, 3, 'Ketanggapan perusahaan dalam memenuhi kebutuhan pelanggan', ''),
-(8, 1, 3, 'Kecepatan teknisi dalam menyelesaikan pekerjaan', ''),
-(9, 1, 3, 'Internet yang cepat dan stabil', ''),
-(10, 1, 4, 'Kualitas pelayanan yang baik', ''),
-(11, 1, 4, 'Kesigapan perusahaan dalam menangani masalah', ''),
-(12, 1, 4, 'Keamanan privasi dan informasi', ''),
-(13, 1, 5, 'Penawaran promosi atau diskon khusus', ''),
-(14, 1, 5, 'Kepedulian perusahaan dalam melayani pelanggan', ''),
-(15, 1, 5, 'Perusahaan memenuhi keinginan serta kebutuhan pelanggan', '');
+INSERT INTO `t_pernyataan` (`id_pernyataan`, `id_kuesioner`, `id_dimensi`, `pernyataan`) VALUES
+(1, 1, 1, 'Tempat yang strategis'),
+(2, 1, 1, 'Lingkungan perusahaan yang bersih dan nyaman'),
+(3, 1, 1, 'Kelengkapan dan fasilitas yang disediakan'),
+(4, 1, 2, 'Kesesuaian harga dan kualitas yang diberikan'),
+(5, 1, 2, 'Pelayanan cepat tanggap yang baik'),
+(6, 1, 2, 'Kemampian perusahaan dalam memberikan inforasi dengan baik'),
+(7, 1, 3, 'Ketanggapan perusahaan dalam memenuhi kebutuhan pelanggan'),
+(8, 1, 3, 'Kecepatan teknisi dalam menyelesaikan pekerjaan'),
+(9, 1, 3, 'Internet yang cepat dan stabil'),
+(10, 1, 4, 'Kualitas pelayanan yang baik'),
+(11, 1, 4, 'Kesigapan perusahaan dalam menangani masalah'),
+(12, 1, 4, 'Keamanan privasi dan informasi'),
+(13, 1, 5, 'Penawaran promosi atau diskon khusus'),
+(14, 1, 5, 'Kepedulian perusahaan dalam melayani pelanggan'),
+(15, 1, 5, 'Perusahaan memenuhi keinginan serta kebutuhan pelanggan');
 
 -- --------------------------------------------------------
 
@@ -1742,10 +1777,25 @@ INSERT INTO `t_sudah_isi_kuesioner` (`id_kuesioner`, `id_pelanggan`) VALUES
 --
 
 --
+-- Indeks untuk tabel `t_detail_evaluasi`
+--
+ALTER TABLE `t_detail_evaluasi`
+  ADD PRIMARY KEY (`id_detail_evaluasi`),
+  ADD KEY `id_pernyataan` (`id_pernyataan`),
+  ADD KEY `t_detail_evaluasi_ibfk_1` (`id_evaluasi`);
+
+--
 -- Indeks untuk tabel `t_dimensi`
 --
 ALTER TABLE `t_dimensi`
   ADD PRIMARY KEY (`id_dimensi`);
+
+--
+-- Indeks untuk tabel `t_evaluasi`
+--
+ALTER TABLE `t_evaluasi`
+  ADD PRIMARY KEY (`id_evaluasi`),
+  ADD KEY `id_kuesioner` (`id_kuesioner`);
 
 --
 -- Indeks untuk tabel `t_jawaban`
@@ -1802,10 +1852,22 @@ ALTER TABLE `t_sudah_isi_kuesioner`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `t_detail_evaluasi`
+--
+ALTER TABLE `t_detail_evaluasi`
+  MODIFY `id_detail_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+
+--
 -- AUTO_INCREMENT untuk tabel `t_dimensi`
 --
 ALTER TABLE `t_dimensi`
   MODIFY `id_dimensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_evaluasi`
+--
+ALTER TABLE `t_evaluasi`
+  MODIFY `id_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_jawaban`
@@ -1829,7 +1891,7 @@ ALTER TABLE `t_lokasi_server`
 -- AUTO_INCREMENT untuk tabel `t_pegawai`
 --
 ALTER TABLE `t_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pelanggan`
@@ -1846,6 +1908,19 @@ ALTER TABLE `t_pernyataan`
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
+
+--
+-- Ketidakleluasaan untuk tabel `t_detail_evaluasi`
+--
+ALTER TABLE `t_detail_evaluasi`
+  ADD CONSTRAINT `t_detail_evaluasi_ibfk_1` FOREIGN KEY (`id_evaluasi`) REFERENCES `t_evaluasi` (`id_evaluasi`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `t_detail_evaluasi_ibfk_2` FOREIGN KEY (`id_pernyataan`) REFERENCES `t_pernyataan` (`id_pernyataan`);
+
+--
+-- Ketidakleluasaan untuk tabel `t_evaluasi`
+--
+ALTER TABLE `t_evaluasi`
+  ADD CONSTRAINT `t_evaluasi_ibfk_1` FOREIGN KEY (`id_kuesioner`) REFERENCES `t_kuesioner` (`id_kuesioner`);
 
 --
 -- Ketidakleluasaan untuk tabel `t_jawaban`

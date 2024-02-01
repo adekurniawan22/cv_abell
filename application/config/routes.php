@@ -83,6 +83,9 @@ $route['manajer/proses-tambah-lokasi-server'] = 'lokasi_server/proses_tambah_lok
 $route['manajer/edit-lokasi-server'] = 'lokasi_server/edit_lokasi_server';
 $route['manajer/proses-edit-lokasi-server'] = 'lokasi_server/proses_edit_lokasi_server';
 $route['manajer/data-kuesioner'] = 'kuesioner/index';
+$route['manajer/data-evaluasi'] = 'evaluasi/index';
+$route['manajer/detail-evaluasi'] = 'evaluasi/detail_evaluasi';
+$route['manajer/cetak-evaluasi-pdf'] = 'evaluasi/cetak_pdf';
 
 // Route admin
 $route['admin/dashboard'] = 'dashboard/dashboard_admin';
@@ -97,8 +100,8 @@ $route['admin/proses-hapus-kuesioner'] = 'kuesioner/proses_hapus_kuesioner';
 $route['admin/kirim-email-ke-manajer'] = 'kuesioner/kirim_email_ke_manajer';
 $route['admin/evaluasi-kuesioner'] = 'evaluasi/proses_evaluasi_kuesioner';
 $route['admin/data-evaluasi'] = 'evaluasi/index';
+$route['admin/detail-evaluasi'] = 'evaluasi/detail_evaluasi';
 $route['admin/edit-evaluasi'] = 'evaluasi/edit_evaluasi';
-$route['admin/proses-edit-evaluasi'] = 'evaluasi/proses_edit_evaluasi';
 
 // Route Pelanggan
 $route['pelanggan/kuesioner'] = 'kuesioner/index';

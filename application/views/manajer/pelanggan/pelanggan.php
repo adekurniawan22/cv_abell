@@ -89,7 +89,7 @@
                                                 <input type="hidden" name="id_pelanggan" value="<?= $p->id_pelanggan ?>">
                                                 <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</Button>
                                             </form>
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_pelanggan<?= $p->id_pelanggan ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Delete</button>
+                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_pelanggan<?= $p->id_pelanggan ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -142,7 +142,7 @@
                     Baca aturan untuk import data dibawah ini :
                     <ul>
                         <li>File yang hanya dapat diinputkan hanya .xlsx</li>
-                        <li>Silahkan lihat contoh format file yang dapat di upload <a href="https://docs.google.com/spreadsheets/d/1E9Cqlj_GaxSYQDczAZ8tPTZuVD5x3j-r/edit?usp=drive_link&ouid=100799364152492885109&rtpof=true&sd=true" target="_blank" style="text-decoration: underline; color: blue;">disini</a></li>
+                        <li>Silahkan lihat contoh format file yang dapat di upload <a href="https://docs.google.com/spreadsheets/d/1-0Y9CNyLj-Iq-SMIInzzqV5Au-7xx3XQ/edit#gid=1471303384" target="_blank" style="text-decoration: underline; color: blue;">disini</a></li>
                     </ul>
                     <hr class="horizontal dark mt-0">
                     <form action="<?= base_url() ?>pelanggan/import_data_excel" method="post" enctype="multipart/form-data">

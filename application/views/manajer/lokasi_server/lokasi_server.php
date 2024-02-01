@@ -36,7 +36,7 @@
                                                 <input type="hidden" name="id_lokasi_server" value="<?= $l->id_lokasi_server ?>">
                                                 <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true" disabled></i>Edit</Button>
                                             </form>
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_lokasi<?= $l->id_lokasi_server ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Delete</button>
+                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_lokasi<?= $l->id_lokasi_server ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

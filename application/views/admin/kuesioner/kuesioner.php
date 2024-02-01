@@ -53,7 +53,7 @@
                                                 <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
                                                 <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true" disabled></i>Edit</Button>
                                             </form>
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Delete</button> -->
+                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button> -->
                                             <?php
                                             $timezone = new DateTimeZone('Asia/Jakarta');
                                             $waktu_selesai = new DateTime($k->selesai, $timezone);
@@ -65,18 +65,18 @@
                                                     <span class="visually-hidden">Loading...</span>
                                                 </div>
                                             </div>
-                                            <?php if ($selisih <= 3) : ?>
+                                            <?php if ($selisih <= 1) : ?>
                                                 <form id="emailForm" action="<?= base_url() ?>admin/kirim-email-ke-manajer" method="post" class="d-inline-block">
                                                     <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
                                                     <button type="submit" class="btn btn-link text-dark px-3 mb-0" id="kirimEmailBtn">
                                                         <i class="bi bi-envelope-arrow-up-fill text-dark me-2" aria-hidden="true"></i>Kirim Email
                                                     </button>
                                                 </form>
-                                                <form action="<?= base_url() ?>admin/evaluasi-kuesioner" method="post" class="d-inline-block">
-                                                    <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                    <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true" disabled></i>Evaluasi</Button>
-                                                </form>
                                             <?php endif ?>
+                                            <form action="<?= base_url() ?>admin/evaluasi-kuesioner" method="post" class="d-inline-block">
+                                                <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
+                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true" disabled></i>Evaluasi</Button>
+                                            </form>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -174,6 +174,18 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     <?php if ($selisih <= 1 and $this->session->userdata('email_sent') == false) : ?>
+    //         document.getElementById('loading').classList.remove('d-none');
+
+    //         // Nonaktifkan tombol saat proses pengiriman
+    //         // document.getElementById('kirimEmailBtn').setAttribute('disabled', 'disabled');
+    //         // Jika selisih kurang dari atau sama dengan 3, kirimkan formulir email secara otomatis
+    //         document.getElementById("emailForm").submit();
+    //     <?php endif; ?>
+    // });
+
+
     var tanggalTerakhir = <?= json_encode($tanggal_terakhir->selesai) ?>;
 
     function cekBatasWaktu() {

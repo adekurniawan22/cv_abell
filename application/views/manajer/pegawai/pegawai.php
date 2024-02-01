@@ -52,7 +52,7 @@
                                         <?php if ($p->jabatan == 'Manajer') : ?>
                                             <td class="align-middle">
                                                 <button type="submit" class="btn btn-link text-dark px-3 mb-0" style="cursor: no-drop;" title="Tombol Dilarang"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</button>
-                                                <button class="btn btn-link text-danger text-gradient px-3 mb-0" style="cursor: no-drop;" title="Tombol Dilarang"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Delete</button>
+                                                <button class="btn btn-link text-danger text-gradient px-3 mb-0" style="cursor: no-drop;" title="Tombol Dilarang"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
                                             </td>
                                         <?php else : ?>
                                             <td class="align-middle">
@@ -60,7 +60,7 @@
                                                     <input type="hidden" name="id_pegawai" value="<?= $p->id_pegawai ?>">
                                                     <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</Button>
                                                 </form>
-                                                <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_pegawai<?= $p->id_pegawai ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Delete</button>
+                                                <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_pegawai<?= $p->id_pegawai ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
                                             </td>
                                         <?php endif; ?>
                                     </tr>

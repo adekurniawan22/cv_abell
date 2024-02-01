@@ -12,6 +12,23 @@ class Evaluasi extends CI_Controller
 		$this->load->model('Pernyataan_model');
 		$this->load->model('Jawaban_model');
 		$this->load->model('Evaluasi_model');
+		$this->load->library('pdfgenerator');
+	}
+
+	public function index()
+	{
+		$data['title'] = "Data Evaluasi";
+		$data['evaluasi'] = $this->Evaluasi_model->dapat_evaluasi();
+
+		if ($this->session->userdata('jabatan') == 'Manajer') {
+			$this->load->view('templates/header', $data);
+			$this->load->view('manajer/evaluasi/evaluasi', $data);
+			$this->load->view('templates/footer');
+		} else if ($this->session->userdata('jabatan') == 'Admin') {
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/evaluasi/evaluasi', $data);
+			$this->load->view('templates/footer');
+		}
 	}
 
 	public function proses_evaluasi_kuesioner()
@@ -135,12 +152,107 @@ class Evaluasi extends CI_Controller
 		redirect('admin/data-evaluasi');
 	}
 
-	public function index()
+	public function detail_evaluasi()
 	{
 		$data['title'] = "Data Evaluasi";
-		$data['evaluasi'] = $this->Evaluasi_model->dapat_evaluasi();
-		$this->load->view('templates/header', $data);
-		$this->load->view('admin/evaluasi/evaluasi', $data);
-		$this->load->view('templates/footer');
+
+		$id_evaluasi = $this->input->post('id_evaluasi');
+		$id_kuesioner = $this->input->post('id_kuesioner');
+		$data['evaluasi'] = $this->Evaluasi_model->dapat_satu_evaluasi($id_evaluasi);
+		$data['detail_evaluasi'] = $this->Evaluasi_model->dapat_satu_detail_evaluasi($id_evaluasi);
+
+		$this->db->where('id_kuesioner', $id_kuesioner);
+		$data['pernyataan'] = $this->db->get('t_pernyataan')->result_array();
+
+		if ($this->session->userdata('jabatan') == 'Manajer') {
+			$this->load->view('templates/header', $data);
+			$this->load->view('manajer/evaluasi/detail_evaluasi', $data);
+			$this->load->view('templates/footer');
+		} else if ($this->session->userdata('jabatan') == 'Admin') {
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/evaluasi/detail_evaluasi', $data);
+			$this->load->view('templates/footer');
+		}
+	}
+
+	public function proses_hapus_evaluasi()
+	{
+		$this->db->where('id_evaluasi', $this->input->post('id_evaluasi'));
+		$this->db->delete('t_evaluasi');
+		$this->session->set_flashdata('message', '<strong>Data Evaluasi Berhasil Dihapus</strong>
+															<i class="bi bi-check-circle-fill"></i>');
+		redirect('admin/data-evaluasi');
+	}
+
+	public function proses_rekomendasi_perbaikan()
+	{
+		echo "<pre>";
+		echo var_dump($_POST);
+		echo "<pre>";
+
+		for ($i = 0; $i < count($_POST['id_detail_evaluasi']); $i++) {
+			$data = [
+				'rekomendasi_perbaikan' => $_POST['rekomendasi_perbaikan'][$i]
+			];
+			$this->db->where('id_detail_evaluasi', $_POST['id_detail_evaluasi'][$i]);
+			$this->db->update('t_detail_evaluasi', $data);
+		}
+
+		$this->session->set_flashdata('message', '<strong>Rekomendasi Perbaikan Berhasil Di update</strong>
+															<i class="bi bi-check-circle-fill"></i>');
+		redirect('admin/data-evaluasi');
+	}
+
+	public function cetak_pdf()
+	{
+		$id_evaluasi = $this->input->post('id_evaluasi');
+		$id_kuesioner = $this->input->post('id_kuesioner');
+
+		$kuesioner = $this->Kuesioner_model->dapat_satu_kuesioner($id_kuesioner);
+		$evaluasi = $this->Evaluasi_model->dapat_satu_evaluasi($id_evaluasi);
+
+		$this->db->where('id_evaluasi', $id_evaluasi);
+		$this->db->where('gap <=', 0);
+		$detail_evaluasi = $this->db->get('t_detail_evaluasi')->result_array();
+
+		foreach ($detail_evaluasi as $d) {
+			if (!empty($d['rekomendasi_perbaikan'])) {
+				array_push($tampung, $d['rekomendasi_perbaikan']);
+			}
+		}
+
+		$this->db->where('id_kuesioner', $id_kuesioner);
+		$pernyataan = $this->db->get('t_pernyataan')->result_array();
+
+		$nama_file_pdf = "Hasil_Evaluasi_" . $kuesioner->judul_kuesioner . '_' . $evaluasi->tanggal_evaluasi . '_' . $evaluasi->id_evaluasi;
+		$foto = $this->encode_img_base64(base_url('assets/img/LogoAbell.png'));
+
+		if ($evaluasi and $detail_evaluasi and $pernyataan) {
+			$html = $this->load->view('manajer/evaluasi/pdf', [
+				'kuesioner' => $kuesioner,
+				'evaluasi' => $evaluasi,
+				'detail_evaluasi' => $detail_evaluasi,
+				'pernyataan' => $pernyataan,
+				'foto' => $foto,
+			], true);
+		}
+
+		$filename = $nama_file_pdf;
+		$paper = 'A4';
+		$orientation = 'portrait';
+		$stream = true;
+
+		$this->pdfgenerator->generate($html, $filename, $paper, $orientation, $stream);
+	}
+
+	function encode_img_base64($img_path = false): string
+	{
+		if ($img_path) {
+			$path = $img_path;
+			$type = pathinfo($path, PATHINFO_EXTENSION);
+			$data = file_get_contents($path);
+			return 'data:image/' . $type . ';base64,' . base64_encode($data);
+		}
+		return '';
 	}
 }
