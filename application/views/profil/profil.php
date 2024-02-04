@@ -1,39 +1,116 @@
 <div class="container-fluid py-0 mt-7">
     <div class="row">
-        <div class="col-12">
+        <div class="col-4">
             <div class="card mb-0">
+                <div class="card-header mb-0 pb-0">
+                    <div class="d-inline-block">
+                        <h3><i class="bi bi-person-circle me-1"></i></h3>
+                    </div>
+                    <div class="d-inline-block">
+                        <h3>Informasi</h3>
+                    </div>
+                </div>
+                <hr class="bg-dark mx-4 my-0">
+                <div class="card-body my-0 ">
+                    <?php if ($this->session->userdata('jabatan') == 'Pelanggan') : ?>
+                        <?php
+                        $tanggal_langganan = new DateTime($pelanggan->mulai_berlangganan);
+                        $waktu_sekarang = new DateTime();
+                        $selisih = $tanggal_langganan->diff($waktu_sekarang);
+                        ?>
+                        <div>
+                            <span>
+                                <strong>Nama Lengkap</strong>
+                                <p class=""><?= $pelanggan->nama_lengkap ?></p>
+                            </span>
+                            <hr class="bg-secondary mt-1 mb-3 opacity-1">
+                            <span>
+                                <strong>Nomor Handphone</strong>
+                                <p class=""><?= $pelanggan->no_hp ?></p>
+                            </span>
+                            <hr class="bg-secondary mt-1 mb-3 opacity-1">
+                            <span>
+                                <strong>Alamat</strong>
+                                <p class=""><?= $pelanggan->alamat ?></p>
+                            </span>
+                            <hr class="bg-secondary mt-1 mb-3 opacity-1">
+                            <span>
+                                <strong>Lokasi PPPoE</strong>
+                                <?php $lokasi_server = $this->db->get_where('t_lokasi_server', array('id_lokasi_server' => $pelanggan->lokasi_server))->row(); ?>
+                                <p class=""><?= $lokasi_server->lokasi_server ?></p>
+                            </span>
+                            <hr class="bg-secondary mt-1 mb-3 opacity-1">
+                            <span>
+                                <strong>Lama Berlangganan</strong>
+                                <p class=""><?php
+                                            // Menampilkan Tahun jika Tahun tidak sama dengan 0
+                                            if ($selisih->y !== 0) {
+                                                echo $selisih->y . ' Tahun, ';
+                                            }
+
+                                            // Menampilkan Bulan jika Bulan tidak sama dengan 0
+                                            if ($selisih->m !== 0) {
+                                                if ($selisih->d !== 0) {
+                                                    echo $selisih->m . ' Bulan, ';
+                                                } else {
+                                                    echo $selisih->m . ' Bulan ';
+                                                }
+                                            }
+
+                                            // Menampilkan Hari jika Hari tidak sama dengan 0
+                                            if ($selisih->d !== 0) {
+                                                echo $selisih->d . ' Hari';
+                                            }
+                                            ?>
+                                </p>
+                                </p>
+                            </span>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($this->session->userdata('jabatan') == 'Manajer' or $this->session->userdata('jabatan') == 'Admin') : ?>
+                        <span>
+                            <strong>Nama Lengkap</strong>
+                            <p class=""><?= $pegawai->nama_lengkap ?></p>
+                        </span>
+                        <hr class="bg-secondary mt-1 mb-3 opacity-1">
+                        <span>
+                            <strong>Username</strong>
+                            <p class=""><?= $pegawai->username ?></p>
+                        </span>
+                        <hr class="bg-secondary mt-1 mb-3 opacity-1">
+                        <span>
+                            <strong>Email</strong>
+                            <p class=""><?= $pegawai->email ?></p>
+                        </span>
+                        <hr class="bg-secondary mt-1 mb-3 opacity-1">
+                        <span>
+                            <strong>Nomor Handphone</strong>
+                            <p class=""><?= $pegawai->no_hp ?></p>
+                        </span>
+                        <hr class="bg-secondary mt-1 mb-3 opacity-1">
+                        <span>
+                            <strong>Alamat</strong>
+                            <p class=""><?= $pegawai->alamat ?></p>
+                        </span>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="card mb-0">
+                <div class="card-header mb-0 pb-0">
+                    <div class="d-inline-block">
+                        <h3><i class="bi bi-pencil-square me-1"></i></h3>
+                    </div>
+                    <div class="d-inline-block">
+                        <h3>Edit Profil</h3>
+                    </div>
+                </div>
+                <hr class="bg-dark mx-4 my-0">
                 <div class="card-body ">
                     <?php if ($this->session->userdata('jabatan') == 'Pelanggan') : ?>
                         <form action="<?= base_url() ?>profil/proses-edit-profil-pelanggan" method="post">
-                            <?php
-                            $tanggal_langganan = new DateTime($pelanggan->mulai_berlangganan);
-                            $waktu_sekarang = new DateTime();
-                            $selisih = $tanggal_langganan->diff($waktu_sekarang);
-                            ?>
-
-                            <div>
-                                <p><strong>Lokasi Server :</strong> <?= $pelanggan->lokasi_server ?></p>
-
-                                <p><strong>Lama Berlangganan :</strong>
-                                    <?php
-                                    // Menampilkan Tahun jika Tahun tidak sama dengan 0
-                                    if ($selisih->y !== 0) {
-                                        echo $selisih->y . ' Tahun, ';
-                                    }
-
-                                    // Menampilkan Bulan jika Bulan tidak sama dengan 0
-                                    if ($selisih->m !== 0) {
-                                        echo $selisih->m . ' Bulan, ';
-                                    }
-
-                                    // Menampilkan Hari jika Hari tidak sama dengan 0
-                                    if ($selisih->d !== 0) {
-                                        echo $selisih->d . ' Hari';
-                                    }
-                                    ?>
-                                </p>
-                            </div>
-                            <hr class="bg-dark">
                             <div class="form-group">
                                 <label for="nama_lengkap" class="form-control-label">Nama Lengkap</label>
                                 <input type="hidden" name="id_pelanggan" value="<?= $pelanggan->id_pelanggan ?>">

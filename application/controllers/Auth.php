@@ -231,9 +231,10 @@ class Auth extends CI_Controller
 	function index()
 	{
 		$data['title'] = 'CV. Abell';
-		$this->load->view('templates/header', $data);
-		$this->load->view('index', $data);
-		$this->load->view('templates/footer');
+		$this->load->view('index');
+		// $this->load->view('templates/header', $data);
+		// $this->load->view('index', $data);
+		// $this->load->view('templates/footer');
 	}
 
 	function proses_login_pelanggan()
@@ -250,17 +251,17 @@ class Auth extends CI_Controller
 					'jabatan' => "Pelanggan",
 				];
 				$this->session->set_userdata($data);
-				$this->session->set_flashdata('message', '<strong>Login Berhasil</strong>
+				$this->session->set_flashdata('message', 'Login Berhasil
 																	<i class="bi bi-check-circle-fill"></i>');
 
 				redirect('pelanggan/kuesioner');
 			} else {
-				$this->session->set_flashdata('message', '<strong>Akun anda tidak ditemukan!</strong>
+				$this->session->set_flashdata('message', 'Akun anda tidak ditemukan!
 							<i class="bi bi-exclamation-circle-fill"></i>');
 				redirect(base_url());
 			}
 		} else {
-			$this->session->set_flashdata('message', '<strong>Maaf, harap masukkan nomor hp dengan benar!</strong>
+			$this->session->set_flashdata('message', 'Maaf, harap masukkan nomor hp dengan benar!
 							<i class="bi bi-exclamation-circle-fill"></i>');
 			redirect(base_url());
 		}
@@ -273,7 +274,7 @@ class Auth extends CI_Controller
 			$_SESSION['nama_lengkap'],
 			$_SESSION['jabatan'],
 		);
-		$this->session->set_flashdata('message', '<strong>Anda berhasil Logout</strong><i class="bi bi-check-circle-fill"></i>');
+		$this->session->set_flashdata('message', 'Anda berhasil Logout <i class="bi bi-check-circle-fill"></i>');
 		redirect(base_url());
 	}
 }

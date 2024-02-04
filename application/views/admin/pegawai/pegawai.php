@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card mb-4 px-3">
                 <div class="row mb-4">
-                    <div class="col-6 d-flex align-items-center">
+                    <div class="col-6 d-flex align-items-center pt-2">
                         <div class="card-header pb-0">
                             <h5>Data Pegawai</h5>
                         </div>

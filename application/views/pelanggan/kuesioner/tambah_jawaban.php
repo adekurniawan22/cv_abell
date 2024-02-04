@@ -42,7 +42,8 @@
 
                         // Menampilkan Lokasi PPPoE
                         ?>
-                        <p><b>Lokasi PPPoE :</b> <?= $pelanggan->lokasi_server ?></p>
+                        <?php $lokasi_server = $this->db->get_where('t_lokasi_server', array('id_lokasi_server' => $pelanggan->lokasi_server))->row(); ?>
+                        <p><b>Lokasi PPPoE :</b> <?= $lokasi_server->lokasi_server ?></p>
                     </div>
 
                     <div class="mb-4">

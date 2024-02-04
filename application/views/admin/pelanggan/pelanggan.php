@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card mb-4 px-3">
                 <div class="row mb-4">
-                    <div class="col-6 d-flex align-items-center">
+                    <div class="col-6 d-flex align-items-center pt-2">
                         <div class="card-header pb-0">
                             <h5>Data Pelanggan</h5>
                         </div>
@@ -36,7 +36,8 @@
                                             <p class="ms-3 text-sm font-weight-bold mb-0"><?= nl2br($p->alamat) ?></p>
                                         </td>
                                         <td>
-                                            <p class="ms-3 text-sm font-weight-bold mb-0"><?= $p->lokasi_server ?></p>
+                                            <?php $lokasi_server = $this->db->get_where('t_lokasi_server', array('id_lokasi_server' => $p->lokasi_server))->row(); ?>
+                                            <p class="ms-3 text-sm font-weight-bold mb-0"><?= $lokasi_server->lokasi_server ?></p>
                                         </td>
                                         <td>
                                             <?php if ($p->status_aktif == '1') : ?>
@@ -58,7 +59,11 @@
 
                                             // Menampilkan Bulan jika Bulan tidak sama dengan 0
                                             if ($selisih->m !== 0) {
-                                                echo $selisih->m . ' Bulan, ';
+                                                if ($selisih->d !== 0) {
+                                                    echo $selisih->m . ' Bulan, ';
+                                                } else {
+                                                    echo $selisih->m . ' Bulan ';
+                                                }
                                             }
 
                                             // Menampilkan Hari jika Hari tidak sama dengan 0

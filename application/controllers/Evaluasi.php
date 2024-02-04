@@ -17,7 +17,7 @@ class Evaluasi extends CI_Controller
 
 	public function index()
 	{
-		$data['title'] = "Data Evaluasi";
+		$data['title'] = "Data Perhitungan";
 		$data['evaluasi'] = $this->Evaluasi_model->dapat_evaluasi();
 
 		if ($this->session->userdata('jabatan') == 'Manajer') {
@@ -154,7 +154,7 @@ class Evaluasi extends CI_Controller
 
 	public function detail_evaluasi()
 	{
-		$data['title'] = "Data Evaluasi";
+		$data['title'] = "Data Perhitungan";
 
 		$id_evaluasi = $this->input->post('id_evaluasi');
 		$id_kuesioner = $this->input->post('id_kuesioner');
@@ -179,7 +179,7 @@ class Evaluasi extends CI_Controller
 	{
 		$this->db->where('id_evaluasi', $this->input->post('id_evaluasi'));
 		$this->db->delete('t_evaluasi');
-		$this->session->set_flashdata('message', '<strong>Data Evaluasi Berhasil Dihapus</strong>
+		$this->session->set_flashdata('message', '<strong>Data Perhitungan Berhasil Dihapus</strong>
 															<i class="bi bi-check-circle-fill"></i>');
 		redirect('admin/data-evaluasi');
 	}

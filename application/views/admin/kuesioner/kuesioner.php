@@ -24,7 +24,7 @@
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Tanggal Mulai</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Tanggal Selesai</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Di buat oleh</th>
-                                    <th style="width: 25%;" class="text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
+                                    <th style="width: 25%;" class="text-center text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,8 +52,8 @@
                                             <!-- <form action="<?= base_url() ?>admin/edit-kuesioner" method="post" class="d-inline-block">
                                                 <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
                                                 <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true" disabled></i>Edit</Button>
-                                            </form>
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button> -->
+                                            </form> -->
+                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button>
                                             <?php
                                             $timezone = new DateTimeZone('Asia/Jakarta');
                                             $waktu_selesai = new DateTime($k->selesai, $timezone);
@@ -75,7 +75,7 @@
                                             <?php endif ?>
                                             <form action="<?= base_url() ?>admin/evaluasi-kuesioner" method="post" class="d-inline-block">
                                                 <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true" disabled></i>Evaluasi</Button>
+                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true" disabled></i>Hitung Kuesioner</Button>
                                             </form>
                                         </td>
                                     </tr>
@@ -130,11 +130,14 @@
                         ?>
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
+                                <th style="border: 1px solid #ddd; padding:10px;">No.</th>
                                 <th style="border: 1px solid #ddd; padding:10px;">Pernyataan</th>
                                 <th style="border: 1px solid #ddd; padding:10px;">Dimensi</th>
                             </tr>
+                            <?php $i = 1 ?>
                             <?php foreach ($query as $q) : ?>
                                 <tr>
+                                    <td style="border: 1px solid #ddd; padding:10px; text-align: center"><?= $i ?></td>
                                     <td style="border: 1px solid #ddd; padding:10px;"><?= $q->pernyataan ?></td>
                                     <?php foreach ($dimensi as $d) : ?>
                                         <?php if ($d->id_dimensi == $q->id_dimensi) : ?>
@@ -142,6 +145,7 @@
                                         <?php endif ?>
                                     <?php endforeach ?>
                                 </tr>
+                                <?php $i++ ?>
                             <?php endforeach ?>
                         </table>
                     </div>

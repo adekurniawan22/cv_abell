@@ -31,10 +31,10 @@
                             <select class="form-select" aria-label="Default select example" name="lokasi_server" id="lokasi_server">
                                 <option value="" selected>Pilih Lokasi</option>
                                 <?php foreach ($lokasi as $l) : ?>
-                                    <option value="<?= $l->lokasi_server ?>" <?php echo set_select('lokasi_server', $l->lokasi_server, $pelanggan->lokasi_server == $l->lokasi_server); ?>><?= $l->lokasi_server ?></option>
+                                    <option value="<?= $l->id_lokasi_server ?>" <?php echo set_select('lokasi_server', $l->id_lokasi_server, $pelanggan->lokasi_server == $l->id_lokasi_server); ?>><?= $l->lokasi_server ?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <?= form_error('lokasi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+                            <?= form_error('lokasi_server', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
                         <div class="form-group">
                             <label for="mulai_berlangganan" class="form-control-label">Tanggal Mulai Berlangganan</label>

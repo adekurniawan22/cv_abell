@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url() ?>assets/argon-master/assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="<?= base_url() ?>assets/argon-master/assets/img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/img/LogoAbell.png" />
     <title>
         <?= $title ?>
     </title>
@@ -40,7 +40,7 @@
                                             <input type="text" class="form-control form-control-lg" placeholder="Email" name="email" value="<?php echo set_value('email'); ?>">
                                             <?= form_error('email', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                         </div>
-                                        <a href="<?= base_url() ?>" class=" text-primary text-gradient font-weight-bold">Login?</a>
+                                        <a href="<?= base_url() ?>login-pegawai" class=" text-primary text-gradient font-weight-bold">Login?</a>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Kirim</button>
                                         </div>

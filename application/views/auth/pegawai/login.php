@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url() ?>assets/argon-master/assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="<?= base_url() ?>assets/argon-master/assets/img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/img/LogoAbell.png" />
     <title>
         <?= $title ?>
     </title>
@@ -31,7 +31,7 @@
                         <div class="col-xl-4 col-lg-5  col-md-7 mx-lg-0 mx-auto">
                             <div class="card card-plain">
                                 <div class="card-header pb-0 text-start">
-                                    <img src="<?= base_url() ?>assets/img/logoabell.png" alt="..." class="img-thumbnail rounded mx-auto d-block mb-6" width="200px" height="200px">
+                                    <img src="<?= base_url() ?>assets/img/logoabell.png" alt="..." class="img-thumbnail rounded mx-auto d-block mb-6" width="200px" height="200px" style="border: none">
                                     <h4 class="font-weight-bolder">Login</h4>
                                 </div>
                                 <div class="card-body">

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url() ?>assets/argon-master/assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="<?= base_url() ?>assets/argon-master/assets/img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/img/LogoAbell.png" />
     <title>
         <?= $title ?>
     </title>
@@ -205,18 +205,6 @@
                             </li>
                         <?php } ?>
                         <?php if ($this->session->userdata('jabatan') == 'Pelanggan') { ?>
-                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>">
-                                    <i class="bi bi-house-door-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
-                                    Home
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="https://wa.me/6285155245688" target="_blank">
-                                    <i class="bi bi-whatsapp opacity-6 text-dark me-1" aria-hidden="true"></i>
-                                    Hubungi Kami
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>pelanggan/kuesioner">
                                     <i class="bi bi-file-text-fill opacity-6 text-dark me-1" aria-hidden="true"></i>

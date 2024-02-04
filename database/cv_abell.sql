@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Feb 2024 pada 19.19
+-- Waktu pembuatan: 04 Feb 2024 pada 11.31
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -40,6 +40,27 @@ CREATE TABLE `t_detail_evaluasi` (
   `gap` float NOT NULL,
   `rekomendasi_perbaikan` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `t_detail_evaluasi`
+--
+
+INSERT INTO `t_detail_evaluasi` (`id_detail_evaluasi`, `id_evaluasi`, `id_pernyataan`, `total_ekspetasi`, `total_presepsi`, `mis`, `mss`, `wf`, `ws`, `gap`, `rekomendasi_perbaikan`) VALUES
+(121, 10, 1, 310, 319, 3.44, 3.54, 6.66, 23.58, -0.1, ''),
+(122, 10, 2, 328, 320, 3.64, 3.56, 7.05, 25.1, 0.08, ''),
+(123, 10, 3, 301, 312, 3.34, 3.47, 6.47, 22.45, -0.13, ''),
+(124, 10, 4, 299, 327, 3.32, 3.63, 6.43, 23.34, -0.31, ''),
+(125, 10, 5, 303, 311, 3.37, 3.46, 6.52, 22.56, -0.09, ''),
+(126, 10, 6, 311, 326, 3.46, 3.62, 6.7, 24.25, -0.16, ''),
+(127, 10, 7, 330, 316, 3.67, 3.51, 7.11, 24.96, 0.16, ''),
+(128, 10, 8, 316, 320, 3.51, 3.56, 6.8, 24.21, -0.05, ''),
+(129, 10, 9, 320, 316, 3.56, 3.51, 6.89, 24.18, 0.05, ''),
+(130, 10, 10, 306, 219, 3.4, 2.43, 6.58, 15.99, 0.97, ''),
+(131, 10, 11, 314, 321, 3.49, 3.57, 6.76, 24.13, -0.08, ''),
+(132, 10, 12, 307, 308, 3.41, 3.42, 6.6, 22.57, -0.01, ''),
+(133, 10, 13, 309, 313, 3.43, 3.48, 6.64, 23.11, -0.05, ''),
+(134, 10, 14, 300, 311, 3.33, 3.46, 6.45, 22.32, -0.13, ''),
+(135, 10, 15, 295, 311, 3.28, 3.46, 6.35, 21.97, -0.18, '');
 
 -- --------------------------------------------------------
 
@@ -78,6 +99,13 @@ CREATE TABLE `t_evaluasi` (
   `kriteria_nilai_csi` varchar(100) NOT NULL,
   `tanggal_evaluasi` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `t_evaluasi`
+--
+
+INSERT INTO `t_evaluasi` (`id_evaluasi`, `id_kuesioner`, `total_responden`, `total_pelanggan`, `nilai_csi`, `kriteria_nilai_csi`, `tanggal_evaluasi`) VALUES
+(10, 1, 90, 90, 68.94, 'Puas', '2024-02-04');
 
 -- --------------------------------------------------------
 
@@ -1469,7 +1497,7 @@ CREATE TABLE `t_kuesioner` (
 --
 
 INSERT INTO `t_kuesioner` (`id_kuesioner`, `judul_kuesioner`, `mulai`, `selesai`, `id_pegawai`) VALUES
-(1, 'Kepuasan Pelanggan v1', '2024-01-31', '2024-01-31', 1);
+(1, 'Kepuasan Pelanggan v1', '2024-01-31', '2024-02-05', 1);
 
 -- --------------------------------------------------------
 
@@ -1530,7 +1558,7 @@ CREATE TABLE `t_pelanggan` (
   `nama_lengkap` varchar(100) NOT NULL,
   `no_hp` varchar(20) NOT NULL,
   `alamat` varchar(100) NOT NULL,
-  `lokasi_server` varchar(100) NOT NULL,
+  `lokasi_server` int(11) NOT NULL,
   `status_aktif` enum('1','0') NOT NULL,
   `mulai_berlangganan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -1540,96 +1568,96 @@ CREATE TABLE `t_pelanggan` (
 --
 
 INSERT INTO `t_pelanggan` (`id_pelanggan`, `id_pegawai`, `nama_lengkap`, `no_hp`, `alamat`, `lokasi_server`, `status_aktif`, `mulai_berlangganan`) VALUES
-(1, 1, 'Miss Josianne Kuphal', '6281385044647', '223 Dina Hill', 'PPPoE AbelNet', '1', '2020-12-04'),
-(2, 1, 'Orville Tillman', '6281227188600', '8 King Place', 'PPPoE AbelNet', '1', '2021-08-21'),
-(3, 1, 'Sadye Toy', '6281301203504', '1 Marielle Union', 'PPPoE OLT KJ', '1', '2019-12-03'),
-(4, 1, 'Ms. Earnestine Cummerata', '6281333940740', '7 Malvina Crescent', 'PPPoE OLT CITARIK', '1', '2021-04-23'),
-(5, 1, 'Katelyn Kemmer', '6281284575572', '62 Spinka Throughway', 'PPPoE Tirtamulya R1', '1', '2022-03-26'),
-(6, 1, 'Rex Rosenbaum', '6281267493691', '10 Wilderman Stream', 'PPPoE CIAMPEL', '1', '2019-03-19'),
-(7, 1, 'Augustus Jakubowski', '6281361028761', 'Studio 94\nZackary Path', 'PPPoE Tirtamulya R1', '1', '2019-09-10'),
-(8, 1, 'Mrs. Ima Herzog MD', '6281263970616', '388 Osinski Park', 'PPPoE OLT CITARIK', '1', '2022-03-01'),
-(9, 1, 'Dr. Erik Casper II', '6281375314880', 'Flat 77f\nMarie Ridges', 'PPPoE AbelNet', '1', '2023-05-05'),
-(10, 1, 'Dr. Ralph Morar II', '6281258832325', '8 Green Coves', 'PPPoE Tirtamulya R1', '0', '2019-03-24'),
-(11, 1, 'Andres Padberg II', '6281228124316', '3 Yost Meadow', 'PPPoE OLT CITARIK', '0', '2024-01-21'),
-(12, 1, 'Dr. Alia Yost Sr.', '6281225365018', '20 Tillman Wall', 'PPPoE Tirtamulya R1', '0', '2022-01-19'),
-(13, 1, 'Prof. Loma Casper Sr.', '6281344540223', 'Flat 85\nBridgette View', 'PPPoE AbelNet', '1', '2022-05-26'),
-(14, 1, 'Prof. Arnulfo Gutkowski DVM', '6281322112432', '71 Weber Vista', 'PPPoE AbelNet', '0', '2021-11-11'),
-(15, 1, 'Orville Beer', '6281362383114', 'Studio 39q\nHaylee Orchard', 'PPPoE AbelNet', '0', '2020-06-07'),
-(16, 1, 'Ms. Verla Schmitt V', '6281271875812', '55 Labadie Walk', 'PPPoE Tirtamulya R1', '0', '2019-08-30'),
-(17, 1, 'Prof. Breanna Harber', '6281311009147', '98 Tyree Knoll', 'PPPoE Tirtamulya R1', '0', '2023-03-25'),
-(18, 1, 'Felton Jones', '6281271774499', '810 Collier Ports', 'PPPoE AbelNet', '1', '2022-01-16'),
-(19, 1, 'King Collins', '6281288957406', 'Flat 78\nWalter Row', 'PPPoE OLT CITARIK', '0', '2021-03-15'),
-(20, 1, 'Mr. Gust Doyle', '6281324087022', 'Flat 14l\nSpencer Spurs', 'PPPoE CIAMPEL', '1', '2020-04-19'),
-(21, 1, 'Lora Wyman MD', '6281229683826', '41 Shields Ways', 'PPPoE OLT KJ', '0', '2020-05-28'),
-(22, 1, 'Prof. Brandyn Witting', '6281325814547', 'Studio 05\nKunde Square', 'PPPoE OLT CITARIK', '1', '2021-09-25'),
-(23, 1, 'Mr. Bertrand Eichmann', '6281332767130', 'Flat 93\nCormier Unions', 'PPPoE Tirtamulya R1', '0', '2019-02-25'),
-(24, 1, 'Sammie Harvey', '6281359463405', '681 Gusikowski Stream', 'PPPoE Tirtamulya R1', '0', '2023-07-16'),
-(25, 1, 'Dr. Rae Mills MD', '6281302258775', '96 Princess Tunnel', 'PPPoE CIAMPEL', '1', '2021-11-27'),
-(26, 1, 'Jalen Greenholt', '6281346532928', '41 Roy Walks', 'PPPoE AbelNet', '1', '2021-11-01'),
-(27, 1, 'Brant Feeney DDS', '6281304871296', '6 Isidro Crossroad', 'PPPoE OLT CITARIK', '1', '2022-12-15'),
-(28, 1, 'Lyla Sporer', '6281231488212', 'Flat 78\nMekhi River', 'PPPoE AbelNet', '1', '2020-09-22'),
-(29, 1, 'Mac Kemmer', '6281337368765', '9 Pearline Station', 'PPPoE CIAMPEL', '1', '2023-07-20'),
-(30, 1, 'Dr. Roosevelt Pouros', '6281216972063', 'Studio 71l\nReanna Course', 'PPPoE OLT CITARIK', '1', '2023-11-19'),
-(31, 1, 'Prof. Milford Bins V', '6281222092919', '0 Jamey Forks', 'PPPoE OLT KJ', '1', '2021-08-14'),
-(32, 1, 'Ms. Kassandra Dickens', '6281398168232', '16 Strosin Wall', 'PPPoE OLT KJ', '1', '2021-05-01'),
-(33, 1, 'Rodger Hills Sr.', '6281396409824', '18 Gladyce Points', 'PPPoE AbelNet', '1', '2021-05-20'),
-(34, 1, 'Vincenza Ritchie', '6281270038425', 'Flat 63\nRex Canyon', 'PPPoE OLT CITARIK', '1', '2020-04-12'),
-(35, 1, 'Mrs. Elsa Krajcik', '6281335731207', 'Studio 12\nPfannerstill Terrace', 'PPPoE OLT KJ', '1', '2019-03-22'),
-(36, 1, 'Freddy Bradtke DVM', '6281321411285', '146 Hane Courts', 'PPPoE OLT CITARIK', '0', '2023-01-20'),
-(37, 1, 'Pedro Wiegand', '6281319833045', '1 Prosacco Bypass', 'PPPoE CIAMPEL', '1', '2021-06-02'),
-(38, 1, 'Mateo Skiles', '6281287954566', '97 Miles Place', 'PPPoE CIAMPEL', '1', '2019-03-06'),
-(39, 1, 'Lennie Wyman', '6281333076653', '085 Price Rapids', 'PPPoE OLT KJ', '1', '2023-03-30'),
-(40, 1, 'Jackeline Eichmann', '6281324545391', '5 Esta Camp', 'PPPoE AbelNet', '1', '2023-02-02'),
-(41, 1, 'Prof. Jasper Krajcik PhD', '6281259492474', '697 Ferry Radial', 'PPPoE AbelNet', '1', '2021-07-08'),
-(42, 1, 'Mr. Elmore Mertz V', '6281310529980', 'Flat 52\nKrajcik Springs', 'PPPoE OLT KJ', '1', '2020-06-19'),
-(43, 1, 'Emile Ebert V', '6281268766320', '64 Senger Port', 'PPPoE AbelNet', '1', '2022-03-17'),
-(44, 1, 'Dr. Samson Lang', '6281262341240', 'Studio 66\nLyda Manors', 'PPPoE OLT KJ', '1', '2019-03-28'),
-(45, 1, 'Alana Renner', '6281379375087', 'Flat 47\nHirthe Grove', 'PPPoE OLT KJ', '1', '2023-03-17'),
-(46, 1, 'Gregorio Feil', '6281339840415', '383 Lindgren Gateway', 'PPPoE OLT CITARIK', '1', '2023-12-01'),
-(47, 1, 'Dr. Adrien Konopelski', '6281267889942', 'Studio 80\nLabadie Views', 'PPPoE AbelNet', '1', '2020-09-15'),
-(48, 1, 'Aglae Lemke Sr.', '6281236021905', '842 Walsh Way', 'PPPoE CIAMPEL', '1', '2023-02-20'),
-(49, 1, 'Mr. Giovanny Bahringer', '6281340381887', 'Flat 84\nBradtke Crossroad', 'PPPoE AbelNet', '1', '2024-01-17'),
-(50, 1, 'Dr. Adah Dare', '6281345053673', 'Flat 16\nBernier Trail', 'PPPoE CIAMPEL', '1', '2020-03-04'),
-(51, 1, 'Toney Block', '6281368575749', 'Flat 46\nLee Burgs', 'PPPoE OLT KJ', '1', '2023-03-08'),
-(52, 1, 'Arlene Gorczany PhD', '6281239251226', '625 Stiedemann Canyon', 'PPPoE OLT KJ', '1', '2019-02-13'),
-(53, 1, 'Trinity Grady DVM', '6281316882815', 'Studio 87\nFrami Knoll', 'PPPoE CIAMPEL', '1', '2020-12-08'),
-(54, 1, 'Savion Schimmel', '6281292147726', '44 Myron Fort', 'PPPoE CIAMPEL', '1', '2019-10-29'),
-(55, 1, 'Eusebio Bode', '6281331615812', '86 Botsford Pass', 'PPPoE AbelNet', '1', '2022-11-26'),
-(56, 1, 'Skyla Brekke', '6281392346907', '897 Schinner Haven', 'PPPoE OLT CITARIK', '1', '2020-12-27'),
-(57, 1, 'Dr. Dillon Schamberger', '6281384720230', '832 Wehner Burgs', 'PPPoE Tirtamulya R1', '1', '2022-10-28'),
-(58, 1, 'Blake Feest', '6281271724893', '5 Johns Center', 'PPPoE CIAMPEL', '1', '2023-10-24'),
-(59, 1, 'Tyra Wolff', '6281296609467', '313 Jamie Light', 'PPPoE OLT KJ', '1', '2021-08-04'),
-(60, 1, 'Verona Hills', '6281366656888', '051 Wilderman Route', 'PPPoE OLT CITARIK', '1', '2021-10-02'),
-(61, 1, 'Ms. Skyla Mante Jr.', '6281304338502', '0 Rohan Lane', 'PPPoE CIAMPEL', '1', '2023-06-23'),
-(62, 1, 'Dr. Tyson Murazik', '6281213565312', '96 Rachelle Shores', 'PPPoE AbelNet', '1', '2021-02-28'),
-(63, 1, 'Prof. Timmy Berge', '6281374604624', 'Flat 70u\nKaitlin Spur', 'PPPoE OLT CITARIK', '1', '2023-03-31'),
-(64, 1, 'Lorine Mosciski I', '6281285038420', '427 Karine Spurs', 'PPPoE OLT CITARIK', '1', '2019-06-07'),
-(65, 1, 'Felipe Altenwerth', '6281336977160', '2 Chauncey Rest', 'PPPoE AbelNet', '1', '2023-12-01'),
-(66, 1, 'Ms. Wava Corkery PhD', '6281294782067', '20 Luna Forges', 'PPPoE AbelNet', '1', '2023-06-26'),
-(67, 1, 'Prof. Maya Moen Sr.', '6281239947051', '742 Cole Lodge', 'PPPoE AbelNet', '1', '2023-03-22'),
-(68, 1, 'Mr. Bret Krajcik', '6281395815383', '207 Kshlerin Lights', 'PPPoE Tirtamulya R1', '1', '2020-06-12'),
-(69, 1, 'Eddie Hintz', '6281259530409', '3 Murray Forge', 'PPPoE CIAMPEL', '1', '2023-06-16'),
-(70, 1, 'Abelardo Schiller', '6281390319743', '03 Angus Isle', 'PPPoE AbelNet', '1', '2021-04-14'),
-(71, 1, 'Elsie Prosacco', '6281349013687', '042 Earline Walks', 'PPPoE OLT CITARIK', '1', '2021-10-27'),
-(72, 1, 'Dr. Jonathon Stoltenberg PhD', '6281306074868', 'Flat 42l\nKaci Vista', 'PPPoE AbelNet', '1', '2019-03-18'),
-(73, 1, 'Dr. Paxton Dooley I', '6281325483427', 'Studio 00x\nWelch Brook', 'PPPoE CIAMPEL', '1', '2022-12-03'),
-(74, 1, 'Maud Orn', '6281305813275', '156 Schamberger Ville', 'PPPoE OLT CITARIK', '1', '2019-09-09'),
-(75, 1, 'Dr. Deontae Kertzmann V', '6281316034564', '6 Juana Route', 'PPPoE Tirtamulya R1', '1', '2022-04-07'),
-(76, 1, 'Wilson Koss', '6281323271117', '07 Aiden Fall', 'PPPoE Tirtamulya R1', '0', '2023-07-17'),
-(77, 1, 'Sylvia Koepp', '6281246629216', '27 Waelchi Loaf', 'PPPoE Tirtamulya R1', '1', '2020-08-29'),
-(78, 1, 'Angela Christiansen', '6281383891647', '43 Christiansen Club', 'PPPoE CIAMPEL', '1', '2023-08-28'),
-(79, 1, 'Mr. Sebastian Wisoky', '6281341633839', 'Studio 09\nReina Locks', 'PPPoE AbelNet', '1', '2022-10-08'),
-(80, 1, 'Velva Watsica', '6281326814084', '72 Logan Junctions', 'PPPoE OLT CITARIK', '0', '2020-08-12'),
-(81, 1, 'Oswald Thiel', '6281354322319', '453 Jaiden Fort', 'PPPoE OLT KJ', '0', '2019-06-17'),
-(82, 1, 'Prof. Delta Heathcote DDS', '6281249131623', '277 Isac Points', 'PPPoE Tirtamulya R1', '1', '2021-03-17'),
-(83, 1, 'Miss Sallie Rice Sr.', '6281277050134', '646 Maxwell Shore', 'PPPoE CIAMPEL', '0', '2019-11-21'),
-(84, 1, 'Miss Ruth Von Jr.', '6281287875276', '5 Barry Hills', 'PPPoE CIAMPEL', '0', '2021-01-12'),
-(85, 1, 'Alyson Hoppe MD', '6281240504794', '3 Lilyan Burg', 'PPPoE CIAMPEL', '1', '2019-05-25'),
-(86, 1, 'Hassan Kulas', '6281390657470', '82 Franecki Springs', 'PPPoE Tirtamulya R1', '0', '2022-02-18'),
-(87, 1, 'Marlon Considine', '6281377198721', '9 Streich Station', 'PPPoE OLT KJ', '0', '2022-08-22'),
-(88, 1, 'Armani Luettgen IV', '6281359898688', '595 Emie Expressway', 'PPPoE CIAMPEL', '1', '2020-10-14'),
-(89, 1, 'Jalyn Reilly', '6281347838835', '1 Jerde Crest', 'PPPoE CIAMPEL', '0', '2022-01-06'),
-(90, 1, 'Dr. Shany Ferry III', '6281383486600', 'Flat 00b\nShanahan Wall', 'PPPoE OLT KJ', '0', '2022-12-12');
+(1, 1, 'Miss Josianne Kuphal', '6281385044647', '223 Dina Hill', 2, '1', '2020-12-04'),
+(2, 1, 'Orville Tillman', '6281227188600', '8 King Place', 2, '1', '2021-08-21'),
+(3, 1, 'Sadye Toy', '6281301203504', '1 Marielle Union', 3, '1', '2019-12-03'),
+(4, 1, 'Ms. Earnestine Cummerata', '6281333940740', '7 Malvina Crescent', 4, '1', '2021-04-23'),
+(5, 1, 'Katelyn Kemmer', '6281284575572', '62 Spinka Throughway', 1, '1', '2022-03-26'),
+(6, 1, 'Rex Rosenbaum', '6281267493691', '10 Wilderman Stream', 5, '1', '2019-03-19'),
+(7, 1, 'Augustus Jakubowski', '6281361028761', 'Studio 94\nZackary Path', 1, '1', '2019-09-10'),
+(8, 1, 'Mrs. Ima Herzog MD', '6281263970616', '388 Osinski Park', 4, '1', '2022-03-01'),
+(9, 1, 'Dr. Erik Casper II', '6281375314880', 'Flat 77f\nMarie Ridges', 2, '1', '2023-05-05'),
+(10, 1, 'Dr. Ralph Morar II', '6281258832325', '8 Green Coves', 1, '0', '2019-03-24'),
+(11, 1, 'Andres Padberg II', '6281228124316', '3 Yost Meadow', 4, '0', '2024-01-21'),
+(12, 1, 'Dr. Alia Yost Sr.', '6281225365018', '20 Tillman Wall', 1, '0', '2022-01-19'),
+(13, 1, 'Prof. Loma Casper Sr.', '6281344540223', 'Flat 85\nBridgette View', 2, '1', '2022-05-26'),
+(14, 1, 'Prof. Arnulfo Gutkowski DVM', '6281322112432', '71 Weber Vista', 2, '0', '2021-11-11'),
+(15, 1, 'Orville Beer', '6281362383114', 'Studio 39q\nHaylee Orchard', 2, '0', '2020-06-07'),
+(16, 1, 'Ms. Verla Schmitt V', '6281271875812', '55 Labadie Walk', 1, '0', '2019-08-30'),
+(17, 1, 'Prof. Breanna Harber', '6281311009147', '98 Tyree Knoll', 1, '0', '2023-03-25'),
+(18, 1, 'Felton Jones', '6281271774499', '810 Collier Ports', 2, '1', '2022-01-16'),
+(19, 1, 'King Collins', '6281288957406', 'Flat 78\nWalter Row', 4, '0', '2021-03-15'),
+(20, 1, 'Mr. Gust Doyle', '6281324087022', 'Flat 14l\nSpencer Spurs', 5, '1', '2020-04-19'),
+(21, 1, 'Lora Wyman MD', '6281229683826', '41 Shields Ways', 3, '0', '2020-05-28'),
+(22, 1, 'Prof. Brandyn Witting', '6281325814547', 'Studio 05\nKunde Square', 4, '1', '2021-09-25'),
+(23, 1, 'Mr. Bertrand Eichmann', '6281332767130', 'Flat 93\nCormier Unions', 1, '0', '2019-02-25'),
+(24, 1, 'Sammie Harvey', '6281359463405', '681 Gusikowski Stream', 1, '0', '2023-07-16'),
+(25, 1, 'Dr. Rae Mills MD', '6281302258775', '96 Princess Tunnel', 5, '1', '2021-11-27'),
+(26, 1, 'Jalen Greenholt', '6281346532928', '41 Roy Walks', 2, '1', '2021-11-01'),
+(27, 1, 'Brant Feeney DDS', '6281304871296', '6 Isidro Crossroad', 4, '1', '2022-12-15'),
+(28, 1, 'Lyla Sporer', '6281231488212', 'Flat 78\nMekhi River', 2, '1', '2020-09-22'),
+(29, 1, 'Mac Kemmer', '6281337368765', '9 Pearline Station', 5, '1', '2023-07-20'),
+(30, 1, 'Dr. Roosevelt Pouros', '6281216972063', 'Studio 71l\nReanna Course', 4, '1', '2023-11-19'),
+(31, 1, 'Prof. Milford Bins V', '6281222092919', '0 Jamey Forks', 3, '1', '2021-08-14'),
+(32, 1, 'Ms. Kassandra Dickens', '6281398168232', '16 Strosin Wall', 3, '1', '2021-05-01'),
+(33, 1, 'Rodger Hills Sr.', '6281396409824', '18 Gladyce Points', 2, '1', '2021-05-20'),
+(34, 1, 'Vincenza Ritchie', '6281270038425', 'Flat 63\nRex Canyon', 4, '1', '2020-04-12'),
+(35, 1, 'Mrs. Elsa Krajcik', '6281335731207', 'Studio 12\nPfannerstill Terrace', 3, '1', '2019-03-22'),
+(36, 1, 'Freddy Bradtke DVM', '6281321411285', '146 Hane Courts', 4, '0', '2023-01-20'),
+(37, 1, 'Pedro Wiegand', '6281319833045', '1 Prosacco Bypass', 5, '1', '2021-06-02'),
+(38, 1, 'Mateo Skiles', '6281287954566', '97 Miles Place', 5, '1', '2019-03-06'),
+(39, 1, 'Lennie Wyman', '6281333076653', '085 Price Rapids', 3, '1', '2023-03-30'),
+(40, 1, 'Jackeline Eichmann', '6281324545391', '5 Esta Camp', 2, '1', '2023-02-02'),
+(41, 1, 'Prof. Jasper Krajcik PhD', '6281259492474', '697 Ferry Radial', 2, '1', '2021-07-08'),
+(42, 1, 'Mr. Elmore Mertz V', '6281310529980', 'Flat 52\nKrajcik Springs', 3, '1', '2020-06-19'),
+(43, 1, 'Emile Ebert V', '6281268766320', '64 Senger Port', 2, '1', '2022-03-17'),
+(44, 1, 'Dr. Samson Lang', '6281262341240', 'Studio 66\nLyda Manors', 3, '1', '2019-03-28'),
+(45, 1, 'Alana Renner', '6281379375087', 'Flat 47\nHirthe Grove', 3, '1', '2023-03-17'),
+(46, 1, 'Gregorio Feil', '6281339840415', '383 Lindgren Gateway', 4, '1', '2023-12-01'),
+(47, 1, 'Dr. Adrien Konopelski', '6281267889942', 'Studio 80\nLabadie Views', 2, '1', '2020-09-15'),
+(48, 1, 'Aglae Lemke Sr.', '6281236021905', '842 Walsh Way', 5, '1', '2023-02-20'),
+(49, 1, 'Mr. Giovanny Bahringer', '6281340381887', 'Flat 84\nBradtke Crossroad', 2, '1', '2024-01-17'),
+(50, 1, 'Dr. Adah Dare', '6281345053673', 'Flat 16\nBernier Trail', 5, '1', '2020-03-04'),
+(51, 1, 'Toney Block', '6281368575749', 'Flat 46\nLee Burgs', 3, '1', '2023-03-08'),
+(52, 1, 'Arlene Gorczany PhD', '6281239251226', '625 Stiedemann Canyon', 3, '1', '2019-02-13'),
+(53, 1, 'Trinity Grady DVM', '6281316882815', 'Studio 87\nFrami Knoll', 5, '1', '2020-12-08'),
+(54, 1, 'Savion Schimmel', '6281292147726', '44 Myron Fort', 5, '1', '2019-10-29'),
+(55, 1, 'Eusebio Bode', '6281331615812', '86 Botsford Pass', 2, '1', '2022-11-26'),
+(56, 1, 'Skyla Brekke', '6281392346907', '897 Schinner Haven', 4, '1', '2020-12-27'),
+(57, 1, 'Dr. Dillon Schamberger', '6281384720230', '832 Wehner Burgs', 1, '1', '2022-10-28'),
+(58, 1, 'Blake Feest', '6281271724893', '5 Johns Center', 5, '1', '2023-10-24'),
+(59, 1, 'Tyra Wolff', '6281296609467', '313 Jamie Light', 3, '1', '2021-08-04'),
+(60, 1, 'Verona Hills', '6281366656888', '051 Wilderman Route', 4, '1', '2021-10-02'),
+(61, 1, 'Ms. Skyla Mante Jr.', '6281304338502', '0 Rohan Lane', 5, '1', '2023-06-23'),
+(62, 1, 'Dr. Tyson Murazik', '6281213565312', '96 Rachelle Shores', 2, '1', '2021-02-28'),
+(63, 1, 'Prof. Timmy Berge', '6281374604624', 'Flat 70u\nKaitlin Spur', 4, '1', '2023-03-31'),
+(64, 1, 'Lorine Mosciski I', '6281285038420', '427 Karine Spurs', 4, '1', '2019-06-07'),
+(65, 1, 'Felipe Altenwerth', '6281336977160', '2 Chauncey Rest', 2, '1', '2023-12-01'),
+(66, 1, 'Ms. Wava Corkery PhD', '6281294782067', '20 Luna Forges', 2, '1', '2023-06-26'),
+(67, 1, 'Prof. Maya Moen Sr.', '6281239947051', '742 Cole Lodge', 2, '1', '2023-03-22'),
+(68, 1, 'Mr. Bret Krajcik', '6281395815383', '207 Kshlerin Lights', 1, '1', '2020-06-12'),
+(69, 1, 'Eddie Hintz', '6281259530409', '3 Murray Forge', 5, '1', '2023-06-16'),
+(70, 1, 'Abelardo Schiller', '6281390319743', '03 Angus Isle', 2, '1', '2021-04-14'),
+(71, 1, 'Elsie Prosacco', '6281349013687', '042 Earline Walks', 4, '1', '2021-10-27'),
+(72, 1, 'Dr. Jonathon Stoltenberg PhD', '6281306074868', 'Flat 42l\nKaci Vista', 2, '1', '2019-03-18'),
+(73, 1, 'Dr. Paxton Dooley I', '6281325483427', 'Studio 00x\nWelch Brook', 5, '1', '2022-12-03'),
+(74, 1, 'Maud Orn', '6281305813275', '156 Schamberger Ville', 4, '1', '2019-09-09'),
+(75, 1, 'Dr. Deontae Kertzmann V', '6281316034564', '6 Juana Route', 1, '1', '2022-04-07'),
+(76, 1, 'Wilson Koss', '6281323271117', '07 Aiden Fall', 1, '0', '2023-07-17'),
+(77, 1, 'Sylvia Koepp', '6281246629216', '27 Waelchi Loaf', 1, '1', '2020-08-29'),
+(78, 1, 'Angela Christiansen', '6281383891647', '43 Christiansen Club', 5, '1', '2023-08-28'),
+(79, 1, 'Mr. Sebastian Wisoky', '6281341633839', 'Studio 09\nReina Locks', 2, '1', '2022-10-08'),
+(80, 1, 'Velva Watsica', '6281326814084', '72 Logan Junctions', 4, '0', '2020-08-12'),
+(81, 1, 'Oswald Thiel', '6281354322319', '453 Jaiden Fort', 3, '0', '2019-06-17'),
+(82, 1, 'Prof. Delta Heathcote DDS', '6281249131623', '277 Isac Points', 1, '1', '2021-03-17'),
+(83, 1, 'Miss Sallie Rice Sr.', '6281277050134', '646 Maxwell Shore', 5, '0', '2019-11-21'),
+(84, 1, 'Miss Ruth Von Jr.', '6281287875276', '5 Barry Hills', 5, '0', '2021-01-12'),
+(85, 1, 'Alyson Hoppe MD', '6281240504794', '3 Lilyan Burg', 5, '1', '2019-05-25'),
+(86, 1, 'Hassan Kulas', '6281390657470', '82 Franecki Springs', 1, '0', '2022-02-18'),
+(87, 1, 'Marlon Considine', '6281377198721', '9 Streich Station', 3, '0', '2022-08-22'),
+(88, 1, 'Armani Luettgen IV', '6281359898688', '595 Emie Expressway', 5, '1', '2020-10-14'),
+(89, 1, 'Jalyn Reilly', '6281347838835', '1 Jerde Crest', 5, '0', '2022-01-06'),
+(90, 1, 'Dr. Shany Ferry III', '6281383486600', 'Flat 00b\nShanahan Wall', 3, '0', '2022-12-12');
 
 -- --------------------------------------------------------
 
@@ -1830,7 +1858,8 @@ ALTER TABLE `t_pegawai`
 --
 ALTER TABLE `t_pelanggan`
   ADD PRIMARY KEY (`id_pelanggan`),
-  ADD KEY `id_pegawai` (`id_pegawai`);
+  ADD KEY `id_pegawai` (`id_pegawai`),
+  ADD KEY `lokasi_server` (`lokasi_server`);
 
 --
 -- Indeks untuk tabel `t_pernyataan`
@@ -1855,7 +1884,7 @@ ALTER TABLE `t_sudah_isi_kuesioner`
 -- AUTO_INCREMENT untuk tabel `t_detail_evaluasi`
 --
 ALTER TABLE `t_detail_evaluasi`
-  MODIFY `id_detail_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id_detail_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_dimensi`
@@ -1867,7 +1896,7 @@ ALTER TABLE `t_dimensi`
 -- AUTO_INCREMENT untuk tabel `t_evaluasi`
 --
 ALTER TABLE `t_evaluasi`
-  MODIFY `id_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_jawaban`
@@ -1879,7 +1908,7 @@ ALTER TABLE `t_jawaban`
 -- AUTO_INCREMENT untuk tabel `t_kuesioner`
 --
 ALTER TABLE `t_kuesioner`
-  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_lokasi_server`
@@ -1897,7 +1926,7 @@ ALTER TABLE `t_pegawai`
 -- AUTO_INCREMENT untuk tabel `t_pelanggan`
 --
 ALTER TABLE `t_pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pernyataan`
@@ -1940,7 +1969,8 @@ ALTER TABLE `t_kuesioner`
 -- Ketidakleluasaan untuk tabel `t_pelanggan`
 --
 ALTER TABLE `t_pelanggan`
-  ADD CONSTRAINT `t_pelanggan_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `t_pegawai` (`id_pegawai`);
+  ADD CONSTRAINT `t_pelanggan_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `t_pegawai` (`id_pegawai`),
+  ADD CONSTRAINT `t_pelanggan_ibfk_2` FOREIGN KEY (`lokasi_server`) REFERENCES `t_lokasi_server` (`id_lokasi_server`);
 
 --
 -- Ketidakleluasaan untuk tabel `t_pernyataan`

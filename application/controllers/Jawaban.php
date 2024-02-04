@@ -70,4 +70,17 @@ class Jawaban extends CI_Controller
 			redirect('pelanggan/kuesioner');
 		}
 	}
+
+	public function jawaban_pelanggan()
+	{
+		$data['sudah_isi_kuesioner'] = $this->db->get_where('t_sudah_isi_kuesioner', ['id_kuesioner', $this->input->post('id_kuesioner')])->result();
+		$data['jawaban']  = $this->db->get_where('t_jawaban', ['id_kuesioner' => $this->input->post('id_kuesioner')])->result();
+		$data['pernyataan']  = $this->db->get_where('t_pernyataan', ['id_kuesioner' => $this->input->post('id_kuesioner')])->result();
+
+		$data['title'] = 'Jawaban Pelanggan';
+		ob_start();
+		$this->load->view('templates/header', $data);
+		$this->load->view('manajer/kuesioner/detail_kuesioner', $data);
+		$this->load->view('templates/footer');
+	}
 }

@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card mb-4 px-3">
                 <div class="row mb-4">
-                    <div class="col-6 d-flex align-items-center">
+                    <div class="col-6 d-flex align-items-center pt-2">
                         <div class="card-header pb-0">
                             <h5>Data Kuesioner</h5>
                         </div>
@@ -44,6 +44,10 @@
 
                                         <td class="align-middle">
                                             <button class="btn btn-link text-dark text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_detail_pernyataan<?= $k->id_kuesioner ?>"><i class="bi bi-eye-fill me-2" aria-hidden="true" disabled></i>Detail Pernyataan</button>
+                                            <form action="<?= base_url() ?>manajer/jawaban-pelanggan" method="post" class="d-inline-block">
+                                                <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
+                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="bi bi-person-hearts me-2" aria-hidden="true" disabled></i>Jawaban Pelanggan</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

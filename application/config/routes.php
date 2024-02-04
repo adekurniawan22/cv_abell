@@ -61,8 +61,6 @@ $route['kirim-reset-password'] = 'auth/send_reset_link';
 $route['reset-password'] = 'auth/reset_password';
 $route['proses-reset-password'] = 'auth/proses_reset_password';
 
-// Route Auth Pelanggan
-// Masih belum dibuat
 
 
 // Route Manajer
@@ -86,6 +84,7 @@ $route['manajer/data-kuesioner'] = 'kuesioner/index';
 $route['manajer/data-evaluasi'] = 'evaluasi/index';
 $route['manajer/detail-evaluasi'] = 'evaluasi/detail_evaluasi';
 $route['manajer/cetak-evaluasi-pdf'] = 'evaluasi/cetak_pdf';
+$route['manajer/jawaban-pelanggan'] = 'jawaban/jawaban_pelanggan';
 
 // Route admin
 $route['admin/dashboard'] = 'dashboard/dashboard_admin';
