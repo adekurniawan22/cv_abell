@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>PDF Evaluasi Kuesioner <?= $kuesioner->judul_kuesioner ?></title>
+    <title>PDF Evaluasi Kuesioner</title>
 </head>
 
 <style>
@@ -34,15 +34,15 @@
 </style>
 
 <body>
-    <?php if (!empty($evaluasi) and !empty($detail_evaluasi) and !empty($pernyataan) and !empty($kuesioner)) { ?>
+    <?php if (!empty($evaluasi) and !empty($detail_evaluasi) and !empty($kuesioner)) { ?>
         <div class="container mt-5">
             <table class="table-header" style="background-color: #2f519e; color: white; border: 0px !important">
                 <tr>
                     <td rowspan="4">
                         <img src="<?= $foto ?>" style="width: 80px;">
                     </td>
-                    <td rowspan="4" style=" text-align:center">
-                        <h2 style="text-transform: uppercase;">HASIL EVALUASI KUESIONER <?= $kuesioner->judul_kuesioner ?></h2>
+                    <td rowspan="4" style=" text-align:left;">
+                        <h2 style="text-transform: uppercase; margin-right:100px">HASIL EVALUASI KUESIONER</h2>
                     </td>
                 </tr>
             </table>
@@ -63,7 +63,7 @@
                 </tr>
                 <tr>
                     <td style="text-align: left;">Hasil Evaluasi Kepuasan Pelanggan</td>
-                    <td class="titikdua">: <?= $evaluasi->kriteria_nilai_csi ?></td>
+                    <td class="titikdua">: <?= $evaluasi->indeks_csi ?></td>
                 </tr>
             </table>
             <br>
@@ -78,14 +78,9 @@
                     <?php foreach ($detail_evaluasi as $e) : ?>
                         <tr>
                             <td><?= $nomor ?></td>
-                            <?php foreach ($pernyataan as $p) : ?>
-                                <?php if ($e['id_pernyataan'] == $p['id_pernyataan']) : ?>
-                                    <td>
-                                        <?= $p['pernyataan'] ?>
-                                    </td>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                            <td><?= $e['rekomendasi_perbaikan'] ?></td>
+                            <?php $pernyataan = $this->db->get_Where('t_pernyataan', ['id_pernyataan' => $e->id_pernyataan])->row(); ?>
+                            <td><?= $pernyataan->pernyataan ?></td>
+                            <td><?= $pernyataan->rekomendasi_perbaikan ?></td>
                         </tr>
                         <?php $nomor++; ?>
                     <?php endforeach; ?>

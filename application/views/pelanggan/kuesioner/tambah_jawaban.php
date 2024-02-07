@@ -14,34 +14,28 @@
                         ?>
                         <p class="text-sm font-weight-bold mb-0"></p>
                         <p><b>Nama Lengkap :</b> <?= $pelanggan->nama_lengkap ?></p>
+                        <p><b>Lama Berlangganan :</b>
+                            <?php
+                            // Menampilkan Tahun jika Tahun tidak sama dengan 0
+                            if ($selisih->y !== 0) {
+                                echo $selisih->y . ' Tahun, ';
+                            }
 
-                        <?php
-                        // Menampilkan informasi lama berlangganan hanya jika ada nilai yang tidak nol
-                        if ($selisih->y !== 0 || $selisih->m !== 0 || $selisih->d !== 0) {
-                        ?>
-                            <p><b>Lama Berlangganan :</b>
-                                <?php
-                                // Menampilkan Tahun jika Tahun tidak sama dengan 0
-                                if ($selisih->y !== 0) {
-                                    echo $selisih->y . ' Tahun, ';
-                                }
-
-                                // Menampilkan Bulan jika Bulan tidak sama dengan 0
-                                if ($selisih->m !== 0) {
-                                    echo $selisih->m . ' Bulan, ';
-                                }
-
-                                // Menampilkan Hari jika Hari tidak sama dengan 0
+                            // Menampilkan Bulan jika Bulan tidak sama dengan 0
+                            if ($selisih->m !== 0) {
                                 if ($selisih->d !== 0) {
-                                    echo $selisih->d . ' Hari';
+                                    echo $selisih->m . ' Bulan, ';
+                                } else {
+                                    echo $selisih->m . ' Bulan ';
                                 }
-                                ?>
-                            </p>
-                        <?php
-                        }
+                            }
 
-                        // Menampilkan Lokasi PPPoE
-                        ?>
+                            // Menampilkan Hari jika Hari tidak sama dengan 0
+                            if ($selisih->d !== 0) {
+                                echo $selisih->d . ' Hari';
+                            }
+                            ?>
+                        </p>
                         <?php $lokasi_server = $this->db->get_where('t_lokasi_server', array('id_lokasi_server' => $pelanggan->lokasi_server))->row(); ?>
                         <p><b>Lokasi PPPoE :</b> <?= $lokasi_server->lokasi_server ?></p>
                     </div>
@@ -88,7 +82,8 @@
                                                 <input type="hidden" name="id_kuesioner" value="<?= $p->id_kuesioner ?>">
                                             </td>
                                             <td>
-                                                <p class="text-sm font-weight-bold mb-0" style="text-align: left;"><?= $p->pernyataan ?></p>
+                                                <?php $pernyatan_real = $this->db->get_where('t_pernyataan', ['id_pernyataan' => $p->id_pernyataan])->row(); ?>
+                                                <p class="text-sm font-weight-bold mb-0" style="text-align: left;"><?= $pernyatan_real->pernyataan ?></p>
                                             </td>
                                             <!-- Presepsi -->
                                             <td class="text-center">

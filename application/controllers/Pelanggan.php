@@ -78,7 +78,7 @@ class Pelanggan extends CI_Controller
 	{
 		$data['lokasi'] =  $this->db->get('t_lokasi_server')->result();
 		$data['pelanggan'] = $this->Pelanggan_model->dapat_satu_pelanggan($this->input->post('id_pelanggan'));
-		$data['title'] = 'Tambah Pelanggan';
+		$data['title'] = 'Edit Pelanggan';
 		$this->load->view('templates/header', $data);
 		$this->load->view('manajer/pelanggan/edit_pelanggan', $data);
 		$this->load->view('templates/footer');

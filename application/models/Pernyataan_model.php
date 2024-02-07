@@ -1,6 +1,20 @@
 <?php
 class Pernyataan_model extends CI_Model
 {
+
+    public function dapat_pernyataan()
+    {
+        $query = $this->db->get('t_pernyataan');
+        return $query->result();
+    }
+
+    public function dapat_satu_pernyataan($id_pernyataan)
+    {
+        $this->db->where('id_pernyataan', $id_pernyataan);
+        $query = $this->db->get('t_pernyataan');
+        return $query->row();
+    }
+
     public function tambah_pernyataan($data)
     {
         $this->db->insert('t_pernyataan', $data);
@@ -9,13 +23,6 @@ class Pernyataan_model extends CI_Model
         } else {
             return false;
         }
-    }
-
-    public function dapat_pernyataan($id_kuesioner)
-    {
-        $this->db->where('id_kuesioner', $id_kuesioner);
-        $query = $this->db->get('t_pernyataan');
-        return $query->result();
     }
 
     public function edit_pernyataan($id_pernyataan, $data)

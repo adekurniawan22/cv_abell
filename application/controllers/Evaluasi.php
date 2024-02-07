@@ -8,9 +8,7 @@ class Evaluasi extends CI_Controller
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('Kuesioner_model');
-		$this->load->model('Pelanggan_model');
 		$this->load->model('Pernyataan_model');
-		$this->load->model('Jawaban_model');
 		$this->load->model('Evaluasi_model');
 		$this->load->library('pdfgenerator');
 	}
@@ -20,23 +18,15 @@ class Evaluasi extends CI_Controller
 		$data['title'] = "Data Perhitungan";
 		$data['evaluasi'] = $this->Evaluasi_model->dapat_evaluasi();
 
-		if ($this->session->userdata('jabatan') == 'Manajer') {
-			$this->load->view('templates/header', $data);
-			$this->load->view('manajer/evaluasi/evaluasi', $data);
-			$this->load->view('templates/footer');
-		} else if ($this->session->userdata('jabatan') == 'Admin') {
-			$this->load->view('templates/header', $data);
-			$this->load->view('admin/evaluasi/evaluasi', $data);
-			$this->load->view('templates/footer');
-		}
+		$this->load->view('templates/header', $data);
+		$this->load->view('manajer/evaluasi/evaluasi', $data);
+		$this->load->view('templates/footer');
 	}
 
 	public function proses_evaluasi_kuesioner()
 	{
 		$id_kuesioner = $this->input->post('id_kuesioner');
-
-		$kuesioner = $this->Kuesioner_model->dapat_satu_kuesioner($id_kuesioner);
-		$pernyataan = $this->Pernyataan_model->dapat_pernyataan($id_kuesioner);
+		$pernyataan = $this->Pernyataan_model->dapat_pernyataan();
 
 		$this->db->from('t_jawaban');
 		$this->db->where('id_kuesioner', $id_kuesioner);
@@ -102,9 +92,8 @@ class Evaluasi extends CI_Controller
 		$data_evaluasi = [
 			'id_kuesioner' =>  $id_kuesioner,
 			'total_responden' => $total_responden,
-			'total_pelanggan' => $this->Pelanggan_model->jumlah_pelanggan(),
 			'nilai_csi' => $nilai_csi,
-			'kriteria_nilai_csi' => $kriteria,
+			'indeks_csi' => $kriteria,
 			'tanggal_evaluasi' => $tanggal_evaluasi,
 		];
 
@@ -128,20 +117,6 @@ class Evaluasi extends CI_Controller
 			$i++;
 		}
 
-		$data['title'] = "EValuasi Kuesioner . $kuesioner->judul_kuesioner";
-		$data['pernyataan'] = $pernyataan;
-		$data['jumlah_pelanggan'] = $this->Pelanggan_model->jumlah_pelanggan();
-		$data['total_responden'] = $total_responden;
-		$data['total_presepsi'] = $total_presepsi;
-		$data['total_ekspetasi'] = $total_ekspetasi;
-		$data['nilai_mis'] = $nilai_mis;
-		$data['nilai_mss'] = $nilai_mss;
-		$data['nilai_wf'] = $nilai_wf;
-		$data['nilai_ws'] = $nilai_ws;
-		$data['nilai_csi'] = $nilai_csi;
-		$data['kriteria_nilai_csi'] = $kriteria;
-		$data['nilai_gap'] = $nilai_gap;
-
 		if ($add_evaluasi) {
 			$this->session->set_flashdata('message', '<strong>Evaluasi Berhasil</strong>
 											<i class="bi bi-check-circle-fill"></i>');
@@ -149,30 +124,7 @@ class Evaluasi extends CI_Controller
 			$this->session->set_flashdata('message', '<strong>Evaluasi Gagal, Silahkan coba ulang</strong>
 																			<i class="bi bi-exclamation-circle-fill"></i>');
 		}
-		redirect('admin/data-evaluasi');
-	}
-
-	public function detail_evaluasi()
-	{
-		$data['title'] = "Data Perhitungan";
-
-		$id_evaluasi = $this->input->post('id_evaluasi');
-		$id_kuesioner = $this->input->post('id_kuesioner');
-		$data['evaluasi'] = $this->Evaluasi_model->dapat_satu_evaluasi($id_evaluasi);
-		$data['detail_evaluasi'] = $this->Evaluasi_model->dapat_satu_detail_evaluasi($id_evaluasi);
-
-		$this->db->where('id_kuesioner', $id_kuesioner);
-		$data['pernyataan'] = $this->db->get('t_pernyataan')->result_array();
-
-		if ($this->session->userdata('jabatan') == 'Manajer') {
-			$this->load->view('templates/header', $data);
-			$this->load->view('manajer/evaluasi/detail_evaluasi', $data);
-			$this->load->view('templates/footer');
-		} else if ($this->session->userdata('jabatan') == 'Admin') {
-			$this->load->view('templates/header', $data);
-			$this->load->view('admin/evaluasi/detail_evaluasi', $data);
-			$this->load->view('templates/footer');
-		}
+		redirect('manajer/data-evaluasi');
 	}
 
 	public function proses_hapus_evaluasi()
@@ -181,26 +133,7 @@ class Evaluasi extends CI_Controller
 		$this->db->delete('t_evaluasi');
 		$this->session->set_flashdata('message', '<strong>Data Perhitungan Berhasil Dihapus</strong>
 															<i class="bi bi-check-circle-fill"></i>');
-		redirect('admin/data-evaluasi');
-	}
-
-	public function proses_rekomendasi_perbaikan()
-	{
-		echo "<pre>";
-		echo var_dump($_POST);
-		echo "<pre>";
-
-		for ($i = 0; $i < count($_POST['id_detail_evaluasi']); $i++) {
-			$data = [
-				'rekomendasi_perbaikan' => $_POST['rekomendasi_perbaikan'][$i]
-			];
-			$this->db->where('id_detail_evaluasi', $_POST['id_detail_evaluasi'][$i]);
-			$this->db->update('t_detail_evaluasi', $data);
-		}
-
-		$this->session->set_flashdata('message', '<strong>Rekomendasi Perbaikan Berhasil Di update</strong>
-															<i class="bi bi-check-circle-fill"></i>');
-		redirect('admin/data-evaluasi');
+		redirect('manajer/data-evaluasi');
 	}
 
 	public function cetak_pdf()
@@ -213,26 +146,16 @@ class Evaluasi extends CI_Controller
 
 		$this->db->where('id_evaluasi', $id_evaluasi);
 		$this->db->where('gap <=', 0);
-		$detail_evaluasi = $this->db->get('t_detail_evaluasi')->result_array();
-
-		foreach ($detail_evaluasi as $d) {
-			if (!empty($d['rekomendasi_perbaikan'])) {
-				array_push($tampung, $d['rekomendasi_perbaikan']);
-			}
-		}
-
-		$this->db->where('id_kuesioner', $id_kuesioner);
-		$pernyataan = $this->db->get('t_pernyataan')->result_array();
+		$detail_evaluasi = $this->db->get('t_detail_evaluasi')->result();
 
 		$nama_file_pdf = "Hasil_Evaluasi_" . $kuesioner->judul_kuesioner . '_' . $evaluasi->tanggal_evaluasi . '_' . $evaluasi->id_evaluasi;
 		$foto = $this->encode_img_base64(base_url('assets/img/LogoAbell.png'));
 
-		if ($evaluasi and $detail_evaluasi and $pernyataan) {
+		if ($evaluasi and $detail_evaluasi) {
 			$html = $this->load->view('manajer/evaluasi/pdf', [
 				'kuesioner' => $kuesioner,
 				'evaluasi' => $evaluasi,
 				'detail_evaluasi' => $detail_evaluasi,
-				'pernyataan' => $pernyataan,
 				'foto' => $foto,
 			], true);
 		}

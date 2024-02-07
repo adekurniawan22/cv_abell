@@ -40,15 +40,4 @@ class Evaluasi_model extends CI_Model
             return false;
         }
     }
-
-    // public function edit_kuesioner($id_kuesioner, $data)
-    // {
-    //     $this->db->where('id_kuesioner', $id_kuesioner);
-    //     $this->db->update('t_kuesioner', $data);
-    //     if ($this->db->affected_rows() > 0) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
 }

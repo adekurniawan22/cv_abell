@@ -61,8 +61,6 @@ $route['kirim-reset-password'] = 'auth/send_reset_link';
 $route['reset-password'] = 'auth/reset_password';
 $route['proses-reset-password'] = 'auth/proses_reset_password';
 
-
-
 // Route Manajer
 $route['manajer/dashboard'] = 'dashboard/dashboard_manajer';
 $route['manajer/data-pegawai'] = 'pegawai/index';
@@ -70,19 +68,34 @@ $route['manajer/tambah-pegawai'] = 'pegawai/tambah_pegawai';
 $route['manajer/proses-tambah-pegawai'] = 'pegawai/proses_tambah_pegawai';
 $route['manajer/edit-pegawai'] = 'pegawai/edit_pegawai';
 $route['manajer/proses-edit-pegawai'] = 'pegawai/proses_edit_pegawai';
+
 $route['manajer/data-pelanggan'] = 'pelanggan/index';
 $route['manajer/tambah-pelanggan'] = 'pelanggan/tambah_pelanggan';
 $route['manajer/proses-tambah-pelanggan'] = 'pelanggan/proses_tambah_pelanggan';
 $route['manajer/edit-pelanggan'] = 'pelanggan/edit_pelanggan';
 $route['manajer/proses-edit-pelanggan'] = 'pelanggan/proses_edit_pelanggan';
+
 $route['manajer/data-lokasi-server'] = 'lokasi_server/index';
 $route['manajer/tambah-lokasi-server'] = 'lokasi_server/tambah_lokasi_server';
 $route['manajer/proses-tambah-lokasi-server'] = 'lokasi_server/proses_tambah_lokasi_server';
 $route['manajer/edit-lokasi-server'] = 'lokasi_server/edit_lokasi_server';
 $route['manajer/proses-edit-lokasi-server'] = 'lokasi_server/proses_edit_lokasi_server';
+
+$route['manajer/data-pernyataan'] = 'pernyataan/index';
+$route['manajer/tambah-pernyataan'] = 'pernyataan/tambah_pernyataan';
+$route['manajer/proses-tambah-pernyataan'] = 'pernyataan/proses_tambah_pernyataan';
+$route['manajer/edit-pernyataan'] = 'pernyataan/edit_pernyataan';
+$route['manajer/proses-edit-pernyataan'] = 'pernyataan/proses_edit_pernyataan';
+$route['manajer/proses-hapus-pernyataan'] = 'pernyataan/proses_hapus_pernyataan';
+
 $route['manajer/data-kuesioner'] = 'kuesioner/index';
+$route['manajer/tambah-kuesioner'] = 'kuesioner/tambah_kuesioner';
+$route['manajer/proses-tambah-kuesioner'] = 'kuesioner/proses_tambah_kuesioner';
+$route['manajer/edit-kuesioner'] = 'kuesioner/edit_kuesioner';
+$route['manajer/proses-edit-kuesioner'] = 'kuesioner/proses_edit_kuesioner';
+$route['manajer/proses-hapus-kuesioner'] = 'kuesioner/proses_hapus_kuesioner';
+
 $route['manajer/data-evaluasi'] = 'evaluasi/index';
-$route['manajer/detail-evaluasi'] = 'evaluasi/detail_evaluasi';
 $route['manajer/cetak-evaluasi-pdf'] = 'evaluasi/cetak_pdf';
 $route['manajer/jawaban-pelanggan'] = 'jawaban/jawaban_pelanggan';
 
@@ -91,16 +104,8 @@ $route['admin/dashboard'] = 'dashboard/dashboard_admin';
 $route['admin/data-pegawai'] = 'pegawai/index';
 $route['admin/data-pelanggan'] = 'pelanggan/index';
 $route['admin/data-kuesioner'] = 'kuesioner/index';
-$route['admin/tambah-kuesioner'] = 'kuesioner/tambah_kuesioner';
-$route['admin/proses-tambah-kuesioner'] = 'kuesioner/proses_tambah_kuesioner';
-$route['admin/edit-kuesioner'] = 'kuesioner/edit_kuesioner';
-$route['admin/proses-edit-kuesioner'] = 'kuesioner/proses_edit_kuesioner';
-$route['admin/proses-hapus-kuesioner'] = 'kuesioner/proses_hapus_kuesioner';
-$route['admin/kirim-email-ke-manajer'] = 'kuesioner/kirim_email_ke_manajer';
-$route['admin/evaluasi-kuesioner'] = 'evaluasi/proses_evaluasi_kuesioner';
-$route['admin/data-evaluasi'] = 'evaluasi/index';
-$route['admin/detail-evaluasi'] = 'evaluasi/detail_evaluasi';
-$route['admin/edit-evaluasi'] = 'evaluasi/edit_evaluasi';
+$route['admin/isi-pernyataan'] = 'kuesioner/isi_pernyataan';
+$route['admin/proses-isi-pernyataan'] = 'kuesioner/proses_isi_pernyataan';
 
 // Route Pelanggan
 $route['pelanggan/kuesioner'] = 'kuesioner/index';

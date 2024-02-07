@@ -15,7 +15,6 @@ class Kuesioner extends CI_Controller
 	{
 		$data['title'] = 'Data Kuesioner';
 		$data['kuesioner'] = $this->Kuesioner_model->dapat_kuesioner();
-		$data['dimensi'] = $this->Pernyataan_model->dapat_dimensi();
 
 		$this->db->select('selesai');
 		$this->db->order_by('id_kuesioner', 'DESC');
@@ -34,6 +33,7 @@ class Kuesioner extends CI_Controller
 
 			$today = date('Y-m-d');
 			$this->db->where('selesai >', $today);
+			$this->db->where('status_publish =', '1');
 			$data['kuesioner_pelanggan'] = $this->db->get('t_kuesioner')->result();
 
 			$this->load->view('templates/header', $data);
@@ -44,104 +44,87 @@ class Kuesioner extends CI_Controller
 
 	public function tambah_kuesioner()
 	{
-		$data['dimensi'] = $this->db->get('t_dimensi')->result();
 		$data['title'] = 'Tambah Kuesioner';
 		$this->load->view('templates/header', $data);
-		$this->load->view('admin/kuesioner/tambah_kuesioner', $data);
+		$this->load->view('manajer/kuesioner/tambah_kuesioner', $data);
 		$this->load->view('templates/footer');
 	}
 
 	public function proses_tambah_kuesioner()
 	{
-		// Mendapatkan tanggal sekarang dengan zona waktu Indonesia
-		$timezone = new DateTimeZone('Asia/Jakarta');
-		$now = new DateTime('now', $timezone);
-
-		// Mendapatkan tanggal selesai (7 hari setelah tanggal sekarang)
-		$selesai = clone $now;
-		$selesai->add(new DateInterval('P6D'));
-
-		$data = array(
-			'judul_kuesioner' => $this->input->post('judul_kuesioner'),
-			'mulai' => $now->format('Y-m-d H:i:s'),  // Format tanggal dan waktu MySQL
-			'selesai' => $selesai->format('Y-m-d H:i:s'),  // Format tanggal dan waktu MySQL
-			'id_pegawai' => $this->session->userdata('id_pegawai'),
-		);
-
-		$result = $this->Kuesioner_model->tambah_kuesioner($data);
-		$id_kuesioner = $this->db->insert_id();
-
-		$i = 0;
-		foreach ($_POST['pernyataan'] as $p) {
-			$data_pernyataan = [
-				'id_kuesioner' => $id_kuesioner,
-				'pernyataan' => $p,
-				'id_dimensi' => $_POST['dimensi'][$i],
-			];
-			$i++;
-			$this->Pernyataan_model->tambah_pernyataan($data_pernyataan);
+		$this->form_validation->set_rules('judul_kuesioner', 'Lokasi', 'required');
+		$this->form_validation->set_rules('mulai', 'Tanggal Mulai Kuesioner', 'required');
+		if ($this->input->post('selesai')) {
+			$this->form_validation->set_rules('selesai', 'Tanggal Selesai Kuesioner', 'callback_check_date');
 		}
 
-		if ($result) {
-			$this->session->set_flashdata('message', '<strong>Data Kuesioner Berhasil Ditambahkan</strong>
-															<i class="bi bi-check-circle-fill"></i>');
+		if ($this->form_validation->run() == FALSE) {
+			$this->tambah_kuesioner();
 		} else {
-			$this->session->set_flashdata('message', '<strong>Data Kuesioner Gagal Ditambahkan</strong>
-													<i class="bi bi-exclamation-circle-fill"></i>');
+			$data = [
+				'judul_kuesioner' => $this->input->post('judul_kuesioner'),
+				'mulai' => $this->input->post('mulai'),
+				'status_kuesioner' => '0',
+				'status_publish' => '0',
+				'id_pegawai' => $this->session->userdata('id_pegawai')
+			];
+
+			if ($this->input->post('selesai')) {
+				$data['selesai'] = $this->input->post('selesai');
+			} else {
+				// Tambahkan 7 hari ke tanggal mulai
+				$mulai_timestamp = strtotime($this->input->post('mulai'));
+				$selesai_timestamp = strtotime('+7 day', $mulai_timestamp);
+				$data['selesai'] = date('Y-m-d', $selesai_timestamp);
+			}
+
+			$result = $this->Kuesioner_model->tambah_kuesioner($data);
+			if ($result) {
+				$this->session->set_flashdata('message', '<strong>Data Kuesioner Berhasil Ditambahkan</strong>
+																<i class="bi bi-check-circle-fill"></i>');
+			} else {
+				$this->session->set_flashdata('message', '<strong>Data Kuesioner Gagal Ditambahkan</strong>
+														<i class="bi bi-exclamation-circle-fill"></i>');
+			}
+			redirect('manajer/data-kuesioner');
 		}
-		redirect('admin/data-kuesioner');
 	}
 
 	public function edit_kuesioner()
 	{
 		$data['title'] = 'Edit Kuesioner';
 		$data['kuesioner'] = $this->Kuesioner_model->dapat_satu_kuesioner($this->input->post('id_kuesioner'));
-		$data['pernyataan'] = $this->Kuesioner_model->dapat_pernyataan($this->input->post('id_kuesioner'));
 		$this->load->view('templates/header', $data);
-		$this->load->view('admin/kuesioner/edit_kuesioner', $data);
+		$this->load->view('manajer/kuesioner/edit_kuesioner', $data);
 		$this->load->view('templates/footer');
 	}
 
 	public function proses_edit_kuesioner()
 	{
-		try {
+		$this->form_validation->set_rules('judul_kuesioner', 'Lokasi', 'required');
+		$this->form_validation->set_rules('mulai', 'Tanggal Mulai Kuesioner', 'required');
+		$this->form_validation->set_rules('selesai', 'Tanggal Selesai Kuesioner', 'required|callback_check_date');
 
-			$data_kuesioner = [
+		if ($this->form_validation->run() == FALSE) {
+			$this->edit_kuesioner();
+		} else {
+			$data = [
 				'judul_kuesioner' => $this->input->post('judul_kuesioner'),
 				'mulai' => $this->input->post('mulai'),
 				'selesai' => $this->input->post('selesai'),
 			];
 
-			$this->Kuesioner_model->edit_kuesioner($this->input->post('id_kuesioner'), $data_kuesioner);
-
-
-			for ($i = 0; $i < count($_POST['id_pernyataan']); $i++) {
-				$data_pernyataan = [
-					'pernyataan' => $_POST['pernyataan'][$i],
-				];
-
-				$this->Kuesioner_model->edit_pernyataan($_POST['id_pernyataan'][$i], $data_pernyataan);
+			$result = $this->Kuesioner_model->edit_kuesioner($this->input->post('id_kuesioner'), $data);
+			if ($result) {
+				$this->session->set_flashdata('message', '<strong>Data Kuesioner Berhasil Di edit</strong>
+																<i class="bi bi-check-circle-fill"></i>');
+			} else {
+				$this->session->set_flashdata('message', '<strong>Data Kuesioner Gagal Di edit</strong>
+														<i class="bi bi-exclamation-circle-fill"></i>');
 			}
-
-			if (!empty($_POST['pernyataan_baru'])) {
-				foreach ($_POST['pernyataan_baru'] as $p) {
-					$data_pernyataan = [
-						'id_kuesioner' => $this->input->post('id_kuesioner'),
-						'pernyataan' => $p,
-					];
-
-					$this->Kuesioner_model->tambah_pernyataan($data_pernyataan);
-				}
-			}
-			$this->session->set_flashdata('message', '<strong>Data Kuesioner Berhasil Diedit</strong>
-															<i class="bi bi-check-circle-fill"></i>');
-		} catch (Exception $e) {
-			$this->session->set_flashdata('message', '<strong>Data Kuesioner Gagal Diedit</strong>
-													<i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('manajer/data-kuesioner');
 		}
-		redirect('admin/data-kuesioner');
 	}
-
 
 	public function proses_hapus_kuesioner()
 	{
@@ -149,44 +132,88 @@ class Kuesioner extends CI_Controller
 		$this->db->delete('t_kuesioner');
 		$this->session->set_flashdata('message', '<strong>Data Kuesioner Berhasil Dihapus</strong>
 															<i class="bi bi-check-circle-fill"></i>');
-		redirect('admin/data-kuesioner');
+		redirect('manajer/data-kuesioner');
 	}
 
-	public function kirim_email_ke_manajer()
+	public function isi_pernyataan()
 	{
-		$kuesioner = $this->Kuesioner_model->dapat_satu_kuesioner($this->input->post('id_kuesioner'));
-		$this->load->library('email');
-		$config = array(
-			'protocol'  => 'smtp',
-			'smtp_host' => 'ssl://smtp.googlemail.com',
-			'smtp_port' => 465,
-			'smtp_user' => 'appcilogin@gmail.com',
-			'smtp_pass' => 'iakd gazx zkva ghrk	',
-			'mailtype'  => 'html',
-			'charset'   => 'utf-8',
-			'newline'   => "\r\n"
+		$data['title'] = 'Isi Pernyataan';
+		$data['kuesioner'] = $this->Kuesioner_model->dapat_satu_kuesioner($this->input->post('id_kuesioner'));
+		$data['pernyataan'] = $this->Pernyataan_model->dapat_pernyataan();
+		$this->load->view('templates/header', $data);
+		$this->load->view('admin/kuesioner/isi_pernyataan', $data);
+		$this->load->view('templates/footer');
+	}
+
+	public function proses_isi_pernyataan()
+	{
+		$this->form_validation->set_rules(
+			'pilih_pernyataan[]',
+			'Pernyataan',
+			'required',
+			array('required'  =>  'Pilih pernyataan terlebih dahulu!')
 		);
+		if ($this->form_validation->run() == FALSE) {
+			$this->isi_pernyataan();
+		} else {
 
-		$this->email->initialize($config);
+			$success_count = 0;
+			foreach ($_POST['pilih_pernyataan'] as $key) {
+				$data = [
+					'id_kuesioner' => $this->input->post('id_kuesioner'),
+					'id_pernyataan' => $key
+				];
+				$this->db->insert('t_detail_kuesioner', $data);
+				if ($this->db->affected_rows() > 0) {
+					$success_count++;
+				}
+			}
 
-		$this->db->where('jabatan', 'Manajer');
-		$query = $this->db->get('t_pegawai')->result();
-
-		foreach ($query as $q) {
-			$this->email->from('appcilogin@gmail.com', 'CV. Abell');
-			$this->email->to($q->email);
-
-			$this->email->subject('Kuesioner Telah Berakhir');
-			$content = "Kuesioner : $kuesioner->judul_kuesioner <br>	
-                    Tanggal Mulai : $kuesioner->mulai <br>
-                    Tanggal Selesai : $kuesioner->selesai <br>";
-
-			$this->email->message("$content<br> Silahkan periksa dan evaluasi jawaban dari pelanggan &#128512;");
-			$this->email->send();
+			if ($success_count == count($_POST['pilih_pernyataan'])) {
+				$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
+				$this->db->update('t_kuesioner', ['status_kuesioner' => '2']);
+				$this->session->set_flashdata('message', '<strong>Isi Pernyataan Berhasil</strong>
+																	<i class="bi bi-check-circle-fill"></i>');
+			} else {
+				$this->session->set_flashdata('message', '<strong>Isi Pernyataan Gagal</strong>
+															<i class="bi bi-exclamation-circle-fill"></i>');
+			}
+			redirect('admin/data-kuesioner');
 		}
-		$this->session->set_userdata('email_sent', true);
-		$this->session->set_flashdata('message', '<strong>Kirim Email Ke Manajer Telah Berhasil</strong>
-		<i class="bi bi-check-circle-fill"></i>');
-		redirect('admin/data-kuesioner');
+	}
+
+	public function publish_kuesioner()
+	{
+		$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
+		$result = $this->db->update('t_kuesioner', ['status_kuesioner' => '1', 'status_publish' => '1']);
+
+
+		if ($result) {
+			$this->session->set_flashdata('message', '<strong>Kuesioner Berhasil Di Publish</strong>
+																	<i class="bi bi-check-circle-fill"></i>');
+		} else {
+			$this->session->set_flashdata('message', '<strong>Kuesioner Gagal Di Publish</strong>
+															<i class="bi bi-exclamation-circle-fill"></i>');
+		}
+		redirect('manajer/data-kuesioner');
+	}
+
+	public function check_date($end_date)
+	{
+		$start_date = $this->input->post('mulai');
+
+		// Convert dates to timestamps for comparison
+		$start_timestamp = strtotime($start_date);
+		$end_timestamp = strtotime($end_date);
+
+		// Check if end date is greater than start date
+		if ($end_timestamp < $start_timestamp) {
+			// End date is less than start date
+			$this->form_validation->set_message('check_date', 'Tanggal Selesai harus setelah Tanggal Mulai');
+			return FALSE;
+		} else {
+			// Dates are valid
+			return TRUE;
+		}
 	}
 }

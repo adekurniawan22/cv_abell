@@ -4,13 +4,8 @@
             <div class="card mb-4 px-3">
                 <div class="row mb-4">
                     <div class="col-6 d-flex align-items-center">
-                        <div class="card-header pb-0">
+                        <div class="card-header pb-0 mt-2">
                             <h5>Data Kuesioner</h5>
-                        </div>
-                    </div>
-                    <div class="col-6 pt-4 text-end">
-                        <div>
-                            <a id="tambahKuesionerBtn" href="<?= base_url() ?>admin/tambah-kuesioner" class="btn bg-gradient-dark">+ Tambah Kuesioner</a>
                         </div>
                     </div>
                 </div>
@@ -19,17 +14,23 @@
                         <table class="table align-items-center mb-0" id="example">
                             <thead>
                                 <tr>
-
+                                    <th class="text-uppercase text-xxs font-weight-bolder opacity-7">No.</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Judul Kuesioner</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Tanggal Mulai</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Tanggal Selesai</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Di buat oleh</th>
-                                    <th style="width: 25%;" class="text-center text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
+                                    <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Status Kuesioner</th>
+                                    <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Status Publish</th>
+                                    <th style="width: 15%;" class="text-center text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $no = 1 ?>
                                 <?php foreach ($kuesioner as $k) : ?>
                                     <tr>
+                                        <td>
+                                            <p class="ms-3 text-sm font-weight-bold mb-0"><?= $no ?></p>
+                                        </td>
                                         <td>
                                             <p class="ms-3 text-sm font-weight-bold mb-0"><?= $k->judul_kuesioner ?></p>
                                         </td>
@@ -46,39 +47,38 @@
                                             ?>
                                             <p class="ms-3 text-sm font-weight-bold mb-0"><?= $data->nama_lengkap ?></p>
                                         </td>
+                                        <td class="text-center">
+                                            <?php if ($k->status_kuesioner == '1') : ?>
+                                                <span class="badge badge-sm bg-gradient-success">OK!</span>
+                                            <?php elseif ($k->status_kuesioner == '2') : ?>
+                                                <span class="badge badge-sm bg-gradient-warning"><i class="bi bi-hourglass-split"></i> Sedang direview</span>
+                                            <?php else : ?>
+                                                <span class="badge badge-sm bg-gradient-danger">Belum OK</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?php if ($k->status_publish == '1') : ?>
+                                                <span class="badge badge-sm bg-gradient-success">Publish</span>
+                                            <?php else : ?>
+                                                <span class="badge badge-sm bg-gradient-warning">Belum Publish!</span>
+                                            <?php endif; ?>
+                                        </td>
 
-                                        <td class="align-middle">
-                                            <button class="btn btn-link text-dark text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_detail_pernyataan<?= $k->id_kuesioner ?>"><i class="bi bi-eye-fill me-2" aria-hidden="true" disabled></i>Detail Pernyataan</button>
-                                            <!-- <form action="<?= base_url() ?>admin/edit-kuesioner" method="post" class="d-inline-block">
-                                                <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true" disabled></i>Edit</Button>
-                                            </form> -->
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button>
-                                            <?php
-                                            $timezone = new DateTimeZone('Asia/Jakarta');
-                                            $waktu_selesai = new DateTime($k->selesai, $timezone);
-                                            $waktu_sekarang = new DateTime('now', $timezone);
-                                            $selisih = $waktu_selesai->diff($waktu_sekarang)->days;
-                                            ?>
-                                            <div id="loading" class="d-none">
-                                                <div class="spinner-border text-primary" role="status">
-                                                    <span class="visually-hidden">Loading...</span>
-                                                </div>
-                                            </div>
-                                            <?php if ($selisih <= 1) : ?>
-                                                <form id="emailForm" action="<?= base_url() ?>admin/kirim-email-ke-manajer" method="post" class="d-inline-block">
+                                        <td class="text-center">
+                                            <?php if ($k->status_kuesioner == '1') : ?>
+                                                <p class="ms-3 text-sm font-weight-bold mb-0">Tidak ada aksi</p>
+                                            <?php elseif ($k->status_kuesioner == '2') : ?>
+                                                <button class="btn btn-link text-dark text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_detail_pernyataan<?= $k->id_kuesioner ?>"><i class="bi bi-eye-fill me-2" aria-hidden="true"></i>Detail Pernyataan</button>
+                                            <?php else : ?>
+                                                <form action="<?= base_url() ?>admin/isi-pernyataan" method="post" class="d-inline-block">
                                                     <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                    <button type="submit" class="btn btn-link text-dark px-3 mb-0" id="kirimEmailBtn">
-                                                        <i class="bi bi-envelope-arrow-up-fill text-dark me-2" aria-hidden="true"></i>Kirim Email
-                                                    </button>
+                                                    <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Isi Pernyataan</Button>
                                                 </form>
-                                            <?php endif ?>
-                                            <form action="<?= base_url() ?>admin/evaluasi-kuesioner" method="post" class="d-inline-block">
-                                                <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true" disabled></i>Hitung Kuesioner</Button>
-                                            </form>
+                                            <?php endif; ?>
+
                                         </td>
                                     </tr>
+                                    <?php $no++ ?>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
@@ -126,7 +126,7 @@
                     <div class="modal-body">
                         <?php
                         $this->db->where('id_kuesioner', $km->id_kuesioner);
-                        $query = $this->db->get('t_pernyataan')->result();
+                        $query = $this->db->get('t_detail_kuesioner')->result();
                         ?>
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
@@ -136,14 +136,17 @@
                             </tr>
                             <?php $i = 1 ?>
                             <?php foreach ($query as $q) : ?>
+                                <?php
+                                $this->db->where('id_pernyataan', $q->id_pernyataan);
+                                $pernyataan = $this->db->get('t_pernyataan')->row();
+
+                                $this->db->where('id_dimensi', $pernyataan->id_dimensi);
+                                $dimensi = $this->db->get('t_dimensi')->row();
+                                ?>
                                 <tr>
                                     <td style="border: 1px solid #ddd; padding:10px; text-align: center"><?= $i ?></td>
-                                    <td style="border: 1px solid #ddd; padding:10px;"><?= $q->pernyataan ?></td>
-                                    <?php foreach ($dimensi as $d) : ?>
-                                        <?php if ($d->id_dimensi == $q->id_dimensi) : ?>
-                                            <td style="border: 1px solid #ddd; padding:10px;"><?= $d->dimensi ?></td>
-                                        <?php endif ?>
-                                    <?php endforeach ?>
+                                    <td style="border: 1px solid #ddd; padding:10px;"><?= $pernyataan->pernyataan ?></td>
+                                    <td style="border: 1px solid #ddd; padding:10px;"><?= $dimensi->dimensi ?></td>
                                 </tr>
                                 <?php $i++ ?>
                             <?php endforeach ?>
@@ -157,76 +160,3 @@
         </div>
 </div>
 <?php endforeach; ?>
-
-<div class="modal fade" id="pesanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Pesan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Anda belum dapat menambah kuesioner karena belum genap 6 bulan semenjak kuesioner sebelumnya dibuat! <i class="bi bi-exclamation-circle-fill"></i>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-    // document.addEventListener("DOMContentLoaded", function() {
-    //     <?php if ($selisih <= 1 and $this->session->userdata('email_sent') == false) : ?>
-    //         document.getElementById('loading').classList.remove('d-none');
-
-    //         // Nonaktifkan tombol saat proses pengiriman
-    //         // document.getElementById('kirimEmailBtn').setAttribute('disabled', 'disabled');
-    //         // Jika selisih kurang dari atau sama dengan 3, kirimkan formulir email secara otomatis
-    //         document.getElementById("emailForm").submit();
-    //     <?php endif; ?>
-    // });
-
-
-    var tanggalTerakhir = <?= json_encode($tanggal_terakhir->selesai) ?>;
-
-    function cekBatasWaktu() {
-        // Mendapatkan tanggal 6 bulan yang lalu dari tanggal terakhir
-        var tanggalBatas = new Date(tanggalTerakhir);
-        tanggalBatas.setMonth(tanggalBatas.getMonth() + 6);
-
-        // Mendapatkan tanggal sekarang
-        var tanggalSekarang = new Date();
-
-        // Membandingkan tanggal sekarang dengan tanggal batas
-        if (tanggalSekarang < tanggalBatas) {
-            // Menampilkan modal Bootstrap
-            $('#pesanModal').modal('show');
-            return false; // Mengembalikan false karena aksi tidak diizinkan
-        } else {
-            return true; // Mengembalikan true karena aksi diizinkan
-        }
-    }
-
-    // Menambahkan event listener pada tombol
-    document.getElementById('tambahKuesionerBtn').addEventListener('click', function(event) {
-        // Mencegah tindakan default dari link (mengarah ke halaman baru)
-        event.preventDefault();
-
-        // Memanggil fungsi cekBatasWaktu
-        if (cekBatasWaktu()) {
-            // Jika sudah lebih dari 6 bulan, lanjutkan ke halaman yang dituju
-            window.location.href = this.href;
-        }
-    });
-
-    document.getElementById('emailForm').addEventListener('submit', function() {
-        // Tampilkan animasi loading
-        document.getElementById('loading').classList.remove('d-none');
-
-        // Nonaktifkan tombol saat proses pengiriman
-        document.getElementById('kirimEmailBtn').setAttribute('disabled', 'disabled');
-    });
-</script>

@@ -35,7 +35,7 @@
                             <?= form_error('mulai_berlangganan', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                         </div>
                         <div class="text-end mt-4">
-                            <a href=" <?= base_url() ?>manajer/data-pengguna" class="btn btn-primary mb-0" type="button">Kembali</a>
+                            <a href=" <?= base_url() ?>manajer/data-pelanggan" class="btn btn-primary mb-0" type="button">Kembali</a>
                             <button class="btn btn-primary mb-0" type="submit">Tambah</button>
                         </div>
                     </form>

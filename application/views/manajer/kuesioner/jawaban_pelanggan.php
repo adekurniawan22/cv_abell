@@ -73,7 +73,8 @@
                                                     </td>
 
                                                     <td>
-                                                        <p class="text-start text-xxs font-weight-bold mb-0"><?= $p->pernyataan ?></p>
+                                                        <?php $pernyatan_real = $this->db->get_where('t_pernyataan', ['id_pernyataan' => $p->id_pernyataan])->row(); ?>
+                                                        <p class="text-xxs font-weight-bold mb-0" style="text-align: left;"><?= $pernyatan_real->pernyataan ?></p>
                                                     </td>
 
                                                     <?php foreach ($jawaban as $j) : ?>

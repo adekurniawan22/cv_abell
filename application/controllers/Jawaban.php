@@ -7,7 +7,6 @@ class Jawaban extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model('Pernyataan_model');
 		$this->load->model('Pelanggan_model');
 		$this->load->model('Jawaban_model');
 	}
@@ -15,7 +14,7 @@ class Jawaban extends CI_Controller
 	public function tambah_jawaban()
 	{
 		$data['pelanggan'] = $this->Pelanggan_model->dapat_satu_pelanggan($this->session->userdata('id_pelanggan'));
-		$data['pernyataan'] = $this->Pernyataan_model->dapat_pernyataan($this->input->post('id_kuesioner'));
+		$data['pernyataan'] = $this->db->get_where('t_detail_kuesioner', array('id_kuesioner' => $this->input->post('id_kuesioner')))->result();
 		$data['title'] = 'Isi Kuesioner';
 		$this->load->view('templates/header', $data);
 		$this->load->view('pelanggan/kuesioner/tambah_jawaban', $data);
@@ -24,7 +23,7 @@ class Jawaban extends CI_Controller
 
 	public function proses_tambah_jawaban()
 	{
-		$data = $this->Pernyataan_model->dapat_pernyataan($this->input->post('id_kuesioner'));
+		$data = $this->db->get_where('t_detail_kuesioner', array('id_kuesioner' => $this->input->post('id_kuesioner')))->result();
 
 		$jumlah_pertanyaan = count($data);
 
@@ -75,12 +74,12 @@ class Jawaban extends CI_Controller
 	{
 		$data['sudah_isi_kuesioner'] = $this->db->get_where('t_sudah_isi_kuesioner', ['id_kuesioner', $this->input->post('id_kuesioner')])->result();
 		$data['jawaban']  = $this->db->get_where('t_jawaban', ['id_kuesioner' => $this->input->post('id_kuesioner')])->result();
-		$data['pernyataan']  = $this->db->get_where('t_pernyataan', ['id_kuesioner' => $this->input->post('id_kuesioner')])->result();
+		$data['pernyataan'] = $this->db->get_where('t_detail_kuesioner', array('id_kuesioner' => $this->input->post('id_kuesioner')))->result();
 
 		$data['title'] = 'Jawaban Pelanggan';
 		ob_start();
 		$this->load->view('templates/header', $data);
-		$this->load->view('manajer/kuesioner/detail_kuesioner', $data);
+		$this->load->view('manajer/kuesioner/jawaban_pelanggan', $data);
 		$this->load->view('templates/footer');
 	}
 }

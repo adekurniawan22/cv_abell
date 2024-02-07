@@ -41,20 +41,4 @@ class Pegawai_model extends CI_Model
             return false;
         }
     }
-
-    public function cekDuplikat($field, $value)
-    {
-        $this->db->where($field, $value);
-        $query = $this->db->get('t_pegawai'); // Ganti 'pegawai' dengan nama tabel Anda
-
-        return $query->num_rows() > 0;
-    }
-
-    public function checkEmail($email)
-    {
-        $this->db->where('email', $email);
-        $query = $this->db->get('t_pegawai'); // Gantilah 't_users' dengan nama tabel pegawai yang sesuai
-
-        return $query->num_rows() > 0;
-    }
 }
