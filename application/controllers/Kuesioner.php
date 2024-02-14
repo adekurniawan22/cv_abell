@@ -66,6 +66,7 @@ class Kuesioner extends CI_Controller
 				'mulai' => $this->input->post('mulai'),
 				'status_kuesioner' => '0',
 				'status_publish' => '0',
+				'status_evaluasi' => '0',
 				'id_pegawai' => $this->session->userdata('id_pegawai')
 			];
 

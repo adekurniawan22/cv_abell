@@ -57,7 +57,7 @@
                                                 <span class="badge badge-sm bg-gradient-success">SUDAH SIAP <i class="bi bi-check-lg"></i></span>
                                             <?php elseif ($k->status_kuesioner == '2') : ?>
                                                 <span style="cursor: pointer;" class="badge badge-sm bg-gradient-dark" data-bs-toggle="modal" data-bs-target="#modal_detail_pernyataan<?= $k->id_kuesioner ?>"><i class="bi bi-eye-fill"></i> Lihat pernyataan</span>
-                                                <br><span style="cursor: pointer;" class="mt-1 badge badge-sm bg-gradient-dark" data-bs-toggle="modal" data-bs-target="#modal_edit_status_kuesioner<?= $k->id_kuesioner ?>"><i class="bi bi-pencil-square"></i> Edit status</span>
+                                                <!-- <br><span style="cursor: pointer;" class="mt-1 badge badge-sm bg-gradient-dark" data-bs-toggle="modal" data-bs-target="#modal_edit_status_kuesioner<?= $k->id_kuesioner ?>"><i class="bi bi-pencil-square"></i> Edit status</span> -->
 
                                             <?php else : ?>
                                                 <span class="badge badge-sm bg-gradient-danger">BELUM SIAP <i class="bi bi-exclamation-triangle-fill"></i></span>
@@ -93,11 +93,12 @@
                                                     <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
                                                     <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="bi bi-person-hearts me-2" aria-hidden="true" disabled></i>Jawaban Pelanggan</button>
                                                 </form>
-
-                                                <form action="<?= base_url() ?>evaluasi/proses_evaluasi_kuesioner" method="post" class="d-inline-block">
-                                                    <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                    <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true"></i>Hitung Kuesioner</Button>
-                                                </form>
+                                                <?php if ($k->status_evaluasi == '0') : ?>
+                                                    <form action="<?= base_url() ?>evaluasi/proses_evaluasi_kuesioner" method="post" class="d-inline-block">
+                                                        <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
+                                                        <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true"></i>Hitung Kuesioner</Button>
+                                                    </form>
+                                                <?php endif; ?>
                                             <?php endif ?>
 
                                             <?php if ($k->status_kuesioner == '0' or $k->status_kuesioner == '2') : ?>
@@ -273,7 +274,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- TOMBOL PERINGATAN PUBLISH -->
-    <script>
+    <!-- <script>
         const tanggalTerakhir = <?= json_encode($tanggal_terakhir->selesai) ?>;
         const batasWaktu = new Date(tanggalTerakhir).setMonth(new Date(tanggalTerakhir).getMonth() + 6);
 
@@ -292,4 +293,4 @@
                 }
             });
         });
-    </script>
+    </script> -->

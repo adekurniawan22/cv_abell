@@ -124,6 +124,8 @@ class Evaluasi extends CI_Controller
 		}
 
 		if ($add_evaluasi) {
+			$this->db->where('id_kuesioner', $id_kuesioner);
+			$this->db->update('t_kuesioner', array('status_evaluasi' => '1'));
 			$this->session->set_flashdata('message', '<strong>Evaluasi Berhasil</strong>
 											<i class="bi bi-check-circle-fill"></i>');
 		} else {

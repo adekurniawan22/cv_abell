@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Feb 2024 pada 18.26
+-- Waktu pembuatan: 14 Feb 2024 pada 20.40
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -38,27 +38,6 @@ CREATE TABLE `t_detail_evaluasi` (
   `ws` float NOT NULL,
   `gap` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `t_detail_evaluasi`
---
-
-INSERT INTO `t_detail_evaluasi` (`id_evaluasi`, `id_pernyataan`, `total_ekspetasi`, `total_presepsi`, `mis`, `mss`, `wf`, `ws`, `gap`) VALUES
-(1, 1, 310, 319, 3.44, 3.54, 6.66, 23.58, -0.1),
-(1, 2, 328, 320, 3.64, 3.56, 7.05, 25.1, 0.08),
-(1, 3, 301, 312, 3.34, 3.47, 6.47, 22.45, -0.13),
-(1, 4, 299, 327, 3.32, 3.63, 6.43, 23.34, -0.31),
-(1, 5, 303, 311, 3.37, 3.46, 6.52, 22.56, -0.09),
-(1, 6, 311, 326, 3.46, 3.62, 6.7, 24.25, -0.16),
-(1, 7, 330, 316, 3.67, 3.51, 7.11, 24.96, 0.16),
-(1, 8, 316, 320, 3.51, 3.56, 6.8, 24.21, -0.05),
-(1, 9, 320, 316, 3.56, 3.51, 6.89, 24.18, 0.05),
-(1, 10, 306, 219, 3.4, 2.43, 6.58, 15.99, 0.97),
-(1, 11, 314, 321, 3.49, 3.57, 6.76, 24.13, -0.08),
-(1, 12, 307, 308, 3.41, 3.42, 6.6, 22.57, -0.01),
-(1, 13, 309, 313, 3.43, 3.48, 6.64, 23.11, -0.05),
-(1, 14, 300, 311, 3.33, 3.46, 6.45, 22.32, -0.13),
-(1, 15, 295, 311, 3.28, 3.46, 6.35, 21.97, -0.18);
 
 -- --------------------------------------------------------
 
@@ -128,13 +107,6 @@ CREATE TABLE `t_evaluasi` (
   `indeks_csi` varchar(100) NOT NULL,
   `tanggal_evaluasi` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `t_evaluasi`
---
-
-INSERT INTO `t_evaluasi` (`id_evaluasi`, `id_kuesioner`, `total_responden`, `nilai_csi`, `indeks_csi`, `tanggal_evaluasi`) VALUES
-(1, 1, 90, 68.94, 'Puas', '2024-02-07');
 
 -- --------------------------------------------------------
 
@@ -1520,6 +1492,7 @@ CREATE TABLE `t_kuesioner` (
   `selesai` date NOT NULL,
   `status_kuesioner` enum('0','1','2') NOT NULL,
   `status_publish` enum('0','1') NOT NULL,
+  `status_evaluasi` enum('0','1') NOT NULL,
   `id_pegawai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1527,8 +1500,8 @@ CREATE TABLE `t_kuesioner` (
 -- Dumping data untuk tabel `t_kuesioner`
 --
 
-INSERT INTO `t_kuesioner` (`id_kuesioner`, `judul_kuesioner`, `mulai`, `selesai`, `status_kuesioner`, `status_publish`, `id_pegawai`) VALUES
-(1, 'Kuesioner 1', '2024-01-31', '2024-02-06', '1', '1', 1);
+INSERT INTO `t_kuesioner` (`id_kuesioner`, `judul_kuesioner`, `mulai`, `selesai`, `status_kuesioner`, `status_publish`, `status_evaluasi`, `id_pegawai`) VALUES
+(1, 'Kuesioner 1', '2024-01-31', '2024-02-06', '1', '1', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -1575,7 +1548,8 @@ CREATE TABLE `t_pegawai` (
 
 INSERT INTO `t_pegawai` (`id_pegawai`, `jabatan`, `nama_lengkap`, `username`, `email`, `no_hp`, `password`, `alamat`) VALUES
 (1, 'Manajer', 'Manajer', 'manajer', 'manajer@email.com', '0812747495454', '$2y$10$6lnE0sqZU36.DUX3UFLhuOnz6wYHBODxQVaqjJOGdzfi4QApYJ1BC', 'Jalan Dago, Nomor 414'),
-(2, 'Admin', 'Admin', 'admin', 'admin@email.com', '081277778899', '$2y$10$81mDK1HUQMWOKxgXxkprzeNBO1aLB1mT6grrFH1GbbfQWjYJ8Xztq', 'Jalan Dago, Nomor 12');
+(2, 'Admin', 'Admin', 'admin', 'admin@email.com', '081277778899', '$2y$10$81mDK1HUQMWOKxgXxkprzeNBO1aLB1mT6grrFH1GbbfQWjYJ8Xztq', 'Jalan Dago, Nomor 12'),
+(11, 'Admin', 'Ade Kurniawan', 'ade22', 'ade.kurniawan216@gmail.com', '083171027936', '$2y$10$c86Nd9U89wixbLAg6gmWwOpSZLtsBHmzm72PKe7w7.78Q6.qEJFdK', 'Jalan Jambi Palembang KM 27');
 
 -- --------------------------------------------------------
 
@@ -1925,7 +1899,7 @@ ALTER TABLE `t_dimensi`
 -- AUTO_INCREMENT untuk tabel `t_evaluasi`
 --
 ALTER TABLE `t_evaluasi`
-  MODIFY `id_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_jawaban`
@@ -1937,7 +1911,7 @@ ALTER TABLE `t_jawaban`
 -- AUTO_INCREMENT untuk tabel `t_kuesioner`
 --
 ALTER TABLE `t_kuesioner`
-  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_lokasi_server`
@@ -1949,7 +1923,7 @@ ALTER TABLE `t_lokasi_server`
 -- AUTO_INCREMENT untuk tabel `t_pegawai`
 --
 ALTER TABLE `t_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pelanggan`

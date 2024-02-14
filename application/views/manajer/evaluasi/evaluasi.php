@@ -50,7 +50,7 @@
                                             <p class="text-center text-sm font-weight-bold mb-0"><?= $e->indeks_csi ?></p>
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_evaluasi<?= $e->id_evaluasi ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button>
+                                            <!-- <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_evaluasi<?= $e->id_evaluasi ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button> -->
                                             <form action="<?= base_url() ?>manajer/cetak-evaluasi-pdf" method="post" class="d-inline-block" target="_blank">
                                                 <input type="hidden" name="id_evaluasi" value="<?= $e->id_evaluasi ?>">
                                                 <input type="hidden" name="id_kuesioner" value="<?= $e->id_kuesioner ?>">
