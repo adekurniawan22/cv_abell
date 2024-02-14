@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Feb 2024 pada 15.02
+-- Waktu pembuatan: 14 Feb 2024 pada 18.26
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -1528,7 +1528,7 @@ CREATE TABLE `t_kuesioner` (
 --
 
 INSERT INTO `t_kuesioner` (`id_kuesioner`, `judul_kuesioner`, `mulai`, `selesai`, `status_kuesioner`, `status_publish`, `id_pegawai`) VALUES
-(1, 'Kuesioner 1', '2024-02-01', '2024-02-06', '1', '1', 1);
+(1, 'Kuesioner 1', '2024-01-31', '2024-02-06', '1', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -1574,8 +1574,8 @@ CREATE TABLE `t_pegawai` (
 --
 
 INSERT INTO `t_pegawai` (`id_pegawai`, `jabatan`, `nama_lengkap`, `username`, `email`, `no_hp`, `password`, `alamat`) VALUES
-(1, 'Manajer', 'Manajer 1', 'manajer1', 'manajer1@email.com', '0812747495454', '$2y$10$6lnE0sqZU36.DUX3UFLhuOnz6wYHBODxQVaqjJOGdzfi4QApYJ1BC', 'Jalan Dago, Nomor 414'),
-(2, 'Admin', 'Admin 1', 'admin1', 'admin1@email.com', '081277778899', '$2y$10$81mDK1HUQMWOKxgXxkprzeNBO1aLB1mT6grrFH1GbbfQWjYJ8Xztq', 'Jalan Dago, Nomor 12');
+(1, 'Manajer', 'Manajer', 'manajer', 'manajer@email.com', '0812747495454', '$2y$10$6lnE0sqZU36.DUX3UFLhuOnz6wYHBODxQVaqjJOGdzfi4QApYJ1BC', 'Jalan Dago, Nomor 414'),
+(2, 'Admin', 'Admin', 'admin', 'admin@email.com', '081277778899', '$2y$10$81mDK1HUQMWOKxgXxkprzeNBO1aLB1mT6grrFH1GbbfQWjYJ8Xztq', 'Jalan Dago, Nomor 12');
 
 -- --------------------------------------------------------
 
@@ -1688,8 +1688,7 @@ INSERT INTO `t_pelanggan` (`id_pelanggan`, `id_pegawai`, `nama_lengkap`, `no_hp`
 (87, 1, 'Marlon Considine', '6281377198721', '9 Streich Station', 3, '0', '2022-08-22'),
 (88, 1, 'Armani Luettgen IV', '6281359898688', '595 Emie Expressway', 5, '1', '2020-10-14'),
 (89, 1, 'Jalyn Reilly', '6281347838835', '1 Jerde Crest', 5, '0', '2022-01-06'),
-(90, 1, 'Dr. Shany Ferry III', '6281383486600', 'Flat 00b\nShanahan Wall', 3, '0', '2022-12-12'),
-(98, 1, 'Ade Kurniawan', '083171027936', 'Jalan Jambi Palembang KM 27', 2, '1', '2023-12-07');
+(90, 1, 'Dr. Shany Ferry III', '6281383486600', 'Flat 00b\nShanahan Wall', 3, '0', '2022-12-12');
 
 -- --------------------------------------------------------
 
@@ -1860,7 +1859,7 @@ ALTER TABLE `t_dimensi`
 --
 ALTER TABLE `t_evaluasi`
   ADD PRIMARY KEY (`id_evaluasi`),
-  ADD KEY `id_kuesioner` (`id_kuesioner`);
+  ADD KEY `t_evaluasi_ibfk_1` (`id_kuesioner`);
 
 --
 -- Indeks untuk tabel `t_jawaban`
@@ -1926,19 +1925,19 @@ ALTER TABLE `t_dimensi`
 -- AUTO_INCREMENT untuk tabel `t_evaluasi`
 --
 ALTER TABLE `t_evaluasi`
-  MODIFY `id_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_jawaban`
 --
 ALTER TABLE `t_jawaban`
-  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1366;
+  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1372;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_kuesioner`
 --
 ALTER TABLE `t_kuesioner`
-  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_lokasi_server`
@@ -1985,7 +1984,7 @@ ALTER TABLE `t_detail_kuesioner`
 -- Ketidakleluasaan untuk tabel `t_evaluasi`
 --
 ALTER TABLE `t_evaluasi`
-  ADD CONSTRAINT `t_evaluasi_ibfk_1` FOREIGN KEY (`id_kuesioner`) REFERENCES `t_kuesioner` (`id_kuesioner`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `t_evaluasi_ibfk_1` FOREIGN KEY (`id_kuesioner`) REFERENCES `t_kuesioner` (`id_kuesioner`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Ketidakleluasaan untuk tabel `t_jawaban`

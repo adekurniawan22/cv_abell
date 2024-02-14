@@ -26,7 +26,7 @@
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Di buat oleh</th>
                                     <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Status Kuesioner</th>
                                     <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Status Publish</th>
-                                    <th style="width: 20%;" class="text-center text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
+                                    <th style="width: 20%;" class="text-left text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,22 +54,24 @@
                                         </td>
                                         <td class="text-center">
                                             <?php if ($k->status_kuesioner == '1') : ?>
-                                                <span class="badge badge-sm bg-gradient-success">OK!</span>
+                                                <span class="badge badge-sm bg-gradient-success">SUDAH SIAP <i class="bi bi-check-lg"></i></span>
                                             <?php elseif ($k->status_kuesioner == '2') : ?>
                                                 <span style="cursor: pointer;" class="badge badge-sm bg-gradient-dark" data-bs-toggle="modal" data-bs-target="#modal_detail_pernyataan<?= $k->id_kuesioner ?>"><i class="bi bi-eye-fill"></i> Lihat pernyataan</span>
+                                                <br><span style="cursor: pointer;" class="mt-1 badge badge-sm bg-gradient-dark" data-bs-toggle="modal" data-bs-target="#modal_edit_status_kuesioner<?= $k->id_kuesioner ?>"><i class="bi bi-pencil-square"></i> Edit status</span>
+
                                             <?php else : ?>
-                                                <span class="badge badge-sm bg-gradient-danger">Belum berisi pernyataan</span>
+                                                <span class="badge badge-sm bg-gradient-danger">BELUM SIAP <i class="bi bi-exclamation-triangle-fill"></i></span>
                                             <?php endif; ?>
                                         </td>
                                         <td class="text-center">
                                             <?php if ($k->status_publish == '1') : ?>
-                                                <span class="badge badge-sm bg-gradient-success">Publish</span>
+                                                <span class="badge badge-sm bg-gradient-success">Sudah Publish <i class="bi bi-check-lg"></i></span>
                                             <?php else : ?>
-                                                <span class="badge badge-sm bg-gradient-warning">Belum Publish!</span>
+                                                <span class="badge badge-sm bg-gradient-warning">Belum Publish <i class="bi bi-hourglass-split"></i></span>
                                             <?php endif; ?>
                                         </td>
 
-                                        <td class="text-center">
+                                        <td class="text-left">
                                             <?php
                                             $timezone = new DateTimeZone('Asia/Jakarta');
                                             $selesai = new DateTime($k->selesai, $timezone);
@@ -80,32 +82,39 @@
                                             <?php if ($k->status_publish == '0') : ?>
                                                 <form action="<?= base_url() ?>manajer/edit-kuesioner" method="post" class="d-inline-block">
                                                     <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                    <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</Button>
+                                                    <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</Button>
                                                 </form>
                                             <?php endif ?>
 
                                             <?php if ($sekarang > $selesai) : ?>
-                                                <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
+                                                <button class="btn btn-link text-danger text-gradient p-2 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
 
                                                 <form action="<?= base_url() ?>manajer/jawaban-pelanggan" method="post" class="d-inline-block">
                                                     <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                    <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="bi bi-person-hearts me-2" aria-hidden="true" disabled></i>Jawaban Pelanggan</button>
+                                                    <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="bi bi-person-hearts me-2" aria-hidden="true" disabled></i>Jawaban Pelanggan</button>
                                                 </form>
 
                                                 <form action="<?= base_url() ?>evaluasi/proses_evaluasi_kuesioner" method="post" class="d-inline-block">
                                                     <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                    <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true"></i>Hitung Kuesioner</Button>
+                                                    <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true"></i>Hitung Kuesioner</Button>
                                                 </form>
-                                            <?php else : ?>
-                                                <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
+                                            <?php endif ?>
+
+                                            <?php if ($k->status_kuesioner == '0' or $k->status_kuesioner == '2') : ?>
+                                                <button class="btn btn-link text-danger text-gradient p-2 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
                                             <?php endif ?>
 
                                             <?php if ($k->status_publish == '0') : ?>
-                                                <form action="<?= base_url() ?>kuesioner/publish-kuesioner" method="post" class="d-inline-block">
+                                                <form id="publishForm<?= $k->id_kuesioner ?>" action="<?= base_url() ?>kuesioner/publish-kuesioner" method="post" class="d-inline-block">
                                                     <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                    <button type="submit" class="btn btn-link px-3 mb-0"><i class="bi bi-arrow-right-square-fill me-2" aria-hidden="true"></i>Publish</button>
+                                                    <button type="submit" class="btn btn-link p-2 mb-0 publishBtn" data-id="<?= $k->id_kuesioner ?>"><i class="bi bi-arrow-right-square-fill me-2" aria-hidden="true"></i>Publish</button>
                                                 </form>
                                             <?php endif ?>
+
+                                            <?php if ($k->status_publish == '1' and $k->status_kuesioner == '1' and $sekarang < $selesai) : ?>
+                                                <p class="ms-3 text-sm font-weight-bold mb-0">Tidak ada aksi</p>
+                                            <?php endif ?>
+
                                         </td>
                                     </tr>
                                     <?php $no++ ?>
@@ -187,9 +196,43 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Status Disetujui -->
+        <div class="modal fade" id="modal_edit_status_kuesioner<?= $km->id_kuesioner ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Status Kuesioner</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <form action="<?= base_url() ?>kuesioner/proses_edit_status_kuesioner" method="post">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" value="1" name="status_kuesioner" id="status_kuesioner1">
+                                    <label class="custom-control-label" for="status_kuesioner1">Setuju</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" value="0" name="status_kuesioner" id="status_kuesioner2">
+                                    <label class="custom-control-label" for="status_kuesioner2">Belum setuju, kirim ke admin lagi</label>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id_kuesioner" value="<?= $km->id_kuesioner ?>">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Batalkan</button>
+                        <button type="submit" class="btn bg-gradient-primary">Edit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <?php endforeach; ?>
 
-    <div class="modal fade" id="pesanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="PublishKuesionerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -199,7 +242,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Anda belum dapat menambah kuesioner karena belum genap 6 bulan semenjak kuesioner sebelumnya dibuat! <i class="bi bi-exclamation-circle-fill"></i>
+                    Anda belum dapat mempublish kuesioner ini karena belum genap 6 bulan semenjak kuesioner terakhir dibuat! <i class="bi bi-exclamation-circle-fill"></i>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">OK</button>
@@ -207,57 +250,46 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="TambahKuesionerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Pesan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Anda belum dapat menambah kuesioner karena belum genap 6 bulan semenjak kuesioner terakhir dibuat! <i class="bi bi-exclamation-circle-fill"></i>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- TOMBOL PERINGATAN PUBLISH -->
     <script>
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     <?php if ($selisih <= 1 and $this->session->userdata('email_sent') == false) : ?>
-        //         document.getElementById('loading').classList.remove('d-none');
+        const tanggalTerakhir = <?= json_encode($tanggal_terakhir->selesai) ?>;
+        const batasWaktu = new Date(tanggalTerakhir).setMonth(new Date(tanggalTerakhir).getMonth() + 6);
 
-        //         // Nonaktifkan tombol saat proses pengiriman
-        //         // document.getElementById('kirimEmailBtn').setAttribute('disabled', 'disabled');
-        //         // Jika selisih kurang dari atau sama dengan 3, kirimkan formulir email secara otomatis
-        //         document.getElementById("emailForm").submit();
-        //     <?php endif; ?>
-        // });
+        function cekBatasWaktu() {
+            return new Date() < new Date(batasWaktu);
+        }
 
-
-        // var tanggalTerakhir = <?= json_encode($tanggal_terakhir->selesai) ?>;
-
-        // function cekBatasWaktu() {
-        //     // Mendapatkan tanggal 6 bulan yang lalu dari tanggal terakhir
-        //     var tanggalBatas = new Date(tanggalTerakhir);
-        //     tanggalBatas.setMonth(tanggalBatas.getMonth() + 6);
-
-        //     // Mendapatkan tanggal sekarang
-        //     var tanggalSekarang = new Date();
-
-        //     // Membandingkan tanggal sekarang dengan tanggal batas
-        //     if (tanggalSekarang < tanggalBatas) {
-        //         // Menampilkan modal Bootstrap
-        //         $('#pesanModal').modal('show');
-        //         return false; // Mengembalikan false karena aksi tidak diizinkan
-        //     } else {
-        //         return true; // Mengembalikan true karena aksi diizinkan
-        //     }
-        // }
-
-        // // Menambahkan event listener pada tombol
-        // document.getElementById('tambahKuesionerBtn').addEventListener('click', function(event) {
-        //     // Mencegah tindakan default dari link (mengarah ke halaman baru)
-        //     event.preventDefault();
-
-        //     // Memanggil fungsi cekBatasWaktu
-        //     if (cekBatasWaktu()) {
-        //         // Jika sudah lebih dari 6 bulan, lanjutkan ke halaman yang dituju
-        //         window.location.href = this.href;
-        //     }
-        // });
-
-        // document.getElementById('emailForm').addEventListener('submit', function() {
-        //     // Tampilkan animasi loading
-        //     document.getElementById('loading').classList.remove('d-none');
-
-        //     // Nonaktifkan tombol saat proses pengiriman
-        //     document.getElementById('kirimEmailBtn').setAttribute('disabled', 'disabled');
-        // });
+        document.querySelectorAll('.publishBtn').forEach(btn => {
+            btn.addEventListener('click', function(event) {
+                event.preventDefault();
+                const id = this.getAttribute('data-id');
+                if (cekBatasWaktu()) {
+                    $('#PublishKuesionerModal').modal('show');
+                } else {
+                    document.getElementById('publishForm' + id).submit();
+                }
+            });
+        });
     </script>

@@ -30,7 +30,6 @@ class Kuesioner extends CI_Controller
 			$this->load->view('admin/kuesioner/kuesioner', $data);
 			$this->load->view('templates/footer');
 		} else if ($this->session->userdata('jabatan') == 'Pelanggan') {
-
 			$today = date('Y-m-d');
 			$this->db->where('selesai >', $today);
 			$this->db->where('status_publish =', '1');
@@ -44,6 +43,8 @@ class Kuesioner extends CI_Controller
 
 	public function tambah_kuesioner()
 	{
+		$this->db->from('t_kuesioner');
+		$data['judul_kuesioner'] = $this->db->count_all_results();
 		$data['title'] = 'Tambah Kuesioner';
 		$this->load->view('templates/header', $data);
 		$this->load->view('manajer/kuesioner/tambah_kuesioner', $data);
@@ -52,7 +53,6 @@ class Kuesioner extends CI_Controller
 
 	public function proses_tambah_kuesioner()
 	{
-		$this->form_validation->set_rules('judul_kuesioner', 'Lokasi', 'required');
 		$this->form_validation->set_rules('mulai', 'Tanggal Mulai Kuesioner', 'required');
 		if ($this->input->post('selesai')) {
 			$this->form_validation->set_rules('selesai', 'Tanggal Selesai Kuesioner', 'callback_check_date');
@@ -147,6 +147,12 @@ class Kuesioner extends CI_Controller
 
 	public function proses_isi_pernyataan()
 	{
+		$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
+		$detail_kuesioner = $this->db->get('t_detail_kuesioner')->result();
+		if ($detail_kuesioner) {
+			$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
+			$this->db->delete('t_detail_kuesioner');
+		}
 		$this->form_validation->set_rules(
 			'pilih_pernyataan[]',
 			'Pernyataan',
@@ -180,6 +186,15 @@ class Kuesioner extends CI_Controller
 			}
 			redirect('admin/data-kuesioner');
 		}
+	}
+
+	public function proses_edit_status_kuesioner()
+	{
+		$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
+		$this->db->update('t_kuesioner', ['status_kuesioner' => $this->input->post('status_kuesioner')]);
+		$this->session->set_flashdata('message', '<strong>Status Kuesioner Berhasil Diedit</strong>
+                                                                    <i class="bi bi-check-circle-fill"></i>');
+		redirect('manajer/data-kuesioner');
 	}
 
 	public function publish_kuesioner()

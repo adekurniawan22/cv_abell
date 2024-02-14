@@ -41,7 +41,7 @@
                                                     <p class="text-center text-sm font-weight-bold mb-0"><?= $k->selesai ?></p>
                                                 </td>
 
-                                                <td class="align-middle">
+                                                <td class="text-center">
                                                     <?php
                                                     $this->db->where('id_kuesioner', $k->id_kuesioner);
                                                     $this->db->where('id_pelanggan', $this->session->userdata('id_pelanggan'));
@@ -49,7 +49,7 @@
                                                     ?>
 
                                                     <?php if ($query) : ?>
-                                                        <p class="text-center text-sm font-weight-bold mb-0">Anda sudah mengisi kuesioner ini &#128512;</p>
+                                                        <p class="text-center text-sm font-weight-bold mb-0">Anda sudah mengisi kuesioner ini</p>
                                                     <?php else : ?>
                                                         <form action="<?= base_url() ?>pelanggan/isi-kuesioner" method="post" class="d-inline-block">
                                                             <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">

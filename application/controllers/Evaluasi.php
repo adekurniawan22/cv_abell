@@ -33,6 +33,12 @@ class Evaluasi extends CI_Controller
 		$this->db->group_by('id_pelanggan');
 		$total_responden = $this->db->count_all_results();
 
+		if (empty($total_responden)) {
+			$this->session->set_flashdata('message', '<strong>Belum bisa menghitung kuesioner karena total responden masih kosong</strong>
+																			<i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('manajer/data-kuesioner');
+		}
+
 		$nilai_mis = [];
 		$nilai_mss = [];
 		$total_presepsi = [];

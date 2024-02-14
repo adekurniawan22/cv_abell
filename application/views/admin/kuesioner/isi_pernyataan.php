@@ -21,8 +21,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php
+                                $this->db->where('id_kuesioner', $kuesioner->id_kuesioner);
+                                $detail_kuesioner = $this->db->get('t_detail_kuesioner')->result();
+                                ?>
                                 <?php $no = 1; ?>
                                 <?php foreach ($pernyataan as $p) : ?>
+
                                     <tr>
                                         <td>
                                             <p class="ms-3 text-sm font-weight-bold mb-0"><?= $no ?></p>
@@ -35,7 +40,10 @@
                                             <p class="ms-3 text-sm font-weight-bold mb-0"><?= $p->pernyataan ?></p>
                                         </td>
                                         <td class="text-center ">
-                                            <input type="checkbox" class="text-center" name="pilih_pernyataan[]" value="<?= $p->id_pernyataan ?>">
+                                            <?php
+                                            $checked_pernyataan = array_column($detail_kuesioner, 'id_pernyataan');
+                                            ?>
+                                            <input type="checkbox" class="text-center" name="pilih_pernyataan[]" value="<?= $p->id_pernyataan ?>" <?php if (in_array($p->id_pernyataan, $checked_pernyataan)) : echo 'checked' ?> <?php endif; ?>>
                                         </td>
                                     </tr>
                                     <?php $no++ ?>

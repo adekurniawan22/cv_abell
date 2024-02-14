@@ -72,7 +72,8 @@ class Jawaban extends CI_Controller
 
 	public function jawaban_pelanggan()
 	{
-		$data['sudah_isi_kuesioner'] = $this->db->get_where('t_sudah_isi_kuesioner', ['id_kuesioner', $this->input->post('id_kuesioner')])->result();
+		$data['sudah_isi_kuesioner'] = $this->db->get_where('t_sudah_isi_kuesioner', ['id_kuesioner' => $this->input->post('id_kuesioner')])->result();
+
 		$data['jawaban']  = $this->db->get_where('t_jawaban', ['id_kuesioner' => $this->input->post('id_kuesioner')])->result();
 		$data['pernyataan'] = $this->db->get_where('t_detail_kuesioner', array('id_kuesioner' => $this->input->post('id_kuesioner')))->result();
 

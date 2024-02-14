@@ -6,8 +6,7 @@
                     <form action="<?= base_url() ?>manajer/proses-tambah-kuesioner" method="post">
                         <div class="form-group">
                             <label for="judul_kuesioner" class="form-control-label">Judul Kuesioner</label>
-                            <input class="form-control" type="text" placeholder="Judul Kuesioner" id="judul_kuesioner" name="judul_kuesioner" value="<?php echo set_value('judul_kuesioner'); ?>">
-                            <?= form_error('judul_kuesioner', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+                            <input class="form-control" type="text" placeholder="Judul Kuesioner" id="judul_kuesioner" name="judul_kuesioner" value="<?php echo 'Kuesioner ' . $judul_kuesioner + 1; ?>" readonly>
                         </div>
                         <div class="form-group">
                             <label for="mulai" class="form-control-label">Tanggal Mulai Kuesioner <em id="textTujuh">(tanggal selesai 7 hari setelah tanggal dimulai)</em></label>

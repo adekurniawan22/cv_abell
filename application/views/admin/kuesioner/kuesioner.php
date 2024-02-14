@@ -49,18 +49,18 @@
                                         </td>
                                         <td class="text-center">
                                             <?php if ($k->status_kuesioner == '1') : ?>
-                                                <span class="badge badge-sm bg-gradient-success">OK!</span>
+                                                <span class="badge badge-sm bg-gradient-success">Sudah Siap <i class="bi bi-check-lg"></i></span>
                                             <?php elseif ($k->status_kuesioner == '2') : ?>
-                                                <span class="badge badge-sm bg-gradient-warning"><i class="bi bi-hourglass-split"></i> Sedang direview</span>
+                                                <span class="badge badge-sm bg-gradient-warning">Sedang direview <i class="bi bi-hourglass-split"></i></span>
                                             <?php else : ?>
-                                                <span class="badge badge-sm bg-gradient-danger">Belum OK</span>
+                                                <span class="badge badge-sm bg-gradient-danger">Belum siap <i class="bi bi-exclamation-triangle-fill"></i></span>
                                             <?php endif; ?>
                                         </td>
                                         <td class="text-center">
                                             <?php if ($k->status_publish == '1') : ?>
-                                                <span class="badge badge-sm bg-gradient-success">Publish</span>
+                                                <span class="badge badge-sm bg-gradient-success">Sudah Publish <i class="bi bi-check-lg"></i></span>
                                             <?php else : ?>
-                                                <span class="badge badge-sm bg-gradient-warning">Belum Publish!</span>
+                                                <span class="badge badge-sm bg-gradient-warning">Belum Publish <i class="bi bi-hourglass-split"></i></span>
                                             <?php endif; ?>
                                         </td>
 
