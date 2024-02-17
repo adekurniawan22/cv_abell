@@ -17,7 +17,12 @@
                                     <th style="width: 5%;" class="text-uppercase text-xxs font-weight-bolder opacity-7">No.</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Dimensi</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Pernyataan</th>
-                                    <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Cheklist</th>
+                                    <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            Checklist
+                                            <input type="checkbox" class="ms-2" id="checkAllBtn">
+                                        </div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,7 +48,7 @@
                                             <?php
                                             $checked_pernyataan = array_column($detail_kuesioner, 'id_pernyataan');
                                             ?>
-                                            <input type="checkbox" class="text-center" name="pilih_pernyataan[]" value="<?= $p->id_pernyataan ?>" <?php if (in_array($p->id_pernyataan, $checked_pernyataan)) : echo 'checked' ?> <?php endif; ?>>
+                                            <input type="checkbox" class="text-center checkbox" name="pilih_pernyataan[]" value="<?= $p->id_pernyataan ?>" <?php if (in_array($p->id_pernyataan, $checked_pernyataan)) : echo 'checked' ?> <?php endif; ?>>
                                         </td>
                                     </tr>
                                     <?php $no++ ?>
@@ -60,3 +65,20 @@
             </div>
         </div>
     </div>
+</div>
+
+<script>
+    // Fungsi untuk menandai atau menghapus tanda semua checkbox
+    function toggleCheckboxes(checked) {
+        var checkboxes = document.querySelectorAll('.checkbox');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = checked;
+        });
+    }
+
+    // Tangani klik tombol "Check All"
+    document.getElementById('checkAllBtn').addEventListener('click', function() {
+        var isChecked = this.checked;
+        toggleCheckboxes(isChecked); // Menandai semua checkbox
+    });
+</script>

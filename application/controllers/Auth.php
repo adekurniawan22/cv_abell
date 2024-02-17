@@ -41,8 +41,9 @@ class Auth extends CI_Controller
 						'id_pegawai' => $user['id_pegawai']
 					];
 					$this->session->set_userdata($data);
-					$this->session->set_flashdata('message', '<strong>Login Berhasil</strong>
-																<i class="bi bi-check-circle-fill"></i>');
+					$this->session->set_flashdata('message', 'Login Berhasil
+																<i class="bi bi-check-circle-fill"></i><br>
+																Selamat Datang Kembali <strong>' . $user['nama_lengkap'] . '</strong><br>Level Anda adalah <strong>' . $user['jabatan'] . '</strong>');
 
 					switch ($user['jabatan']) {
 						case 'Manajer':

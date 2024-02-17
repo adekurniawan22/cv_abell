@@ -19,7 +19,6 @@
                         <table class="table align-items-center mb-0" id="example">
                             <thead>
                                 <tr>
-
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Lokasi Server</th>
                                     <th style="width: 25%;" class="text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
                                 </tr>
@@ -34,9 +33,9 @@
                                         <td class="align-middle">
                                             <form action="<?= base_url() ?>manajer/edit-lokasi-server" method="post" class="d-inline-block">
                                                 <input type="hidden" name="id_lokasi_server" value="<?= $l->id_lokasi_server ?>">
-                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true" disabled></i>Edit</Button>
+                                                <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true" disabled></i>Edit</Button>
                                             </form>
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_lokasi<?= $l->id_lokasi_server ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button>
+                                            <button class="btn btn-link text-danger text-gradient p-2 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_lokasi<?= $l->id_lokasi_server ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

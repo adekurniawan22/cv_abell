@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url() ?>assets/argon-master/assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/img/LogoAbell.png" />
-    <title>
-        <?= $title ?>
-    </title>
-    <!--     Fonts and icons     -->
+    <title><?= $title ?></title>
+    <!-- Fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
     <link href="<?= base_url() ?>assets/argon-master/assets/css/nucleo-icons.css" rel="stylesheet" />
@@ -20,19 +18,44 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= base_url() ?>assets/argon-master/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        /* Custom Styles */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* .title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        } */
+    </style>
 </head>
 
 <body class="">
-    <main class="main-content  mt-0">
+    <main class="main-content mt-0">
         <section>
             <div class="page-header min-vh-100">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-xl-4 col-lg-5  col-md-7 mx-lg-0 mx-auto">
+                        <div class="col-xl-4 col-lg-5 col-md-7 mx-lg-0 mx-auto">
                             <div class="card card-plain">
                                 <div class="card-header pb-0 text-start">
-                                    <img src="<?= base_url() ?>assets/img/logoabell.png" alt="..." class="img-thumbnail rounded mx-auto d-block mb-6" width="200px" height="200px" style="border: none">
-                                    <h4 class="font-weight-bolder">Login</h4>
+                                    <div class="logo-container">
+                                        <img src="<?= base_url() ?>assets/img/LogoAbell.png" alt="Logo" class="" width="150px" height="150px">
+                                    </div>
+                                    <div class="h4 title text-center font-weight-bolder">
+                                        SISTEM PENILAIAN <br>KEPUASAN PELANGGAN
+                                    </div>
+                                    <!-- <hr class="bg-dark"> -->
+                                    <!-- <h4 class="font-weight-bolder">Login</h4> -->
                                 </div>
                                 <div class="card-body">
                                     <form role="form" method="post" action="<?= base_url('proses-login-pegawai') ?>">

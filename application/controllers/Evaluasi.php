@@ -75,7 +75,7 @@ class Evaluasi extends CI_Controller
 
 		$sum_nilai_ws = array_sum($nilai_ws);
 		$nilai_csi = round(($sum_nilai_ws / 5), 2);
-		if ($nilai_csi > 80 and $nilai_csi <= 100) {
+		if ($nilai_csi > 80 and $nilai_csi <= 101) {
 			$kriteria = 'Sangat Puas';
 		} else if ($nilai_csi > 60 and $nilai_csi <= 80) {
 			$kriteria = 'Puas';
@@ -153,7 +153,7 @@ class Evaluasi extends CI_Controller
 		$evaluasi = $this->Evaluasi_model->dapat_satu_evaluasi($id_evaluasi);
 
 		$this->db->where('id_evaluasi', $id_evaluasi);
-		$this->db->where('gap <=', 0);
+		$this->db->where('gap <', 0);
 		$detail_evaluasi = $this->db->get('t_detail_evaluasi')->result();
 
 		$nama_file_pdf = "Hasil_Evaluasi_" . $kuesioner->judul_kuesioner . '_' . $evaluasi->tanggal_evaluasi . '_' . $evaluasi->id_evaluasi;

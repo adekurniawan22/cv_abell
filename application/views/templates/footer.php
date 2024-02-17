@@ -141,14 +141,13 @@
                 "sLengthMenu": "Tampilkan _MENU_ data",
                 "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
                 "emptyTable": "Tidak ada data",
+                "zeroRecords": "Data yang dicari tidak ditemukan",
             },
             "lengthMenu": [
                 [5, 10, 25, 50, -1],
                 ["5", "10", "25", "50", "Semua"]
             ],
-            // "order": [
-            //     [0, "asc"]
-            // ],
+
             language: {
                 "search": "Cari:",
                 "paginate": {

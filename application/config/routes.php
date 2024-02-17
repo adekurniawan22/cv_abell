@@ -70,10 +70,6 @@ $route['manajer/edit-pegawai'] = 'pegawai/edit_pegawai';
 $route['manajer/proses-edit-pegawai'] = 'pegawai/proses_edit_pegawai';
 
 $route['manajer/data-pelanggan'] = 'pelanggan/index';
-$route['manajer/tambah-pelanggan'] = 'pelanggan/tambah_pelanggan';
-$route['manajer/proses-tambah-pelanggan'] = 'pelanggan/proses_tambah_pelanggan';
-$route['manajer/edit-pelanggan'] = 'pelanggan/edit_pelanggan';
-$route['manajer/proses-edit-pelanggan'] = 'pelanggan/proses_edit_pelanggan';
 
 $route['manajer/data-lokasi-server'] = 'lokasi_server/index';
 $route['manajer/tambah-lokasi-server'] = 'lokasi_server/tambah_lokasi_server';
@@ -102,7 +98,13 @@ $route['manajer/jawaban-pelanggan'] = 'jawaban/jawaban_pelanggan';
 // Route admin
 $route['admin/dashboard'] = 'dashboard/dashboard_admin';
 $route['admin/data-pegawai'] = 'pegawai/index';
+
 $route['admin/data-pelanggan'] = 'pelanggan/index';
+$route['admin/tambah-pelanggan'] = 'pelanggan/tambah_pelanggan';
+$route['admin/proses-tambah-pelanggan'] = 'pelanggan/proses_tambah_pelanggan';
+$route['admin/edit-pelanggan'] = 'pelanggan/edit_pelanggan';
+$route['admin/proses-edit-pelanggan'] = 'pelanggan/proses_edit_pelanggan';
+
 $route['admin/data-kuesioner'] = 'kuesioner/index';
 $route['admin/isi-pernyataan'] = 'kuesioner/isi_pernyataan';
 $route['admin/proses-isi-pernyataan'] = 'kuesioner/proses_isi_pernyataan';

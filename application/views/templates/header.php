@@ -113,6 +113,30 @@
             transform: translate(-50%, -50%);
             z-index: 1000;
         }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+            animation: bounce 0.5s ease forwards;
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .navbar-nav .nav-link.active {
+            color: #007bff;
+            font-weight: 600;
+        }
     </style>
 </head>
 
@@ -136,43 +160,44 @@
                     <ul class="navbar-nav mx-auto">
                         <?php if ($this->session->userdata('jabatan') == 'Manajer') { ?>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/dashboard">
+                                <a class="nav-link d-flex align-items-center me-2 <?php echo (current_url() == base_url() . 'manajer/dashboard') ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>manajer/dashboard">
                                     <i class="fa fa-chart-pie opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Dashboard
                                 </a>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/data-pegawai">
+                                <a class="nav-link d-flex align-items-center me-2 <?php echo (strpos(current_url(), 'pegawai') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>manajer/data-pegawai">
                                     <i class="bi bi-people-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Data Pegawai
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/data-pelanggan">
+                                <a class="nav-link d-flex align-items-center me-2 <?php echo (strpos(current_url(), 'pelanggan') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>manajer/data-pelanggan">
                                     <i class="bi bi-people-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Data Pelanggan
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/data-lokasi-server">
+                                <a class="nav-link d-flex align-items-center me-2 <?php echo (strpos(current_url(), 'server') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>manajer/data-lokasi-server">
                                     <i class="bi bi-router-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Data Server
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/data-pernyataan">
+                                <a class="nav-link d-flex align-items-center me-2 <?php echo (strpos(current_url(), 'pernyataan') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>manajer/data-pernyataan">
                                     <i class="bi bi-list-columns opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Pernyataan
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/data-kuesioner">
+                                <a class="nav-link d-flex align-items-center me-2 <?php echo (strpos(current_url(), 'kuesioner') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>manajer/data-kuesioner">
                                     <i class="bi bi-file-text-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Kuesioner
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>manajer/data-evaluasi">
+                                <a class="nav-link d-flex align-items-center me-2 <?php echo (strpos(current_url(), 'evaluasi') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>manajer/data-evaluasi">
                                     <i class="bi bi-bar-chart-line-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Evaluasi Kuesioner
                                 </a>
@@ -180,25 +205,25 @@
                         <?php } ?>
                         <?php if ($this->session->userdata('jabatan') == 'Admin') { ?>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>admin/dashboard">
+                                <a class="nav-link d-flex align-items-center me-2 <?php echo (strpos(current_url(), 'dashboard') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>admin/dashboard">
                                     <i class="fa fa-chart-pie opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Dashboard
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>admin/data-pegawai">
+                                <a class="nav-link d-flex align-items-center me-2 <?php echo (strpos(current_url(), 'pegawai') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>admin/data-pegawai">
                                     <i class="bi bi-people-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Data Pegawai
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>admin/data-pelanggan">
+                                <a class="nav-link d-flex align-items-center me-2 <?php echo (strpos(current_url(), 'pelanggan') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>admin/data-pelanggan">
                                     <i class="bi bi-people-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Data Pelanggan
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>admin/data-kuesioner">
+                                <a class="nav-link d-flex align-items-center me-2 <?= (strpos(current_url(), 'kuesioner') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>admin/data-kuesioner">
                                     <i class="bi bi-file-text-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Kuesioner
                                 </a>
@@ -206,7 +231,7 @@
                         <?php } ?>
                         <?php if ($this->session->userdata('jabatan') == 'Pelanggan') { ?>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>pelanggan/kuesioner">
+                                <a class="nav-link d-flex align-items-center me-2 <?= (strpos(current_url(), 'kuesioner') !== false || strpos(current_url(), 'pernyataan') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>pelanggan/kuesioner">
                                     <i class="bi bi-file-text-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Kuesioner
                                 </a>
@@ -215,24 +240,9 @@
 
                         <?php if ($this->session->userdata('jabatan')) { ?>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>profil">
+                                <a class="nav-link d-flex align-items-center me-2 <?php echo (strpos(current_url(), 'profil') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>profil">
                                     <i class="ni ni-circle-08 opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Profil
-                                </a>
-                            </li>
-                        <?php } ?>
-
-                        <?php if (empty($this->session->userdata('jabatan'))) { ?>
-                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?= base_url() ?>">
-                                    <i class="bi bi-house-door-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
-                                    Home
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="https://wa.me/6285155245688" target="_blank">
-                                    <i class="bi bi-whatsapp opacity-6 text-dark me-1" aria-hidden="true"></i>
-                                    Hubungi Kami
                                 </a>
                             </li>
                         <?php } ?>
@@ -241,14 +251,14 @@
                     <ul class="navbar-nav d-lg-block d-none">
                         <?php if ($this->session->userdata('jabatan')) { ?>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#logout">
+                                <a class="nav-link d-flex align-items-center me-2" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#logout">
                                     <i class="bi bi-box-arrow-left opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Logout
                                 </a>
                             </li>
                         <?php } else { ?>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#login-pelanggan">
+                                <a class="nav-link d-flex align-items-center me-2" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#login-pelanggan">
                                     <i class="fas fa-key opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Login
                                 </a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Feb 2024 pada 20.40
+-- Waktu pembuatan: 17 Feb 2024 pada 15.30
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -38,6 +38,27 @@ CREATE TABLE `t_detail_evaluasi` (
   `ws` float NOT NULL,
   `gap` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `t_detail_evaluasi`
+--
+
+INSERT INTO `t_detail_evaluasi` (`id_evaluasi`, `id_pernyataan`, `total_ekspetasi`, `total_presepsi`, `mis`, `mss`, `wf`, `ws`, `gap`) VALUES
+(12, 1, 310, 319, 3.44, 3.54, 6.66, 23.58, -0.1),
+(12, 2, 328, 320, 3.64, 3.56, 7.05, 25.1, 0.08),
+(12, 3, 301, 312, 3.34, 3.47, 6.47, 22.45, -0.13),
+(12, 4, 299, 327, 3.32, 3.63, 6.43, 23.34, -0.31),
+(12, 5, 303, 311, 3.37, 3.46, 6.52, 22.56, -0.09),
+(12, 6, 311, 326, 3.46, 3.62, 6.7, 24.25, -0.16),
+(12, 7, 330, 316, 3.67, 3.51, 7.11, 24.96, 0.16),
+(12, 8, 316, 320, 3.51, 3.56, 6.8, 24.21, -0.05),
+(12, 9, 320, 316, 3.56, 3.51, 6.89, 24.18, 0.05),
+(12, 10, 306, 219, 3.4, 2.43, 6.58, 15.99, 0.97),
+(12, 11, 314, 321, 3.49, 3.57, 6.76, 24.13, -0.08),
+(12, 12, 307, 308, 3.41, 3.42, 6.6, 22.57, -0.01),
+(12, 13, 309, 313, 3.43, 3.48, 6.64, 23.11, -0.05),
+(12, 14, 300, 311, 3.33, 3.46, 6.45, 22.32, -0.13),
+(12, 15, 295, 311, 3.28, 3.46, 6.35, 21.97, -0.18);
 
 -- --------------------------------------------------------
 
@@ -107,6 +128,13 @@ CREATE TABLE `t_evaluasi` (
   `indeks_csi` varchar(100) NOT NULL,
   `tanggal_evaluasi` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `t_evaluasi`
+--
+
+INSERT INTO `t_evaluasi` (`id_evaluasi`, `id_kuesioner`, `total_responden`, `nilai_csi`, `indeks_csi`, `tanggal_evaluasi`) VALUES
+(12, 1, 90, 68.94, 'Puas', '2024-02-17');
 
 -- --------------------------------------------------------
 
@@ -1501,7 +1529,7 @@ CREATE TABLE `t_kuesioner` (
 --
 
 INSERT INTO `t_kuesioner` (`id_kuesioner`, `judul_kuesioner`, `mulai`, `selesai`, `status_kuesioner`, `status_publish`, `status_evaluasi`, `id_pegawai`) VALUES
-(1, 'Kuesioner 1', '2024-01-31', '2024-02-06', '1', '1', '1', 1);
+(1, 'Kuesioner 1', '2024-01-31', '2024-02-16', '1', '1', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -1642,7 +1670,6 @@ INSERT INTO `t_pelanggan` (`id_pelanggan`, `id_pegawai`, `nama_lengkap`, `no_hp`
 (67, 1, 'Prof. Maya Moen Sr.', '6281239947051', '742 Cole Lodge', 2, '1', '2023-03-22'),
 (68, 1, 'Mr. Bret Krajcik', '6281395815383', '207 Kshlerin Lights', 1, '1', '2020-06-12'),
 (69, 1, 'Eddie Hintz', '6281259530409', '3 Murray Forge', 5, '1', '2023-06-16'),
-(70, 1, 'Abelardo Schiller', '6281390319743', '03 Angus Isle', 2, '1', '2021-04-14'),
 (71, 1, 'Elsie Prosacco', '6281349013687', '042 Earline Walks', 4, '1', '2021-10-27'),
 (72, 1, 'Dr. Jonathon Stoltenberg PhD', '6281306074868', 'Flat 42l\nKaci Vista', 2, '1', '2019-03-18'),
 (73, 1, 'Dr. Paxton Dooley I', '6281325483427', 'Studio 00x\nWelch Brook', 5, '1', '2022-12-03'),
@@ -1662,7 +1689,8 @@ INSERT INTO `t_pelanggan` (`id_pelanggan`, `id_pegawai`, `nama_lengkap`, `no_hp`
 (87, 1, 'Marlon Considine', '6281377198721', '9 Streich Station', 3, '0', '2022-08-22'),
 (88, 1, 'Armani Luettgen IV', '6281359898688', '595 Emie Expressway', 5, '1', '2020-10-14'),
 (89, 1, 'Jalyn Reilly', '6281347838835', '1 Jerde Crest', 5, '0', '2022-01-06'),
-(90, 1, 'Dr. Shany Ferry III', '6281383486600', 'Flat 00b\nShanahan Wall', 3, '0', '2022-12-12');
+(90, 1, 'Dr. Shany Ferry III', '6281383486600', 'Flat 00b\nShanahan Wall', 3, '0', '2022-12-12'),
+(108, 2, 'Ade Kurniawan', '083171027946', 'asdadssda', 2, '1', '2024-02-08');
 
 -- --------------------------------------------------------
 
@@ -1783,7 +1811,6 @@ INSERT INTO `t_sudah_isi_kuesioner` (`id_kuesioner`, `id_pelanggan`) VALUES
 (1, 67),
 (1, 68),
 (1, 69),
-(1, 70),
 (1, 71),
 (1, 72),
 (1, 73),
@@ -1840,9 +1867,7 @@ ALTER TABLE `t_evaluasi`
 --
 ALTER TABLE `t_jawaban`
   ADD PRIMARY KEY (`id_jawaban`),
-  ADD KEY `id_kuesioner` (`id_kuesioner`),
-  ADD KEY `id_pernyataan` (`id_pernyataan`),
-  ADD KEY `id_pelanggan` (`id_pelanggan`);
+  ADD KEY `t_jawaban_ibfk_1` (`id_kuesioner`);
 
 --
 -- Indeks untuk tabel `t_kuesioner`
@@ -1883,7 +1908,7 @@ ALTER TABLE `t_pernyataan`
 --
 ALTER TABLE `t_sudah_isi_kuesioner`
   ADD KEY `id_kuesioner` (`id_kuesioner`),
-  ADD KEY `id_pelanggan` (`id_pelanggan`);
+  ADD KEY `t_sudah_isi_kuesioner_ibfk_2` (`id_pelanggan`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -1899,19 +1924,19 @@ ALTER TABLE `t_dimensi`
 -- AUTO_INCREMENT untuk tabel `t_evaluasi`
 --
 ALTER TABLE `t_evaluasi`
-  MODIFY `id_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_jawaban`
 --
 ALTER TABLE `t_jawaban`
-  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1372;
+  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1495;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_kuesioner`
 --
 ALTER TABLE `t_kuesioner`
-  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_lokasi_server`
@@ -1929,7 +1954,7 @@ ALTER TABLE `t_pegawai`
 -- AUTO_INCREMENT untuk tabel `t_pelanggan`
 --
 ALTER TABLE `t_pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pernyataan`
@@ -1964,9 +1989,7 @@ ALTER TABLE `t_evaluasi`
 -- Ketidakleluasaan untuk tabel `t_jawaban`
 --
 ALTER TABLE `t_jawaban`
-  ADD CONSTRAINT `t_jawaban_ibfk_1` FOREIGN KEY (`id_kuesioner`) REFERENCES `t_kuesioner` (`id_kuesioner`) ON DELETE CASCADE,
-  ADD CONSTRAINT `t_jawaban_ibfk_2` FOREIGN KEY (`id_pernyataan`) REFERENCES `t_pernyataan` (`id_pernyataan`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `t_jawaban_ibfk_3` FOREIGN KEY (`id_pelanggan`) REFERENCES `t_pelanggan` (`id_pelanggan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `t_jawaban_ibfk_1` FOREIGN KEY (`id_kuesioner`) REFERENCES `t_kuesioner` (`id_kuesioner`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `t_kuesioner`
@@ -1992,7 +2015,7 @@ ALTER TABLE `t_pernyataan`
 --
 ALTER TABLE `t_sudah_isi_kuesioner`
   ADD CONSTRAINT `t_sudah_isi_kuesioner_ibfk_1` FOREIGN KEY (`id_kuesioner`) REFERENCES `t_kuesioner` (`id_kuesioner`) ON DELETE CASCADE,
-  ADD CONSTRAINT `t_sudah_isi_kuesioner_ibfk_2` FOREIGN KEY (`id_pelanggan`) REFERENCES `t_pelanggan` (`id_pelanggan`);
+  ADD CONSTRAINT `t_sudah_isi_kuesioner_ibfk_2` FOREIGN KEY (`id_pelanggan`) REFERENCES `t_pelanggan` (`id_pelanggan`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

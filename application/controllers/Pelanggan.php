@@ -37,7 +37,7 @@ class Pelanggan extends CI_Controller
 		$data['lokasi'] =  $this->db->get('t_lokasi_server')->result();
 		$data['title'] = 'Tambah Pelanggan';
 		$this->load->view('templates/header', $data);
-		$this->load->view('manajer/pelanggan/tambah_pelanggan', $data);
+		$this->load->view('admin/pelanggan/tambah_pelanggan', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -70,7 +70,7 @@ class Pelanggan extends CI_Controller
 				$this->session->set_flashdata('message', '<strong>Data Pelanggan Gagal Ditambahkan</strong>
 														<i class="bi bi-exclamation-circle-fill"></i>');
 			}
-			redirect('manajer/data-pelanggan');
+			redirect('admin/data-pelanggan');
 		}
 	}
 
@@ -80,7 +80,7 @@ class Pelanggan extends CI_Controller
 		$data['pelanggan'] = $this->Pelanggan_model->dapat_satu_pelanggan($this->input->post('id_pelanggan'));
 		$data['title'] = 'Edit Pelanggan';
 		$this->load->view('templates/header', $data);
-		$this->load->view('manajer/pelanggan/edit_pelanggan', $data);
+		$this->load->view('admin/pelanggan/edit_pelanggan', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -118,7 +118,7 @@ class Pelanggan extends CI_Controller
 				$this->session->set_flashdata('message', '<strong>Data Pelanggan Gagal Di Edit</strong>
 														<i class="bi bi-exclamation-circle-fill"></i>');
 			}
-			redirect('manajer/data-pelanggan');
+			redirect('admin/data-pelanggan');
 		}
 	}
 
@@ -128,12 +128,12 @@ class Pelanggan extends CI_Controller
 		$this->db->delete('t_pelanggan');
 		$this->session->set_flashdata('message', '<strong>Data Pelanggan Berhasil Dihapus</strong>
 															<i class="bi bi-check-circle-fill"></i>');
-		redirect('manajer/data-pelanggan');
+		redirect('admin/data-pelanggan');
 	}
 
 	public function import_data_excel()
 	{
-		$path = './assets';
+		$path = './assets/excel/';
 
 		// Konfigurasi upload
 		$config['upload_path'] = $path;
@@ -148,7 +148,7 @@ class Pelanggan extends CI_Controller
 		}
 
 		$data = $this->upload->data();
-		$inputFileName = './assets/' . $data['file_name'];
+		$inputFileName = './assets/excel/' . $data['file_name'];
 
 		// Membaca file Excel
 		$inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
@@ -227,13 +227,15 @@ class Pelanggan extends CI_Controller
 		if ($countRows > 0) {
 			// Jika ada baris dengan kesalahan, set pesan kesalahan
 			$this->session->set_flashdata('error_add_excel', $errors);
-			redirect('manajer/data-pelanggan');
+			redirect('admin/data-pelanggan');
 		} else {
 			// Jika tidak ada kesalahan, lakukan operasi tambah data
 			foreach ($sheet->getRowIterator(2) as $row) {
 				$mulai_berlangganan = $sheet->getCell('E' . $row->getRowIndex())->getFormattedValue();
 				$mulai_berlangganan_obj = date_create_from_format('d/m/Y', $mulai_berlangganan);
 				$mulai_berlangganan_formatted = $mulai_berlangganan_obj->format('Y-m-d');
+				$lokasi_server = $sheet->getCell('D' . $row->getRowIndex())->getValue();
+				$lokasi_valid = $this->db->select('*')->from('t_lokasi_server')->where('lokasi_server', $lokasi_server)->get()->row();
 
 				// Data sekarang diperoleh dalam loop
 				$data1 = [
@@ -241,7 +243,7 @@ class Pelanggan extends CI_Controller
 					'nama_lengkap' => $sheet->getCell('A' . $row->getRowIndex())->getValue(),
 					'no_hp' => "0" . $sheet->getCell('B' . $row->getRowIndex())->getValue(),
 					'alamat' => $sheet->getCell('C' . $row->getRowIndex())->getValue(),
-					'lokasi_server' => $sheet->getCell('D' . $row->getRowIndex())->getValue(),
+					'lokasi_server' => $lokasi_valid->id_lokasi_server,
 					'mulai_berlangganan' => $mulai_berlangganan_formatted,
 				];
 				$this->Pelanggan_model->tambah_pelanggan($data1);
@@ -255,7 +257,7 @@ class Pelanggan extends CI_Controller
 				$this->session->set_flashdata('message', '<strong>Tidak ada data yang berhasil ditambahkan</strong>');
 			}
 			unlink($inputFileName);
-			redirect('manajer/data-pelanggan');
+			redirect('admin/data-pelanggan');
 		}
 	}
 }

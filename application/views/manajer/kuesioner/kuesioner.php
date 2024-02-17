@@ -77,23 +77,42 @@
                                             $selesai = new DateTime($k->selesai, $timezone);
                                             $sekarang = new DateTime('now', $timezone);
                                             $selesai->modify('+1 day');
+                                            $checkDate = $sekarang > $selesai
                                             ?>
 
-                                            <?php if ($k->status_publish == '0') : ?>
-                                                <form action="<?= base_url() ?>manajer/edit-kuesioner" method="post" class="d-inline-block">
-                                                    <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                    <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</Button>
-                                                </form>
-                                            <?php endif ?>
+                                            <?php if (!$checkDate) : ?>
+                                                <?php if ($k->status_publish == '0') : ?>
+                                                    <!-- Tombol Edit -->
+                                                    <form action="<?= base_url() ?>manajer/edit-kuesioner" method="post" class="d-inline-block">
+                                                        <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
+                                                        <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</Button>
+                                                    </form>
 
-                                            <?php if ($sekarang > $selesai) : ?>
-                                                <button class="btn btn-link text-danger text-gradient p-2 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
+                                                    <!-- Tombol Hapus -->
+                                                    <button class="btn btn-link text-danger text-gradient p-2 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
 
+                                                    <!-- Tombol Publish -->
+                                                    <form id="publishForm<?= $k->id_kuesioner ?>" action="<?= base_url() ?>kuesioner/publish-kuesioner" method="post" class="d-inline-block">
+                                                        <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
+                                                        <button type="submit" class="btn btn-link p-2 mb-0 publishBtn" data-id="<?= $k->id_kuesioner ?>"><i class="bi bi-arrow-right-square-fill me-2" aria-hidden="true"></i>Publish</button>
+                                                    </form>
+
+                                                    <?php if ($k->status_kuesioner == '1' and $sekarang < $selesai) : ?>
+                                                        <form action="<?= base_url() ?>evaluasi/proses_evaluasi_kuesioner" method="post" class="d-inline-block">
+                                                            <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
+                                                            <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true"></i>Hitung Kuesioner</Button>
+                                                        </form>
+                                                    <?php endif ?>
+                                                <?php endif ?>
+                                            <?php else : ?>
+                                                <!-- Tombol Jawaban Pelanggan -->
                                                 <form action="<?= base_url() ?>manajer/jawaban-pelanggan" method="post" class="d-inline-block">
                                                     <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
                                                     <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="bi bi-person-hearts me-2" aria-hidden="true" disabled></i>Jawaban Pelanggan</button>
                                                 </form>
+
                                                 <?php if ($k->status_evaluasi == '0') : ?>
+                                                    <!-- Tombol Hitung Kuesioner -->
                                                     <form action="<?= base_url() ?>evaluasi/proses_evaluasi_kuesioner" method="post" class="d-inline-block">
                                                         <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
                                                         <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="bi bi-clipboard-data-fill text-dark me-2" aria-hidden="true"></i>Hitung Kuesioner</Button>
@@ -101,21 +120,9 @@
                                                 <?php endif; ?>
                                             <?php endif ?>
 
-                                            <?php if ($k->status_kuesioner == '0' or $k->status_kuesioner == '2') : ?>
-                                                <button class="btn btn-link text-danger text-gradient p-2 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_kuesioner<?= $k->id_kuesioner ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
-                                            <?php endif ?>
-
-                                            <?php if ($k->status_publish == '0') : ?>
-                                                <form id="publishForm<?= $k->id_kuesioner ?>" action="<?= base_url() ?>kuesioner/publish-kuesioner" method="post" class="d-inline-block">
-                                                    <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                    <button type="submit" class="btn btn-link p-2 mb-0 publishBtn" data-id="<?= $k->id_kuesioner ?>"><i class="bi bi-arrow-right-square-fill me-2" aria-hidden="true"></i>Publish</button>
-                                                </form>
-                                            <?php endif ?>
-
                                             <?php if ($k->status_publish == '1' and $k->status_kuesioner == '1' and $sekarang < $selesai) : ?>
-                                                <p class="ms-3 text-sm font-weight-bold mb-0">Tidak ada aksi</p>
+                                                <button type="submit" class="btn btn-link text-danger p-2 mb-0 publishBtn" data-bs-toggle="modal" data-bs-target="#modal_edit_status_kuesioner<?= $k->id_kuesioner ?>"><i class="bi bi-x-octagon me-2"></i>Tutup Kuesioner</button>
                                             <?php endif ?>
-
                                         </td>
                                     </tr>
                                     <?php $no++ ?>
@@ -203,21 +210,19 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Status Kuesioner</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Tutup Kuesioner</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <form action="<?= base_url() ?>kuesioner/proses_edit_status_kuesioner" method="post">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" value="1" name="status_kuesioner" id="status_kuesioner1">
-                                    <label class="custom-control-label" for="status_kuesioner1">Setuju</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" value="0" name="status_kuesioner" id="status_kuesioner2">
-                                    <label class="custom-control-label" for="status_kuesioner2">Belum setuju, kirim ke admin lagi</label>
+                            <form action="<?= base_url() ?>kuesioner/proses_edit_status_publish" method="post">
+                                <div class="form-group">
+                                    <label for="foto" class="form-control-label">Status Publish Kuesioner</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" name="status_publish" type="checkbox" id="flexSwitchCheckDefault" <?php echo ($km->status_publish == '1') ? 'checked' : ''; ?>>
+                                    </div>
                                 </div>
                         </div>
                     </div>

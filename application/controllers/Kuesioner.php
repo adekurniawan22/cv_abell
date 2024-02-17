@@ -22,18 +22,58 @@ class Kuesioner extends CI_Controller
 		$data['tanggal_terakhir'] = $this->db->get('t_kuesioner')->row();
 
 		if ($this->session->userdata('jabatan') == 'Manajer') {
+
 			$this->load->view('templates/header', $data);
 			$this->load->view('manajer/kuesioner/kuesioner', $data);
 			$this->load->view('templates/footer');
 		} else if ($this->session->userdata('jabatan') == 'Admin') {
+
 			$this->load->view('templates/header', $data);
 			$this->load->view('admin/kuesioner/kuesioner', $data);
 			$this->load->view('templates/footer');
 		} else if ($this->session->userdata('jabatan') == 'Pelanggan') {
+
+			$this->db->where('status_kuesioner =', '1');
+			$this->db->where('status_publish =', '1');
+			$data['histori_kuesioner'] = $this->db->get('t_kuesioner')->result();
+
+			$data['a'] = [];
+			foreach ($data['histori_kuesioner'] as $k) {
+				$this->db->where('id_kuesioner', $k->id_kuesioner);
+				$this->db->where('id_pelanggan', $this->session->userdata('id_pelanggan'));
+				$query = $this->db->get('t_sudah_isi_kuesioner')->row();
+				if ($query) {
+					$kuesioner = [
+						'judul_kuesioner' => $k->judul_kuesioner,
+						'mulai' => $k->mulai,
+						'selesai' => $k->selesai,
+					];
+					array_push($data['a'], $kuesioner);
+				}
+			}
+
 			$today = date('Y-m-d');
 			$this->db->where('selesai >', $today);
+			$this->db->where('status_kuesioner =', '1');
 			$this->db->where('status_publish =', '1');
 			$data['kuesioner_pelanggan'] = $this->db->get('t_kuesioner')->result();
+
+			$data['b'] = [];
+			foreach ($data['kuesioner_pelanggan'] as $k) {
+				$this->db->where('id_kuesioner', $k->id_kuesioner);
+				$this->db->where('id_pelanggan', $this->session->userdata('id_pelanggan'));
+				$query = $this->db->get('t_sudah_isi_kuesioner')->row();
+				if (!$query) {
+					$kuesioner = [
+						'id_kuesioner' => $k->id_kuesioner,
+						'judul_kuesioner' => $k->judul_kuesioner,
+						'mulai' => $k->mulai,
+						'selesai' => $k->selesai,
+					];
+					array_push($data['b'], $kuesioner);
+				}
+			}
+
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('pelanggan/kuesioner/kuesioner', $data);
@@ -53,9 +93,9 @@ class Kuesioner extends CI_Controller
 
 	public function proses_tambah_kuesioner()
 	{
-		$this->form_validation->set_rules('mulai', 'Tanggal Mulai Kuesioner', 'required');
+		$this->form_validation->set_rules('mulai', 'Tanggal Mulai Kuesioner', 'required|callback_check_date_not_past');
 		if ($this->input->post('selesai')) {
-			$this->form_validation->set_rules('selesai', 'Tanggal Selesai Kuesioner', 'callback_check_date');
+			$this->form_validation->set_rules('selesai', 'Tanggal Selesai Kuesioner', 'required|callback_check_date');
 		}
 
 		if ($this->form_validation->run() == FALSE) {
@@ -103,7 +143,7 @@ class Kuesioner extends CI_Controller
 	public function proses_edit_kuesioner()
 	{
 		$this->form_validation->set_rules('judul_kuesioner', 'Lokasi', 'required');
-		$this->form_validation->set_rules('mulai', 'Tanggal Mulai Kuesioner', 'required');
+		$this->form_validation->set_rules('mulai', 'Tanggal Mulai Kuesioner', 'required|callback_check_date_not_past');
 		$this->form_validation->set_rules('selesai', 'Tanggal Selesai Kuesioner', 'required|callback_check_date');
 
 		if ($this->form_validation->run() == FALSE) {
@@ -163,7 +203,6 @@ class Kuesioner extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->isi_pernyataan();
 		} else {
-
 			$success_count = 0;
 			foreach ($_POST['pilih_pernyataan'] as $key) {
 				$data = [
@@ -189,10 +228,11 @@ class Kuesioner extends CI_Controller
 		}
 	}
 
-	public function proses_edit_status_kuesioner()
+	public function proses_edit_status_publish()
 	{
+		$status_publish = ($this->input->post('status_publish') == 'on') ? '1' : '0';
 		$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
-		$this->db->update('t_kuesioner', ['status_kuesioner' => $this->input->post('status_kuesioner')]);
+		$this->db->update('t_kuesioner', ['status_publish' => $status_publish]);
 		$this->session->set_flashdata('message', '<strong>Status Kuesioner Berhasil Diedit</strong>
                                                                     <i class="bi bi-check-circle-fill"></i>');
 		redirect('manajer/data-kuesioner');
@@ -200,6 +240,14 @@ class Kuesioner extends CI_Controller
 
 	public function publish_kuesioner()
 	{
+		$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
+		$detail_kuesioner = $this->db->get('t_detail_kuesioner')->result();
+
+		if (!$detail_kuesioner) {
+			$this->session->set_flashdata('message', '<strong>Kuesioner tidak bisa di publish karena belum berisi pernyataan</strong>
+			<i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('manajer/data-kuesioner');
+		}
 		$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
 		$result = $this->db->update('t_kuesioner', ['status_kuesioner' => '1', 'status_publish' => '1']);
 
@@ -229,6 +277,25 @@ class Kuesioner extends CI_Controller
 			return FALSE;
 		} else {
 			// Dates are valid
+			return TRUE;
+		}
+	}
+
+	public function check_date_not_past($date)
+	{
+		$current_date = date('Y-m-d'); // Tanggal saat ini
+
+		// Convert dates to timestamps for comparison
+		$date_timestamp = strtotime($date);
+		$current_timestamp = strtotime($current_date);
+
+		// Check if date is not in the past
+		if ($date_timestamp < $current_timestamp) {
+			// Date is in the past
+			$this->form_validation->set_message('check_date_not_past', 'Tanggal tidak boleh tanggal yang sudah lewat');
+			return FALSE;
+		} else {
+			// Date is valid
 			return TRUE;
 		}
 	}

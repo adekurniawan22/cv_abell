@@ -23,6 +23,13 @@ class Jawaban extends CI_Controller
 
 	public function proses_tambah_jawaban()
 	{
+		$kuesioner = $this->db->get_where('t_kuesioner', array('id_kuesioner' => $this->input->post('id_kuesioner')))->row();
+		if ($kuesioner->status_publish == '0') {
+			$this->session->set_flashdata('message', '<strong>Pengisian Kuesioner Gagal, Silahkan coba ulang</strong>
+											<i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('pelanggan/kuesioner');
+		}
+
 		$data = $this->db->get_where('t_detail_kuesioner', array('id_kuesioner' => $this->input->post('id_kuesioner')))->result();
 
 		$jumlah_pertanyaan = count($data);
