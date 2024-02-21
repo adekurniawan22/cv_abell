@@ -1,5 +1,13 @@
 <div class="container-fluid py-2 mt-7">
   <div class="row">
+    <div class="col-12">
+      <div class="ms-1 text-center mb-4">
+        <h4 class="text-white">Selamat datang <strong><?= $this->session->userdata('nama_lengkap') ?></strong></h4>
+        <p class="text-white">Level anda adalah <strong><?= $this->session->userdata('jabatan') ?></strong></p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-lg-12 mb-lg-0 mb-4">
       <div class="row">
         <div class="col-4 mb-4">

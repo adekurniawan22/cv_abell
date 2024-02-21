@@ -230,10 +230,17 @@ class Kuesioner extends CI_Controller
 
 	public function proses_edit_status_publish()
 	{
-		$status_publish = ($this->input->post('status_publish') == 'on') ? '1' : '0';
+		$kuesioner = $this->Kuesioner_model->dapat_satu_kuesioner($this->input->post('id_kuesioner'));
+
+		if ($kuesioner->status_publish == '1') {
+			$status_publish = '0';
+		} else if ($kuesioner->status_publish == '0') {
+			$status_publish = '1';
+		}
+
 		$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
 		$this->db->update('t_kuesioner', ['status_publish' => $status_publish]);
-		$this->session->set_flashdata('message', '<strong>Status Kuesioner Berhasil Diedit</strong>
+		$this->session->set_flashdata('message', '<strong>Status Publish Kuesioner Berhasil Diedit</strong>
                                                                     <i class="bi bi-check-circle-fill"></i>');
 		redirect('manajer/data-kuesioner');
 	}

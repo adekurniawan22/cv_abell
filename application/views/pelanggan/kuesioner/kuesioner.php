@@ -70,7 +70,7 @@
 
             <?php if ($a) : ?>
                 <div class="card mb-4 px-3">
-                    <div class="row mb-3">
+                    <div class="row mb-1">
                         <div class="col-lg-12 col-sm-12 d-flex align-items-center">
                             <div class="card-header pb-0 mt-0 mb-0 text-white">
                                 <h3>Histori Kuesioner</h3>

@@ -137,6 +137,12 @@ class Evaluasi extends CI_Controller
 
 	public function proses_hapus_evaluasi()
 	{
+
+		$evaluasi = $this->Evaluasi_model->dapat_satu_evaluasi($this->input->post('id_evaluasi'));
+
+		$this->db->where('id_kuesioner', $evaluasi->id_kuesioner);
+		$this->db->update('t_kuesioner', array('status_evaluasi' => '0'));
+
 		$this->db->where('id_evaluasi', $this->input->post('id_evaluasi'));
 		$this->db->delete('t_evaluasi');
 		$this->session->set_flashdata('message', '<strong>Data Perhitungan Berhasil Dihapus</strong>
