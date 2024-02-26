@@ -12,6 +12,11 @@ class Dashboard extends CI_Controller
 
 	public function dashboard_manajer()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
 		$data['title'] = 'Dashboard Manajer';
 		$data['jumlah_pelanggan'] = $this->Pelanggan_model->jumlah_pelanggan();
 		$data['jumlah_pelanggan_aktif'] = $this->Pelanggan_model->jumlah_pelanggan_aktif();
@@ -23,6 +28,12 @@ class Dashboard extends CI_Controller
 
 	public function dashboard_admin()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
+
 		$data['title'] = 'Dashboard Admin';
 		$data['jumlah_pelanggan'] = $this->Pelanggan_model->jumlah_pelanggan();
 		$data['jumlah_pelanggan_aktif'] = $this->Pelanggan_model->jumlah_pelanggan_aktif();
@@ -34,6 +45,12 @@ class Dashboard extends CI_Controller
 
 	public function dashboard_pelanggan()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect(base_url());
+		}
+
 		$data['title'] = 'Dashboard Pelanggan';
 		$this->load->view('templates/header', $data);
 		$this->load->view('pelanggan/dashboard', $data);

@@ -146,9 +146,11 @@
         <!-- Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg blur border-radius-lg top-0 z-index-3 mt-4 py-2 start-0 end-0 mx-4">
             <div class="container-fluid">
-                <a class="navbar-brand font-weight-bolder ms-lg-0 ms-2 " href="#">
-                    CV. Abell
-                </a>
+                <div class="navbar-brand font-weight-bolder ms-lg-0 ms-2 d-flex align-items-end" href="#">
+                    <img src="<?= base_url('assets/img/LogoAbell.png') ?>" alt="CV. Abell Logo" class="me-1" style="height: 25px;">
+                    <span>CV. Abell</span>
+                </div>
+
                 <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon mt-2">
                         <span class="navbar-toggler-bar bar1"></span>
@@ -220,12 +222,6 @@
                                 <a class="nav-link d-flex align-items-center me-2 <?php echo (strpos(current_url(), 'pelanggan') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>admin/data-pelanggan">
                                     <i class="bi bi-people-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
                                     Data Pelanggan
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center me-2 <?= (strpos(current_url(), 'kuesioner') !== false) ? 'active' : ''; ?>" aria-current="page" href="<?= base_url() ?>admin/data-kuesioner">
-                                    <i class="bi bi-file-text-fill opacity-6 text-dark me-1" aria-hidden="true"></i>
-                                    Kuesioner
                                 </a>
                             </li>
                         <?php } ?>

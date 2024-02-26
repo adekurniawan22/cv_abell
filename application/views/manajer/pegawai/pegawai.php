@@ -25,7 +25,7 @@
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Email</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">No. HP</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Alamat</th>
-                                    <th style="width: 15%;" class="text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
+                                    <th style="width: 15%;" class="text-center text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,17 +50,17 @@
                                             <p class="ms-3 text-sm font-weight-bold mb-0"><?= nl2br($p->alamat) ?></p>
                                         </td>
                                         <?php if ($p->jabatan == 'Manajer') : ?>
-                                            <td class="align-middle">
-                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0" style="cursor: no-drop;" title="Tombol Dilarang"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</button>
-                                                <button class="btn btn-link text-danger text-gradient px-3 mb-0" style="cursor: no-drop;" title="Tombol Dilarang"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
+                                            <td class="text-center">
+                                                <button class="btn btn-link text-danger text-gradient p-2 mb-0" style="cursor: no-drop;" title="Tombol Dilarang"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
+                                                <button type="submit" class="btn btn-link text-primary p-2 mb-0" style="cursor: no-drop;" title="Tombol Dilarang"><i class="fas fa-pencil-alt text-primary me-2" aria-hidden="true"></i>Edit</button>
                                             </td>
                                         <?php else : ?>
-                                            <td class="align-middle">
+                                            <td class="text-center">
+                                                <button class="btn btn-link text-danger text-gradient p-2 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_pegawai<?= $p->id_pegawai ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
                                                 <form action="<?= base_url() ?>manajer/edit-pegawai" method="post" class="d-inline-block">
                                                     <input type="hidden" name="id_pegawai" value="<?= $p->id_pegawai ?>">
-                                                    <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</Button>
+                                                    <button type="submit" class="btn btn-link text-primary p-2 mb-0"><i class="fas fa-pencil-alt text-primary me-2" aria-hidden="true"></i>Edit</Button>
                                                 </form>
-                                                <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_pegawai<?= $p->id_pegawai ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
                                             </td>
                                         <?php endif; ?>
                                     </tr>

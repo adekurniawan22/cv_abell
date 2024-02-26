@@ -90,6 +90,8 @@ $route['manajer/proses-tambah-kuesioner'] = 'kuesioner/proses_tambah_kuesioner';
 $route['manajer/edit-kuesioner'] = 'kuesioner/edit_kuesioner';
 $route['manajer/proses-edit-kuesioner'] = 'kuesioner/proses_edit_kuesioner';
 $route['manajer/proses-hapus-kuesioner'] = 'kuesioner/proses_hapus_kuesioner';
+$route['manajer/p-kuesioner'] = 'kuesioner/isi_pernyataan';
+$route['manajer/proses-p-kuesioner'] = 'kuesioner/proses_isi_pernyataan';
 
 $route['manajer/data-evaluasi'] = 'evaluasi/index';
 $route['manajer/cetak-evaluasi-pdf'] = 'evaluasi/cetak_pdf';
@@ -104,10 +106,6 @@ $route['admin/tambah-pelanggan'] = 'pelanggan/tambah_pelanggan';
 $route['admin/proses-tambah-pelanggan'] = 'pelanggan/proses_tambah_pelanggan';
 $route['admin/edit-pelanggan'] = 'pelanggan/edit_pelanggan';
 $route['admin/proses-edit-pelanggan'] = 'pelanggan/proses_edit_pelanggan';
-
-$route['admin/data-kuesioner'] = 'kuesioner/index';
-$route['admin/isi-pernyataan'] = 'kuesioner/isi_pernyataan';
-$route['admin/proses-isi-pernyataan'] = 'kuesioner/proses_isi_pernyataan';
 
 // Route Pelanggan
 $route['pelanggan/kuesioner'] = 'kuesioner/index';

@@ -50,8 +50,8 @@
                                             <p class="text-center text-sm font-weight-bold mb-0"><?= $e->indeks_csi ?></p>
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_evaluasi<?= $e->id_evaluasi ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button>
-                                            <button class="btn btn-link text-dark text-gradient p-2 mb-0" data-bs-toggle="modal" data-bs-target="#lihat_detail<?= $e->id_evaluasi ?>"><i class="bi bi-eye-fill me-2" aria-hidden="true"></i>Detail Evaluasi</button>
+                                            <button class="btn btn-link text-danger text-gradient p-2 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_evaluasi<?= $e->id_evaluasi ?>"><i class="far fa-trash-alt me-2" aria-hidden="true" disabled></i>Hapus</button>
+                                            <button class="btn btn-link text-primary p-2 mb-0" data-bs-toggle="modal" data-bs-target="#lihat_detail<?= $e->id_evaluasi ?>"><i class="bi bi-eye-fill me-2" aria-hidden="true"></i>Detail Evaluasi</button>
                                         </td>
                                     </tr>
                                     <?php $i++; ?>

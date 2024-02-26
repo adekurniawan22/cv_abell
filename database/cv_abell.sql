@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Feb 2024 pada 10.26
+-- Waktu pembuatan: 26 Feb 2024 pada 19.24
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -1518,7 +1518,7 @@ CREATE TABLE `t_kuesioner` (
   `judul_kuesioner` varchar(255) NOT NULL,
   `mulai` date NOT NULL,
   `selesai` date NOT NULL,
-  `status_kuesioner` enum('0','1','2') NOT NULL,
+  `status_kuesioner` enum('0','1') NOT NULL,
   `status_publish` enum('0','1') NOT NULL,
   `status_evaluasi` enum('0','1') NOT NULL,
   `id_pegawai` int(11) NOT NULL
@@ -1576,8 +1576,7 @@ CREATE TABLE `t_pegawai` (
 
 INSERT INTO `t_pegawai` (`id_pegawai`, `jabatan`, `nama_lengkap`, `username`, `email`, `no_hp`, `password`, `alamat`) VALUES
 (1, 'Manajer', 'Manajer', 'manajer', 'manajer@email.com', '0812747495454', '$2y$10$6lnE0sqZU36.DUX3UFLhuOnz6wYHBODxQVaqjJOGdzfi4QApYJ1BC', 'Jalan Dago, Nomor 414'),
-(2, 'Admin', 'Admin', 'admin', 'admin@email.com', '081277778899', '$2y$10$81mDK1HUQMWOKxgXxkprzeNBO1aLB1mT6grrFH1GbbfQWjYJ8Xztq', 'Jalan Dago, Nomor 12'),
-(11, 'Admin', 'Ade Kurniawan', 'ade22', 'ade.kurniawan216@gmail.com', '083171027936', '$2y$10$c86Nd9U89wixbLAg6gmWwOpSZLtsBHmzm72PKe7w7.78Q6.qEJFdK', 'Jalan Jambi Palembang KM 27');
+(2, 'Admin', 'Admin', 'admin', 'admin@email.com', '081277778899', '$2y$10$81mDK1HUQMWOKxgXxkprzeNBO1aLB1mT6grrFH1GbbfQWjYJ8Xztq', 'Jalan Dago, Nomor 12');
 
 -- --------------------------------------------------------
 
@@ -1710,21 +1709,21 @@ CREATE TABLE `t_pernyataan` (
 --
 
 INSERT INTO `t_pernyataan` (`id_pernyataan`, `id_dimensi`, `pernyataan`, `rekomendasi_perbaikan`) VALUES
-(1, 1, 'Tempat yang strategis', 'tes'),
-(2, 1, 'Lingkungan perusahaan yang bersih dan nyaman', 'tes'),
-(3, 1, 'Kelengkapan dan fasilitas yang disediakan', 'tes'),
-(4, 2, 'Kesesuaian harga dan kualitas yang diberikan', 'tes'),
-(5, 2, 'Pelayanan cepat tanggap yang baik', 'tes'),
-(6, 2, 'Kemampian perusahaan dalam memberikan inforasi dengan baik', 'tes'),
-(7, 3, 'Ketanggapan perusahaan dalam memenuhi kebutuhan pelanggan', 'tes'),
-(8, 3, 'Kecepatan teknisi dalam menyelesaikan pekerjaan', 'tes'),
-(9, 3, 'Internet yang cepat dan stabil', 'tes'),
-(10, 4, 'Kualitas pelayanan yang baik', 'tes Kualitas pelayanan yang baik Kualitas pelayanan yang baik Kualitas pelayanan yang baik Kualitas pelayanan yang baik Kualitas pelayanan yang baik Kualitas pelayanan yang baik Kualitas pelayanan yang baik Kualitas pelayanan yang baik'),
-(11, 4, 'Kesigapan perusahaan dalam menangani masalah', 'tes'),
-(12, 4, 'Keamanan privasi dan informasi', 'tes'),
-(13, 5, 'Penawaran promosi atau diskon khusus', 'tes'),
-(14, 5, 'Kepedulian perusahaan dalam melayani pelanggan', 'tes'),
-(15, 5, 'Perusahaan memenuhi keinginan serta kebutuhan pelanggan', 'tes');
+(1, 1, 'Tempat yang strategis', 'Tingkatkan infrastruktur perusahaan seperti penyediaan, fasilitas ramah difabel, dan peningkatan keamanan'),
+(2, 1, 'Lingkungan perusahaan yang bersih dan nyaman', 'Lakukan program pemeliharaan rutin seperti pengelolaan sampah, fasilitas yang baik, dan ruang istirahat yang nyaman'),
+(3, 1, 'Kelengkapan dan fasilitas yang disediakan', 'Tingkatkan fasilitas yang disediakan terkait infrastruktur jaringan yang dibutuhkan pelanggan'),
+(4, 2, 'Kesesuaian harga dan kualitas yang diberikan', 'Lakukan analisis harga pasar dengan kompetitor agar mendapatkan harga paket yang sesuai'),
+(5, 2, 'Pelayanan cepat tanggap yang baik', 'Lakukan pelatihan kepada tim teknisi dan admin serta perbaikan sistem pelayanan pada perusahaan'),
+(6, 2, 'Kemampian perusahaan dalam memberikan inforasi dengan baik', 'Tingkatkan pemberian informasi menggunakan sistem yang mudah diakses seperti pesan broadcast dan penggunaan website'),
+(7, 3, 'Ketanggapan perusahaan dalam memenuhi kebutuhan pelanggan', 'Tingkatkan pelayanan perusahaan terhadap pelanggan dengan memaksimalkan kinerja setiap bidang pegawai guna mempersingkat waktu dalam menerima masukan serta respon yang cepat dan efisien'),
+(8, 3, 'Kecepatan teknisi dalam menyelesaikan pekerjaan', 'Berikan pelatihan serta dorongan kepada tim teknisi terkait keterampilan dan peningkatan efisiensi proses kerja serta mengatur jadwal untuk mengoptimalkan penyelesaian tugas'),
+(9, 3, 'Internet yang cepat dan stabil', 'Lakukan maintenance dan monitoring jaringan secara berkala guna mengantisipasi serta mengatasi masalah yang terjadi'),
+(10, 4, 'Kualitas pelayanan yang baik', 'Lakukan evaluasi menyeluruh terhadap proses yang terlibat dalam memberikan pelayanan kepada pelanggan. Identifikasi area di mana ada kemungkinan penyimpangan atau peningkatan yang dapat dilakukan.'),
+(11, 4, 'Kesigapan perusahaan dalam menangani masalah', 'Tingkatkan pelayanan perusahaan dengan prosedur yang terstruktur untuk menangani masalah serta evaluasi dan perbaikan berkelanjutan atas proses penanganan masalah'),
+(12, 4, 'Keamanan privasi dan informasi', 'Tingkatkan keamanan yang ketat, enkripsi data yang lebih kuat, autentikasi ganda, serta melakukan audit secara berkala sistem keamanan untuk mengidentifikasi dan mengatasi potensi kerentanan'),
+(13, 5, 'Penawaran promosi atau diskon khusus', 'Menawarkan promosi atau diskon khusus yang terbatas waktu, memberikan keuntungan bagi pelanggan yang loyal, serta program diskon lainnya'),
+(14, 5, 'Kepedulian perusahaan dalam melayani pelanggan', 'Berikan pelatihan yang baik kepada pegawai dalam mendengarkan keluhan dan masukan pelanggan, serta berkomitmen untuk memberikan pengalaman pelanggan yang positif'),
+(15, 5, 'Perusahaan memenuhi keinginan serta kebutuhan pelanggan', 'Menyediakan produk dan layanan yang berkualitas, mendengarkan dengan seksama umpan balik pelanggan, serta berinovasi secara terus-menerus untuk memastikan kepuasan dan kepercayaan pelanggan terpenuhi.');
 
 -- --------------------------------------------------------
 
@@ -1937,7 +1936,7 @@ ALTER TABLE `t_jawaban`
 -- AUTO_INCREMENT untuk tabel `t_kuesioner`
 --
 ALTER TABLE `t_kuesioner`
-  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_lokasi_server`
@@ -1955,7 +1954,7 @@ ALTER TABLE `t_pegawai`
 -- AUTO_INCREMENT untuk tabel `t_pelanggan`
 --
 ALTER TABLE `t_pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pernyataan`

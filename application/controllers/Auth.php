@@ -13,6 +13,18 @@ class Auth extends CI_Controller
 
 	public function login_pegawai()
 	{
+		if (!empty($this->session->userdata('jabatan'))) {
+			if ($this->session->userdata('jabatan') == 'Manajer') {
+				$this->session->set_flashdata('message', '<strong>Anda sudah login, tidak bisa mengkases halaman ini!</strong>
+							<i class="bi bi-exclamation-circle-fill"></i>');
+				redirect('manajer/dashboard');
+			} else if ($this->session->userdata('jabatan') == 'Admin') {
+				$this->session->set_flashdata('message', '<strong>Anda sudah login, tidak bisa mengkases halaman ini!</strong>
+				<i class="bi bi-exclamation-circle-fill"></i>');
+				redirect('admin/dashboard');
+			}
+		}
+
 		$data['title'] = 'Login Pegawai';
 		$this->load->view('auth/pegawai/login', $data);
 	}

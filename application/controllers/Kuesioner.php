@@ -22,16 +22,31 @@ class Kuesioner extends CI_Controller
 		$data['tanggal_terakhir'] = $this->db->get('t_kuesioner')->row();
 
 		if ($this->session->userdata('jabatan') == 'Manajer') {
+			if (empty($this->session->userdata('jabatan'))) {
+				$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+							<i class="bi bi-exclamation-circle-fill"></i>');
+				redirect('login-pegawai');
+			}
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('manajer/kuesioner/kuesioner', $data);
 			$this->load->view('templates/footer');
 		} else if ($this->session->userdata('jabatan') == 'Admin') {
+			if (empty($this->session->userdata('jabatan'))) {
+				$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+							<i class="bi bi-exclamation-circle-fill"></i>');
+				redirect('login-pegawai');
+			}
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('admin/kuesioner/kuesioner', $data);
 			$this->load->view('templates/footer');
 		} else if ($this->session->userdata('jabatan') == 'Pelanggan') {
+			if (empty($this->session->userdata('jabatan'))) {
+				$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+							<i class="bi bi-exclamation-circle-fill"></i>');
+				redirect(base_url());
+			}
 
 			$this->db->where('status_kuesioner =', '1');
 			$this->db->where('status_publish =', '1');
@@ -83,6 +98,12 @@ class Kuesioner extends CI_Controller
 
 	public function tambah_kuesioner()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
+
 		$this->db->from('t_kuesioner');
 		$data['judul_kuesioner'] = $this->db->count_all_results();
 		$data['title'] = 'Tambah Kuesioner';
@@ -93,6 +114,12 @@ class Kuesioner extends CI_Controller
 
 	public function proses_tambah_kuesioner()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
+
 		$this->form_validation->set_rules('mulai', 'Tanggal Mulai Kuesioner', 'required|callback_check_date_not_past');
 		if ($this->input->post('selesai')) {
 			$this->form_validation->set_rules('selesai', 'Tanggal Selesai Kuesioner', 'required|callback_check_date');
@@ -133,6 +160,12 @@ class Kuesioner extends CI_Controller
 
 	public function edit_kuesioner()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
+
 		$data['title'] = 'Edit Kuesioner';
 		$data['kuesioner'] = $this->Kuesioner_model->dapat_satu_kuesioner($this->input->post('id_kuesioner'));
 		$this->load->view('templates/header', $data);
@@ -142,6 +175,12 @@ class Kuesioner extends CI_Controller
 
 	public function proses_edit_kuesioner()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
+
 		$this->form_validation->set_rules('judul_kuesioner', 'Lokasi', 'required');
 		$this->form_validation->set_rules('mulai', 'Tanggal Mulai Kuesioner', 'required|callback_check_date_not_past');
 		$this->form_validation->set_rules('selesai', 'Tanggal Selesai Kuesioner', 'required|callback_check_date');
@@ -169,6 +208,12 @@ class Kuesioner extends CI_Controller
 
 	public function proses_hapus_kuesioner()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
+
 		$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
 		$this->db->delete('t_kuesioner');
 		$this->session->set_flashdata('message', '<strong>Data Kuesioner Berhasil Dihapus</strong>
@@ -178,16 +223,28 @@ class Kuesioner extends CI_Controller
 
 	public function isi_pernyataan()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
+
 		$data['title'] = 'Isi Pernyataan';
 		$data['kuesioner'] = $this->Kuesioner_model->dapat_satu_kuesioner($this->input->post('id_kuesioner'));
 		$data['pernyataan'] = $this->Pernyataan_model->dapat_pernyataan();
 		$this->load->view('templates/header', $data);
-		$this->load->view('admin/kuesioner/isi_pernyataan', $data);
+		$this->load->view('manajer/kuesioner/isi_pernyataan', $data);
 		$this->load->view('templates/footer');
 	}
 
 	public function proses_isi_pernyataan()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
+
 		$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
 		$detail_kuesioner = $this->db->get('t_detail_kuesioner')->result();
 		if ($detail_kuesioner) {
@@ -217,19 +274,25 @@ class Kuesioner extends CI_Controller
 
 			if ($success_count == count($_POST['pilih_pernyataan'])) {
 				$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
-				$this->db->update('t_kuesioner', ['status_kuesioner' => '2']);
+				$this->db->update('t_kuesioner', ['status_kuesioner' => '1']);
 				$this->session->set_flashdata('message', '<strong>Isi Pernyataan Berhasil</strong>
 																	<i class="bi bi-check-circle-fill"></i>');
 			} else {
 				$this->session->set_flashdata('message', '<strong>Isi Pernyataan Gagal</strong>
 															<i class="bi bi-exclamation-circle-fill"></i>');
 			}
-			redirect('admin/data-kuesioner');
+			redirect('manajer/data-kuesioner');
 		}
 	}
 
 	public function proses_edit_status_publish()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
+
 		$kuesioner = $this->Kuesioner_model->dapat_satu_kuesioner($this->input->post('id_kuesioner'));
 
 		if ($kuesioner->status_publish == '1') {
@@ -247,6 +310,12 @@ class Kuesioner extends CI_Controller
 
 	public function publish_kuesioner()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
+
 		$this->db->where('id_kuesioner', $this->input->post('id_kuesioner'));
 		$detail_kuesioner = $this->db->get('t_detail_kuesioner')->result();
 

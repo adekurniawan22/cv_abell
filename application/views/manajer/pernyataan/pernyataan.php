@@ -23,7 +23,7 @@
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Dimensi</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Pernyataan</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Rekomendasi Perbaikan</th>
-                                    <th style="width: 15%;" class="text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
+                                    <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,12 +44,12 @@
                                             <p class="ms-3 text-sm font-weight-bold mb-0"><?= $p->rekomendasi_perbaikan ?></p>
                                         </td>
 
-                                        <td class="align-middle">
+                                        <td class="text-center" style="width:15%">
+                                            <button class="btn btn-link text-danger text-gradient p-2 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_pernyataan<?= $p->id_pernyataan ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
                                             <form action="<?= base_url() ?>manajer/edit-pernyataan" method="post" class="d-inline-block">
                                                 <input type="hidden" name="id_pernyataan" value="<?= $p->id_pernyataan ?>">
-                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</Button>
+                                                <button type="submit" class="btn btn-link text-primary p-2 mb-0"><i class="fas fa-pencil-alt text-primary me-2" aria-hidden="true"></i>Edit</Button>
                                             </form>
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_pernyataan<?= $p->id_pernyataan ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
                                         </td>
                                     </tr>
                                     <?php $no++ ?>

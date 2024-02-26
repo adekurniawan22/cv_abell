@@ -29,7 +29,7 @@
                                     <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Status Akun</th>
                                     <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Lama Berlangganan</th>
                                     <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Ditambahkan Oleh</th>
-                                    <th style="width: 15%;" class="text-center text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
+                                    <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7" data-sortable="false">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,11 +92,11 @@
                                             <?php endforeach; ?>
                                         </td>
                                         <td class="text-center">
+                                            <button class="btn btn-link text-danger text-gradient p-2 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_pelanggan<?= $p->id_pelanggan ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
                                             <form action="<?= base_url() ?>admin/edit-pelanggan" method="post" class="d-inline-block">
                                                 <input type="hidden" name="id_pelanggan" value="<?= $p->id_pelanggan ?>">
-                                                <button type="submit" class="btn btn-link text-dark px-3 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</Button>
+                                                <button type="submit" class="btn btn-link text-dark p-2 mb-0"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</Button>
                                             </form>
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modal_hapus_pelanggan<?= $p->id_pelanggan ?>"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Hapus</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

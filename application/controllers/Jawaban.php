@@ -13,6 +13,11 @@ class Jawaban extends CI_Controller
 
 	public function tambah_jawaban()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect(base_url());
+		}
 		$data['pelanggan'] = $this->Pelanggan_model->dapat_satu_pelanggan($this->session->userdata('id_pelanggan'));
 		$data['pernyataan'] = $this->db->get_where('t_detail_kuesioner', array('id_kuesioner' => $this->input->post('id_kuesioner')))->result();
 		$data['title'] = 'Isi Kuesioner';
@@ -23,6 +28,12 @@ class Jawaban extends CI_Controller
 
 	public function proses_tambah_jawaban()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect(base_url());
+		}
+
 		$kuesioner = $this->db->get_where('t_kuesioner', array('id_kuesioner' => $this->input->post('id_kuesioner')))->row();
 		if ($kuesioner->status_publish == '0') {
 			$this->session->set_flashdata('message', '<strong>Pengisian Kuesioner Gagal, Silahkan coba ulang</strong>
@@ -79,6 +90,11 @@ class Jawaban extends CI_Controller
 
 	public function jawaban_pelanggan()
 	{
+		if (empty($this->session->userdata('jabatan'))) {
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
+		                <i class="bi bi-exclamation-circle-fill"></i>');
+			redirect('login-pegawai');
+		}
 		$data['sudah_isi_kuesioner'] = $this->db->get_where('t_sudah_isi_kuesioner', ['id_kuesioner' => $this->input->post('id_kuesioner')])->result();
 
 		$data['jawaban']  = $this->db->get_where('t_jawaban', ['id_kuesioner' => $this->input->post('id_kuesioner')])->result();
