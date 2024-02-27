@@ -103,7 +103,9 @@
                         <?php
                         $this->db->where('id_evaluasi', $em->id_evaluasi);
                         $this->db->where('gap <', 0);
+                        $this->db->order_by('gap', 'ASC'); // Mengurutkan dari negatif terbesar
                         $query = $this->db->get('t_detail_evaluasi')->result();
+
                         ?>
                         <?php if ($query) : ?>
                             <table style="width: 100%; border-collapse: collapse;">
@@ -111,7 +113,7 @@
                                     <th style="border: 1px solid #ddd; padding:10px;">No.</th>
                                     <th style="border: 1px solid #ddd; padding:10px;">Dimensi</th>
                                     <th style="border: 1px solid #ddd; padding:10px;">Pernyataan</th>
-                                    <th style="border: 1px solid #ddd; padding:10px; text-align: center">Nilia WF (%)</th>
+                                    <th style="border: 1px solid #ddd; padding:10px; text-align: center">Gap</th>
                                     <th style="border: 1px solid #ddd; padding:10px;">Rekomendasi Perbaikan</th>
                                 </tr>
                                 <?php $i = 1 ?>
@@ -128,7 +130,7 @@
                                         <td style="border: 1px solid #ddd; padding:10px; text-align: center"><?= $i ?></td>
                                         <td style="border: 1px solid #ddd; padding:10px;"><?= $dimensi->dimensi ?></td>
                                         <td style="border: 1px solid #ddd; padding:10px;"><?= $pernyataan->pernyataan ?></td>
-                                        <td style="border: 1px solid #ddd; padding:10px; text-align: center"><?= $q->wf ?> %</td>
+                                        <td style="border: 1px solid #ddd; padding:10px; text-align: center"><?= $q->gap ?></td>
                                         <td style="border: 1px solid #ddd; padding:10px;"><?= $pernyataan->rekomendasi_perbaikan ?></td>
                                     </tr>
                                     <?php $i++ ?>

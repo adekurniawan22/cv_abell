@@ -214,13 +214,6 @@ class Pelanggan extends CI_Controller
 
 				if (!$mulai_berlangganan_obj) {
 					$errors[$row->getRowIndex()][] = 'Format tanggal langganan tidak sesuai';
-				} else {
-					$waktu_sekarang = new DateTime();
-					$tanggal_sekarang = $waktu_sekarang->format('Y-m-d');
-					$mulai_berlangganan_formatted = $mulai_berlangganan_obj->format('Y-m-d');
-					if ($mulai_berlangganan_formatted > $tanggal_sekarang) {
-						$errors[$row->getRowIndex()][] = 'Tanggal langganan tidak boleh melewati tanggal sekarang';
-					}
 				}
 			}
 			// Jika ada kolom yang tidak valid, tambahkan ke dalam array $errors

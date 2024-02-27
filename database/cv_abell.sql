@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Feb 2024 pada 19.24
+-- Waktu pembuatan: 27 Feb 2024 pada 16.59
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -44,21 +44,21 @@ CREATE TABLE `t_detail_evaluasi` (
 --
 
 INSERT INTO `t_detail_evaluasi` (`id_evaluasi`, `id_pernyataan`, `total_ekspetasi`, `total_presepsi`, `mis`, `mss`, `wf`, `ws`, `gap`) VALUES
-(16, 1, 310, 319, 3.44, 3.54, 6.66, 23.58, -0.1),
-(16, 2, 328, 320, 3.64, 3.56, 7.05, 25.1, 0.08),
-(16, 3, 301, 312, 3.34, 3.47, 6.47, 22.45, -0.13),
-(16, 4, 299, 327, 3.32, 3.63, 6.43, 23.34, -0.31),
-(16, 5, 303, 311, 3.37, 3.46, 6.52, 22.56, -0.09),
-(16, 6, 311, 326, 3.46, 3.62, 6.7, 24.25, -0.16),
-(16, 7, 330, 316, 3.67, 3.51, 7.11, 24.96, 0.16),
-(16, 8, 316, 320, 3.51, 3.56, 6.8, 24.21, -0.05),
-(16, 9, 320, 316, 3.56, 3.51, 6.89, 24.18, 0.05),
-(16, 10, 306, 219, 3.4, 2.43, 6.58, 15.99, 0.97),
-(16, 11, 314, 321, 3.49, 3.57, 6.76, 24.13, -0.08),
-(16, 12, 307, 308, 3.41, 3.42, 6.6, 22.57, -0.01),
-(16, 13, 309, 313, 3.43, 3.48, 6.64, 23.11, -0.05),
-(16, 14, 300, 311, 3.33, 3.46, 6.45, 22.32, -0.13),
-(16, 15, 295, 311, 3.28, 3.46, 6.35, 21.97, -0.18);
+(46, 1, 310, 319, 3.44, 3.54, 6.66, 23.58, 0.1),
+(46, 2, 328, 320, 3.64, 3.56, 7.05, 25.1, -0.08),
+(46, 3, 301, 312, 3.34, 3.47, 6.47, 22.45, 0.13),
+(46, 4, 299, 327, 3.32, 3.63, 6.43, 23.34, 0.31),
+(46, 5, 303, 311, 3.37, 3.46, 6.52, 22.56, 0.09),
+(46, 6, 311, 326, 3.46, 3.62, 6.7, 24.25, 0.16),
+(46, 7, 330, 316, 3.67, 3.51, 7.11, 24.96, -0.16),
+(46, 8, 316, 320, 3.51, 3.56, 6.8, 24.21, 0.05),
+(46, 9, 320, 316, 3.56, 3.51, 6.89, 24.18, -0.05),
+(46, 10, 306, 219, 3.4, 2.43, 6.58, 15.99, -0.97),
+(46, 11, 314, 321, 3.49, 3.57, 6.76, 24.13, 0.08),
+(46, 12, 307, 308, 3.41, 3.42, 6.6, 22.57, 0.01),
+(46, 13, 309, 313, 3.43, 3.48, 6.64, 23.11, 0.05),
+(46, 14, 300, 311, 3.33, 3.46, 6.45, 22.32, 0.13),
+(46, 15, 295, 311, 3.28, 3.46, 6.35, 21.97, 0.18);
 
 -- --------------------------------------------------------
 
@@ -134,7 +134,7 @@ CREATE TABLE `t_evaluasi` (
 --
 
 INSERT INTO `t_evaluasi` (`id_evaluasi`, `id_kuesioner`, `total_responden`, `nilai_csi`, `indeks_csi`, `tanggal_evaluasi`) VALUES
-(16, 1, 90, 68.94, 'Puas', '2024-02-21');
+(46, 1, 90, 68.94, 'Puas', '2024-02-27');
 
 -- --------------------------------------------------------
 
@@ -1723,7 +1723,8 @@ INSERT INTO `t_pernyataan` (`id_pernyataan`, `id_dimensi`, `pernyataan`, `rekome
 (12, 4, 'Keamanan privasi dan informasi', 'Tingkatkan keamanan yang ketat, enkripsi data yang lebih kuat, autentikasi ganda, serta melakukan audit secara berkala sistem keamanan untuk mengidentifikasi dan mengatasi potensi kerentanan'),
 (13, 5, 'Penawaran promosi atau diskon khusus', 'Menawarkan promosi atau diskon khusus yang terbatas waktu, memberikan keuntungan bagi pelanggan yang loyal, serta program diskon lainnya'),
 (14, 5, 'Kepedulian perusahaan dalam melayani pelanggan', 'Berikan pelatihan yang baik kepada pegawai dalam mendengarkan keluhan dan masukan pelanggan, serta berkomitmen untuk memberikan pengalaman pelanggan yang positif'),
-(15, 5, 'Perusahaan memenuhi keinginan serta kebutuhan pelanggan', 'Menyediakan produk dan layanan yang berkualitas, mendengarkan dengan seksama umpan balik pelanggan, serta berinovasi secara terus-menerus untuk memastikan kepuasan dan kepercayaan pelanggan terpenuhi.');
+(15, 5, 'Perusahaan memenuhi keinginan serta kebutuhan pelanggan', 'Menyediakan produk dan layanan yang berkualitas, mendengarkan dengan seksama umpan balik pelanggan, serta berinovasi secara terus-menerus untuk memastikan kepuasan dan kepercayaan pelanggan terpenuhi.'),
+(16, 1, 'tes', 'tes');
 
 -- --------------------------------------------------------
 
@@ -1924,19 +1925,19 @@ ALTER TABLE `t_dimensi`
 -- AUTO_INCREMENT untuk tabel `t_evaluasi`
 --
 ALTER TABLE `t_evaluasi`
-  MODIFY `id_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_evaluasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_jawaban`
 --
 ALTER TABLE `t_jawaban`
-  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1498;
+  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1739;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_kuesioner`
 --
 ALTER TABLE `t_kuesioner`
-  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id_kuesioner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_lokasi_server`
@@ -1960,7 +1961,7 @@ ALTER TABLE `t_pelanggan`
 -- AUTO_INCREMENT untuk tabel `t_pernyataan`
 --
 ALTER TABLE `t_pernyataan`
-  MODIFY `id_pernyataan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_pernyataan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

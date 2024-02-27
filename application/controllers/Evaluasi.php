@@ -32,7 +32,13 @@ class Evaluasi extends CI_Controller
 	public function proses_evaluasi_kuesioner()
 	{
 		$id_kuesioner = $this->input->post('id_kuesioner');
-		$pernyataan = $this->Pernyataan_model->dapat_pernyataan();
+
+		$this->db->where('id_kuesioner', $id_kuesioner);
+		$pernyataan = $this->db->get('t_detail_kuesioner')->result();
+
+		echo "<pre>";
+		echo var_dump($pernyataan);
+		echo "<pre>";
 
 		$this->db->from('t_jawaban');
 		$this->db->where('id_kuesioner', $id_kuesioner);
@@ -61,7 +67,6 @@ class Evaluasi extends CI_Controller
 			}
 			$a = array_sum($tampung);
 			$b = array_sum($tampung2);
-
 			array_push($total_presepsi, $a);
 			array_push($total_ekspetasi, $b);
 			array_push($nilai_mis, round($b / $total_responden, 2));
@@ -73,6 +78,7 @@ class Evaluasi extends CI_Controller
 		for ($i = 0; $i < count($nilai_mis); $i++) {
 			array_push($nilai_wf, round((($nilai_mis[$i] / $sum_nilai_mis) * 100), 2));
 		}
+
 
 		$nilai_ws = [];
 		for ($i = 0; $i < count($nilai_wf); $i++) {
@@ -97,7 +103,7 @@ class Evaluasi extends CI_Controller
 
 		$nilai_gap = [];
 		for ($i = 0; $i < count($nilai_mis); $i++) {
-			array_push($nilai_gap, round(($nilai_mis[$i] - $nilai_mss[$i]), 2));
+			array_push($nilai_gap, round(($nilai_mss[$i] - $nilai_mis[$i]), 2));
 		}
 		date_default_timezone_set('Asia/Jakarta');
 		$tanggal_evaluasi = date('Y-m-d H:i:s');
