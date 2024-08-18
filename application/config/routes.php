@@ -95,7 +95,8 @@ $route['manajer/proses-p-kuesioner'] = 'kuesioner/proses_isi_pernyataan';
 
 $route['manajer/data-evaluasi'] = 'evaluasi/index';
 $route['manajer/cetak-evaluasi-pdf'] = 'evaluasi/cetak_pdf';
-$route['manajer/jawaban-pelanggan'] = 'jawaban/jawaban_pelanggan';
+$route['manajer/jawaban-pelanggan/(:num)'] = 'jawaban/jawaban_pelanggan/$1';
+$route['manajer/jawaban-pelanggan/(:num)/(:num)'] = 'jawaban/jawaban_pelanggan/$1/$2';
 
 // Route admin
 $route['admin/dashboard'] = 'dashboard/dashboard_admin';

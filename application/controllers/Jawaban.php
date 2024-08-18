@@ -88,20 +88,65 @@ class Jawaban extends CI_Controller
 		}
 	}
 
-	public function jawaban_pelanggan()
+	public function jawaban_pelanggan($id_kuesioner = null, $page = 0)
 	{
 		if (empty($this->session->userdata('jabatan'))) {
-			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong>
-		                <i class="bi bi-exclamation-circle-fill"></i>');
+			$this->session->set_flashdata('message', '<strong>Akses ditolak, silahkan login terlebih dahulu!</strong><i class="bi bi-exclamation-circle-fill"></i>');
 			redirect('login-pegawai');
 		}
-		$data['sudah_isi_kuesioner'] = $this->db->get_where('t_sudah_isi_kuesioner', ['id_kuesioner' => $this->input->post('id_kuesioner')])->result();
 
-		$data['jawaban']  = $this->db->get_where('t_jawaban', ['id_kuesioner' => $this->input->post('id_kuesioner')])->result();
-		$data['pernyataan'] = $this->db->get_where('t_detail_kuesioner', array('id_kuesioner' => $this->input->post('id_kuesioner')))->result();
+		// Jika id_kuesioner tidak ada di URL, gunakan dari session
+		if ($id_kuesioner === null) {
+			$id_kuesioner = $this->session->userdata('id_kuesioner');
+		} else {
+			// Set id_kuesioner ke session jika berasal dari URL
+			$this->session->set_userdata('id_kuesioner', $id_kuesioner);
+		}
+
+		// Load pagination library
+		$this->load->library('pagination');
+
+		// Konfigurasi pagination
+		$config['base_url'] = base_url('manajer/jawaban-pelanggan/' . $id_kuesioner);
+		$config['total_rows'] = $this->db->where('id_kuesioner', $id_kuesioner)->count_all_results('t_sudah_isi_kuesioner');
+		$config['per_page'] = 6;
+		$config['uri_segment'] = 4; // Menyesuaikan dengan segmentasi URL yang benar
+		$config['num_links'] = 2;
+
+		// Customisasi tampilan pagination
+		$config['full_tag_open'] = '<ul class="pagination justify-content-center">';
+		$config['full_tag_close'] = '</ul>';
+		$config['first_link'] = 'First';
+		$config['first_tag_open'] = '<li class="page-item">';
+		$config['first_tag_close'] = '</li>';
+		$config['last_link'] = 'Last';
+		$config['last_tag_open'] = '<li class="page-item">';
+		$config['last_tag_close'] = '</li>';
+		$config['next_link'] = '&raquo;';
+		$config['next_tag_open'] = '<li class="page-item">';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_link'] = '&laquo;';
+		$config['prev_tag_open'] = '<li class="page-item">';
+		$config['prev_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
+		$config['cur_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li class="page-item">';
+		$config['num_tag_close'] = '</li>';
+		$config['attributes'] = ['class' => 'page-link'];
+
+		// Initialize pagination
+		$this->pagination->initialize($config);
+
+		// Fetch paginated data
+		$this->db->limit($config['per_page'], $page);
+		$data['sudah_isi_kuesioner'] = $this->db->get_where('t_sudah_isi_kuesioner', ['id_kuesioner' => $id_kuesioner])->result();
+		$data['jawaban'] = $this->db->get_where('t_jawaban', ['id_kuesioner' => $id_kuesioner])->result();
+		$data['pernyataan'] = $this->db->get_where('t_detail_kuesioner', ['id_kuesioner' => $id_kuesioner])->result();
 
 		$data['title'] = 'Jawaban Pelanggan';
-		ob_start();
+		$data['pagination'] = $this->pagination->create_links();
+
+		// Load views
 		$this->load->view('templates/header', $data);
 		$this->load->view('manajer/kuesioner/jawaban_pelanggan', $data);
 		$this->load->view('templates/footer');

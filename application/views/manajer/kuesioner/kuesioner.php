@@ -112,10 +112,10 @@
                                                     <?php endif ?>
                                                 <?php else : ?>
                                                     <!-- Tombol Jawaban Pelanggan -->
-                                                    <form action="<?= base_url() ?>manajer/jawaban-pelanggan" method="post" class="d-inline-block">
-                                                        <input type="hidden" name="id_kuesioner" value="<?= $k->id_kuesioner ?>">
-                                                        <button type="submit" class="btn btn-link text-gradient-primary p-2 mb-0"><i class="bi bi-person-hearts me-2" aria-hidden="true" disabled></i>Jawaban Pelanggan</button>
-                                                    </form>
+                                                    <a href="<?= base_url('manajer/jawaban-pelanggan/' . $k->id_kuesioner) ?>" class="btn btn-link text-gradient-primary p-2 mb-0">
+                                                        <i class="bi bi-person-hearts me-2" aria-hidden="true"></i>Jawaban Pelanggan
+                                                    </a>
+
 
                                                     <?php if ($k->status_evaluasi == '0') : ?>
                                                         <!-- Tombol Hitung Kuesioner -->
@@ -267,7 +267,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- TOMBOL PERINGATAN PUBLISH -->
-    <!-- <script>
+    <script>
         const tanggalTerakhir = <?= json_encode($tanggal_terakhir->selesai) ?>;
         const batasWaktu = new Date(tanggalTerakhir).setMonth(new Date(tanggalTerakhir).getMonth() + 6);
 
@@ -286,4 +286,4 @@
                 }
             });
         });
-    </script> -->
+    </script>
