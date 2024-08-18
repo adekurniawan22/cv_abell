@@ -2,9 +2,12 @@
 
 Sistem Penilaian Kepuasan Pelanggan ini menggunakan metode CSI untuk memungkinkan pelanggan mengisi kuesioner yang telah disediakan. Hasil evaluasi dari jawaban pelanggan akan ditampilkan dan memberikan wawasan tentang area yang perlu diperbaiki berdasarkan umpan balik pelanggan.
 
+-   Login Admin (username: admin, password: admin123)
+-   Login Manajer (username: manajer, password: manajer123)
+
 ## Teknologi yang Digunakan
 
--   **Framework**: CodeIgniter 4
+-   **Framework**: CodeIgniter 3
 -   **Frontend**: Bootstrap
 
 ## Peran dan Fitur
@@ -31,12 +34,34 @@ Sistem Penilaian Kepuasan Pelanggan ini menggunakan metode CSI untuk memungkinka
 -   **Pengisian Kuesioner**: Mengisi kuesioner dan melihat riwayat pengisian kuesioner.
 -   **Profil**: Mengatur dan memperbarui informasi profil pelanggan.
 
+## Screenshots
+
+### Landing Page
+
+![Landing Page](screenshots/landing_page.png)
+
+### Login Pegawai
+
+![Login Pegawai](screenshots/login_pegawai.png)
+
+### Menu Admin
+
+![Menu Admin](screenshots/menu_admin.png)
+
+### Menu Manajer
+
+![Menu Manajer](screenshots/menu_manajer.png)
+
+### Menu Pelanggan
+
+![Menu Pelanggan](screenshots/menu_pelanggan.png)
+
 ## Cara Instalasi
 
 1. **Clone Repository**
 
     ```bash
-    git clone <URL_REPOSITORY>
+    git clone https://github.com/adekurniawan22/cv_abell.git
     ```
 
 2. **Instal Dependensi**
