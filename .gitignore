@@ -1,0 +1,81 @@
+# Ignore application, system, and other sensitive files
+/application/config/config.php
+/application/config/database.php
+/application/config/email.php
+/application/config/autoload.php
+/application/config/encrypt.php
+/application/config/ion_auth.php
+
+# Ignore cache files
+/application/cache/
+application/logs/
+
+# Ignore uploaded files
+/application/uploads/
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Ignore environment-specific files
+.env
+*.env
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore Composer files
+composer.lock
+vendor/
+
+# Ignore node_modules (if using Node.js)
+node_modules/
+
+# Ignore IDE-specific files
+.idea/
+.vscode/
+
+# Ignore test coverage files
+coverage/
+
+# Ignore built/compiled files
+/build/
+dist/
+*.log
+
+# Ignore personal preference files
+*.sublime-project
+*.sublime-workspace
+*.vim
+*.nib
+*.sqlite3
+*.db
+*.sqlite
+*.rpt
+*.pid
+*.seed
+*.out
+*.class
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.o
+*.obj
+*.jar
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+
+# Ignore PHPStorm specific files
+/.idea/
+
+# Ignore PHPUnit coverage files
+phpunit.coverage.xml
